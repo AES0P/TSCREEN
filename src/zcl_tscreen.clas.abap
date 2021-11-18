@@ -32,7 +32,8 @@ public section.
       !TITLEBAR_VAR3 type STRING optional
       !TITLEBAR_VAR4 type STRING optional
       !TITLEBAR_VAR5 type STRING optional
-      !READ_DYNPRO_SETTING type ABAP_BOOL default ABAP_TRUE .
+      !READ_DYNPRO_SETTING type ABAP_BOOL default ABAP_TRUE
+      !REFRESH_INTERVAL type I default 0 .
   methods GET_DISPLAY_MODE
     returning
       value(DISPLAY_MODE) type SYUCOMM .
@@ -56,7 +57,13 @@ public section.
   methods GET_SCREEN_UTIL
     returning
       value(SCREEN_UTIL) type ref to ZCL_TSCREEN_UTIL .
+  methods COUNTDOWN_BEGIN
+    importing
+      !REFRESH_INTERVAL type I .
+  methods COUNTDOWN_STOP .
 
+  methods SET_PFSTATUS
+    redefinition .
   methods ZIF_TSCREEN~EXIT
     redefinition .
   methods ZIF_TSCREEN~HANDLE_EVENT
@@ -67,8 +74,6 @@ public section.
     redefinition .
   methods ZIF_TSCREEN~POV
     redefinition .
-  methods SET_PFSTATUS
-    redefinition .
 protected section.
 
   data DISPLAY_MODE type ABAP_BOOL .
@@ -77,6 +82,7 @@ protected section.
   data CURSOR_FILED_VALUE type DYNFIELDVALUE .
   data DYNPRO_ATTR_SETTING type TTY_ATTR_SETTING .
   data SCREEN_UTIL type ref to ZCL_TSCREEN_UTIL .
+  data TIMER type ref to CL_GUI_TIMER .
 
   methods GET_DYNPRO_SETTING .
   methods REMOVE_CHILD_SCREEN
@@ -94,6 +100,8 @@ protected section.
     importing
       value(OBJECT) type ANY optional .
   methods GET_CURRENT_INFO .
+  methods ON_COUNTDOWN_FINISHED
+    for event FINISHED of CL_GUI_TIMER .
 private section.
 ENDCLASS.
 
@@ -133,6 +141,8 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
     IF read_dynpro_setting = abap_true.
       get_dynpro_setting( ).
     ENDIF.
+
+    countdown_begin( refresh_interval ).
 
   ENDMETHOD.
 
@@ -183,6 +193,10 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
 *        MESSAGE e000(ztscreen) INTO zcx_tscreen=>error.
 *        zcx_tscreen=>raise_text(  ).
     ENDCASE.
+
+    IF timer IS BOUND.
+      timer->run( ).
+    ENDIF.
 
   ENDMETHOD.
 
@@ -325,6 +339,8 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
            cursor_filed_value,
            dynpro_attr_setting.
 
+    countdown_stop( ).
+
     super->exit( ).
 
   ENDMETHOD.
@@ -414,4 +430,29 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
                          excluding_fcode = excluding_fcode ).
 
   ENDMETHOD. "#EC CI_VALPAR
+
+
+  METHOD countdown_begin.
+    CHECK refresh_interval > 0.
+    IF timer IS NOT BOUND.
+      CREATE OBJECT timer.
+      SET HANDLER on_countdown_finished FOR timer.
+    ENDIF.
+    timer->interval = refresh_interval.
+    timer->run( ).
+  ENDMETHOD.
+
+
+  METHOD countdown_stop.
+    CHECK timer IS BOUND.
+    timer->cancel( ).
+    timer->free( ).
+    FREE timer.
+  ENDMETHOD.
+
+
+  METHOD on_countdown_finished.
+    MESSAGE 'Plz redefine ON_COUNTDOWN_FINISHED method for object of ZCL_TSCREEN' TYPE 'S'.
+    timer->run( )."循环倒计时事件
+  ENDMETHOD.
 ENDCLASS.

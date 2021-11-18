@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_14
 *&---------------------------------------------------------------------*
-*& 多页签带table control
+*&  zcl_treport 作为报表，zcl_tscreen&zcl_tscreen_with_components 作为主屏幕和子屏幕，并在子屏幕的多页签中使用 TABLE CONTROL 控件
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_14.
 
@@ -16,7 +16,7 @@ TABLES ekko.
 DATA ok_code TYPE sy-ucomm.
 
 DATA: po_items        TYPE STANDARD TABLE OF zsekpo,
-      po_items_filter TYPE STANDARD TABLE OF zsekpo,
+      po_items_filter TYPE STANDARD TABLE OF zsekpo ##NEEDED,
       po_item         LIKE LINE OF po_items.
 
 DATA: po_plans TYPE STANDARD TABLE OF eket,
@@ -25,14 +25,11 @@ DATA: po_plans TYPE STANDARD TABLE OF eket,
 DATA: po_histories TYPE STANDARD TABLE OF ekbe,
       po_history   LIKE LINE OF po_histories.
 
-CONTROLS tc_9002_01 TYPE TABLEVIEW USING SCREEN 9002.
-DATA g_tc_9002_01_lines TYPE sy-loopc.
+CONTROLS tc_9002_01 TYPE TABLEVIEW USING SCREEN '9002'.
 
-CONTROLS tc_9003_01 TYPE TABLEVIEW USING SCREEN 9003.
-DATA g_tc_9003_01_lines TYPE sy-loopc.
+CONTROLS tc_9003_01 TYPE TABLEVIEW USING SCREEN '9003'.
 
-CONTROLS tc_9004_01 TYPE TABLEVIEW USING SCREEN 9004.
-DATA g_tc_9004_01_lines TYPE sy-loopc.
+CONTROLS tc_9004_01 TYPE TABLEVIEW USING SCREEN '9004'.
 *&---------------------------------------------------------------------*
 *&　　　　PARAMETERS
 *&---------------------------------------------------------------------*
@@ -42,7 +39,7 @@ PARAMETERS: p_ebeln TYPE ekko-ebeln.
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_treport.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
@@ -62,7 +59,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_14_v9000 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -72,7 +69,7 @@ CLASS lcl_tscreen_14_v9000 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_14_v9001 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -84,7 +81,7 @@ CLASS lcl_tscreen_14_v9001 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_14_v9002 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen_with_components.
+  INHERITING FROM zcl_tscreen_with_components FINAL.
 
   PUBLIC SECTION.
 
@@ -94,7 +91,7 @@ CLASS lcl_tscreen_14_v9002 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_14_v9003 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen_with_components.
+  INHERITING FROM zcl_tscreen_with_components FINAL.
 
   PUBLIC SECTION.
 
@@ -104,7 +101,7 @@ CLASS lcl_tscreen_14_v9003 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_14_v9004 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen_with_components.
+  INHERITING FROM zcl_tscreen_with_components FINAL.
 
   PUBLIC SECTION.
 
@@ -114,7 +111,7 @@ CLASS lcl_tscreen_14_v9004 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_table_control.
+  INHERITING FROM zcl_table_control FINAL.
 
   PUBLIC SECTION.
 
@@ -136,7 +133,7 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tc_po_plans DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_table_control.
+  INHERITING FROM zcl_table_control FINAL.
 
   PUBLIC SECTION.
 
@@ -153,7 +150,7 @@ CLASS lcl_tc_po_plans DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tc_po_histories DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_table_control.
+  INHERITING FROM zcl_table_control FINAL.
 
   PUBLIC SECTION.
 
@@ -190,20 +187,23 @@ CLASS lcl_prog IMPLEMENTATION.
 
     "此处为屏幕添加控件对象
     CASE sy-dynnr.
-      WHEN 9002.
+      WHEN '9002'.
         TRY.
             NEW lcl_tc_po_items( view ).
-          CATCH cx_uuid_error.
+          CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
         ENDTRY.
-      WHEN 9003.
+      WHEN '9003'.
         TRY.
             NEW lcl_tc_po_plans( view ).
-          CATCH cx_uuid_error.
+          CATCH cx_uuid_error INTO lx_uuid_error.
+            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
         ENDTRY.
-      WHEN 9004.
+      WHEN '9004'.
         TRY.
             NEW lcl_tc_po_histories( view ).
-          CATCH cx_uuid_error.
+          CATCH cx_uuid_error INTO lx_uuid_error.
+            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
         ENDTRY.
     ENDCASE.
 
@@ -220,6 +220,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -238,6 +239,7 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 CLASS lcl_tscreen_14_v9000 IMPLEMENTATION.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -262,12 +264,13 @@ CLASS lcl_tscreen_14_v9001 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
-    SELECT SINGLE *
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
-     WHERE ebeln = p_ebeln.
+     WHERE ebeln = p_ebeln.                               "#EC CI_SUBRC
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -293,6 +296,7 @@ CLASS lcl_tscreen_14_v9002 IMPLEMENTATION.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -307,6 +311,7 @@ CLASS lcl_tscreen_14_v9003 IMPLEMENTATION.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -321,6 +326,7 @@ CLASS lcl_tscreen_14_v9004 IMPLEMENTATION.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -335,7 +341,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
     super->constructor( parent             = CAST zcl_tscreen( tscreen )
                         tc_name            = 'TC_9002_01'
                         data_source        = 'PO_ITEMS'
-                        screen_lines_field = 'G_TC_9002_01_LINES'
+                        data_wa            = 'PO_ITEM'
                         hide_empty_fields  = abap_true
                         ref_structure_name = 'ZSEKPO' ).
 
@@ -343,15 +349,15 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_data.
-
-    SELECT *
+    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
+    SELECT * ##TOO_MANY_ITAB_FIELDS
       FROM ekpo
       LEFT JOIN makt
         ON ekpo~matnr = makt~matnr
        AND makt~spras = sy-langu
       INTO CORRESPONDING FIELDS OF TABLE po_items
      WHERE ebeln = ebeln
-     ORDER BY ebelp.
+     ORDER BY ebelp.                                      "#EC CI_SUBRC
 
   ENDMETHOD.
 
@@ -375,13 +381,13 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
   METHOD before_filter_table_writeback .
 
-    SELECT *
-       FROM @po_items AS its
-      WHERE filter = @abap_true
-       INTO CORRESPONDING FIELDS OF TABLE @po_items_filter.
+    SELECT *  ##ITAB_KEY_IN_SELECT
+      FROM @po_items AS its
+     WHERE filter = @abap_true
+      INTO CORRESPONDING FIELDS OF TABLE @po_items_filter.
     CHECK sy-subrc = 0.
 
-    DELETE po_items WHERE filter = abap_true.
+    DELETE po_items WHERE filter = abap_true.            "#EC CI_STDSEQ
     SORT po_items ASCENDING BY ebeln ebelp.
 
   ENDMETHOD.
@@ -392,7 +398,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
     DATA po_item_filter LIKE LINE OF po_items_filter.
     po_item_filter-filter = abap_false.
-    MODIFY po_items_filter FROM po_item_filter TRANSPORTING filter WHERE filter = abap_true.
+    MODIFY po_items_filter FROM po_item_filter TRANSPORTING filter WHERE filter = abap_true. "#EC CI_STDSEQ
 
     APPEND LINES OF po_items_filter TO po_items.
     SORT po_items ASCENDING BY ebeln ebelp.
@@ -412,7 +418,7 @@ CLASS lcl_tc_po_plans IMPLEMENTATION.
     super->constructor( parent             = CAST zcl_tscreen( tscreen )
                         tc_name            = 'TC_9003_01'
                         data_source        = 'PO_PLANS'
-                        screen_lines_field = 'G_TC_9003_01_LINES'
+                        data_wa            = 'PO_PLAN'
                         hide_empty_fields  = abap_true
                         selbar_name        = 'MANDT'
                         ref_structure_name = 'EKET' ).
@@ -426,7 +432,7 @@ CLASS lcl_tc_po_plans IMPLEMENTATION.
       FROM eket
       INTO CORRESPONDING FIELDS OF TABLE po_plans
      WHERE ebeln = ebeln
-     ORDER BY ebelp etenr.
+     ORDER BY ebelp etenr.                                "#EC CI_SUBRC
 
   ENDMETHOD.
 
@@ -441,7 +447,7 @@ CLASS lcl_tc_po_histories IMPLEMENTATION.
     super->constructor( parent             = CAST zcl_tscreen( tscreen )
                         tc_name            = 'TC_9004_01'
                         data_source        = 'PO_HISTORIES'
-                        screen_lines_field = 'G_TC_9004_01_LINES'
+                        data_wa            = 'PO_HISTORY'
                         hide_empty_fields  = abap_true
                         selbar_name        = 'MANDT'
                         ref_structure_name = 'EKBE' ).
@@ -455,77 +461,14 @@ CLASS lcl_tc_po_histories IMPLEMENTATION.
       FROM ekbe
       INTO CORRESPONDING FIELDS OF TABLE po_histories
      WHERE ebeln = ebeln
-     ORDER BY ebelp zekkn vgabe gjahr belnr buzei.
+     ORDER BY ebelp zekkn vgabe gjahr belnr buzei.        "#EC CI_SUBRC
 
   ENDMETHOD.
 
 ENDCLASS.
 
+##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT include
-
-*&---------------------------------------------------------------------*
-*& MODULE TC_9002_01_GET_LINES OUTPUT
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
-MODULE tc_9002_01_get_lines OUTPUT.
-  g_tc_9002_01_lines = sy-loopc.
-ENDMODULE.
-*&---------------------------------------------------------------------*
-*&      MODULE  TC_9002_01_MODIFY  INPUT
-*&---------------------------------------------------------------------*
-*       TEXT
-*----------------------------------------------------------------------*
-MODULE tc_9002_01_modify INPUT.
-
-  MODIFY po_items
-    FROM po_item
-   INDEX tc_9002_01-current_line.
-
-ENDMODULE.
-
-
-*&---------------------------------------------------------------------*
-*& MODULE TC_9003_01_GET_LINES OUTPUT
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
-MODULE tc_9003_01_get_lines OUTPUT.
-  g_tc_9003_01_lines = sy-loopc.
-ENDMODULE.
-*&---------------------------------------------------------------------*
-*&      MODULE  TC_9003_01_MODIFY  INPUT
-*&---------------------------------------------------------------------*
-*       TEXT
-*----------------------------------------------------------------------*
-MODULE tc_9003_01_modify INPUT.
-
-  MODIFY po_plans
-    FROM po_plan
-   INDEX tc_9003_01-current_line.
-
-ENDMODULE.
-
-*&---------------------------------------------------------------------*
-*& MODULE TC_9004_01_GET_LINES OUTPUT
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
-MODULE tc_9004_01_get_lines OUTPUT.
-  g_tc_9004_01_lines = sy-loopc.
-ENDMODULE.
-*&---------------------------------------------------------------------*
-*&      MODULE  TC_9004_01_MODIFY  INPUT
-*&---------------------------------------------------------------------*
-*       TEXT
-*----------------------------------------------------------------------*
-MODULE tc_9004_01_modify INPUT.
-
-  MODIFY po_histories
-    FROM po_history
-   INDEX tc_9004_01-current_line.
-
-ENDMODULE.
 
 *&SPWIZARD: FUNCTION CODES FOR TABSTRIP 'ITEM_TABS'
 CONSTANTS: BEGIN OF c_item_tabs,

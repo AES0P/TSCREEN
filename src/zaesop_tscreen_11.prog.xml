@@ -1308,9 +1308,6 @@
        <LINE>       CURSOR tc_9000_01-current_line.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>    MODULE tc_9000_01_get_lines.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
        <LINE>    MODULE pbo_tc_line.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
@@ -1375,9 +1372,6 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>      MODULE pai_tc_line ON CHAIN-REQUEST.&quot;每一行有chain内字段被修改时才触发</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE tc_9000_01_modify ON CHAIN-REQUEST.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>    ENDCHAIN.</LINE>

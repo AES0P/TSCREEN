@@ -9,44 +9,32 @@ CLASS zcl_table_control DEFINITION
 
     INTERFACES zif_table_control .
 
+    ALIASES convert_all_lines_mark
+      FOR zif_table_control~convert_all_lines_mark .
     ALIASES c_filter_off
       FOR zif_table_control~c_filter_off .
     ALIASES c_filter_on
       FOR zif_table_control~c_filter_on .
-    ALIASES dynnr
-      FOR zif_table_control~dynnr .
-    ALIASES empty_fields
-      FOR zif_table_control~empty_fields .
-    ALIASES filter_column
-      FOR zif_table_control~filter_column .
-    ALIASES in_filter_mode
-      FOR zif_table_control~in_filter_mode .
-    ALIASES prefix
-      FOR zif_table_control~prefix .
-    ALIASES program
-      FOR zif_table_control~program .
-    ALIASES ref_structure_name
-      FOR zif_table_control~ref_structure_name .
-    ALIASES screen_lines
-      FOR zif_table_control~screen_lines .
-    ALIASES selbar
-      FOR zif_table_control~selbar .
-    ALIASES tc_name
-      FOR zif_table_control~tc_name .
-    ALIASES convert_all_lines_mark
-      FOR zif_table_control~convert_all_lines_mark .
     ALIASES delete_line
       FOR zif_table_control~delete_line .
     ALIASES demark_all_columns
       FOR zif_table_control~demark_all_columns .
     ALIASES demark_all_lines
       FOR zif_table_control~demark_all_lines .
+    ALIASES dynnr
+      FOR zif_table_control~dynnr .
+    ALIASES empty_fields
+      FOR zif_table_control~empty_fields .
     ALIASES filter
       FOR zif_table_control~filter .
+    ALIASES filter_column
+      FOR zif_table_control~filter_column .
     ALIASES hide_empty_columns
       FOR zif_table_control~hide_empty_columns .
     ALIASES insert_line
       FOR zif_table_control~insert_line .
+    ALIASES in_filter_mode
+      FOR zif_table_control~in_filter_mode .
     ALIASES mark_all_columns
       FOR zif_table_control~mark_all_columns .
     ALIASES mark_all_lines
@@ -61,8 +49,18 @@ CLASS zcl_table_control DEFINITION
       FOR zif_table_control~poh .
     ALIASES pov
       FOR zif_table_control~pov .
+    ALIASES prefix
+      FOR zif_table_control~prefix .
+    ALIASES program
+      FOR zif_table_control~program .
+    ALIASES ref_structure_name
+      FOR zif_table_control~ref_structure_name .
+    ALIASES screen_lines
+      FOR zif_table_control~screen_lines .
     ALIASES scroll
       FOR zif_table_control~scroll .
+    ALIASES selbar
+      FOR zif_table_control~selbar .
     ALIASES set_visibility
       FOR zif_table_control~set_visibility .
     ALIASES show_row_content
@@ -71,16 +69,18 @@ CLASS zcl_table_control DEFINITION
       FOR zif_table_control~show_row_ddic_detail .
     ALIASES sort
       FOR zif_table_control~sort .
-    ALIASES unfilter
-      FOR zif_table_control~unfilter .
-    ALIASES user_command
-      FOR zif_table_control~user_command .
+    ALIASES tc_name
+      FOR zif_table_control~tc_name .
     ALIASES tty_dynpread
       FOR zif_table_control~tty_dynpread .
     ALIASES tty_empty_field
       FOR zif_table_control~tty_empty_field .
     ALIASES ty_empty_field
       FOR zif_table_control~ty_empty_field .
+    ALIASES unfilter
+      FOR zif_table_control~unfilter .
+    ALIASES user_command
+      FOR zif_table_control~user_command .
 
     METHODS constructor
       IMPORTING
@@ -88,7 +88,7 @@ CLASS zcl_table_control DEFINITION
         !tc_name            TYPE string
         !ref_structure_name TYPE c
         !data_source        TYPE string
-        !screen_lines_field TYPE string
+        !data_wa            TYPE string
         !prefix             TYPE c DEFAULT `TC_`
         !selbar_name        TYPE c DEFAULT `SEL`
         !in_filter_mode     TYPE abap_bool DEFAULT abap_false
@@ -237,32 +237,30 @@ CLASS zcl_table_control DEFINITION
         REDEFINITION .
     METHODS zif_tscreen_component~set_component_attr_by_setting
         REDEFINITION .
-protected section.
+  PROTECTED SECTION.
 
-  data PARENT type ref to ZCL_TSCREEN .
-  data TC type ref to SCXTAB_CONTROL .
-  data DATA_NAME type STRING .
-  data DATA type ref to DATA .
-  data OK_CODE type ref to SY-UCOMM .
-  data SCREEN_UTIL type ref to ZCL_TSCREEN_UTIL .
-  data SCREEN_LINES_FIELD type STRING .
+    DATA parent TYPE REF TO zcl_tscreen .
+    DATA tc TYPE REF TO scxtab_control .
+    DATA data_name TYPE string .
+    DATA data TYPE REF TO data .
+    DATA data_wa_name TYPE string .
+    DATA data_wa TYPE REF TO data .
+    DATA ok_code TYPE REF TO sy-ucomm .
+    DATA screen_util TYPE REF TO zcl_tscreen_util .
 
-  methods INITIALIZE_BY_TSCREEN
-    importing
-      !TSCREEN type ref to ZCL_TSCREEN .
-  methods BOUND .
-  methods GET_TC_SCREEN_LINE
-    returning
-      value(SCREEN_LINES) type SY-LOOPC .
-  methods SET_TC_SCREEN_LINE
-    importing
-      !LINE type I
-    returning
-      value(COMPONENT) type ref to ZCL_TABLE_CONTROL .
-  methods GET_DATA_SIZE
-    returning
-      value(SIZE) type I .
-private section.
+    METHODS initialize_by_tscreen
+      IMPORTING
+        !tscreen TYPE REF TO zcl_tscreen .
+    METHODS bound .
+    METHODS set_tc_screen_line
+      IMPORTING
+        !line            TYPE i
+      RETURNING
+        VALUE(component) TYPE REF TO zcl_table_control .
+    METHODS get_data_size
+      RETURNING
+        VALUE(size) TYPE i .
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -508,7 +506,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     DATA lines TYPE i.
     lines = lines( <tab> ).
 
-    IF lines >= get_tc_screen_line( ).
+    IF lines >= screen_lines.
       IF get_current_line( ) <> lines.
         set_top_line( lines - screen_lines + 1 ).
       ELSE.
@@ -591,12 +589,21 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zif_table_control~pai_tc_line ##NEEDED.
-    "to be redefine
+  METHOD zif_table_control~pai_tc_line.
+
+    FIELD-SYMBOLS <table> TYPE STANDARD TABLE.
+    FIELD-SYMBOLS <line> TYPE any.
+
+    ASSIGN data->*    TO <table>.
+    ASSIGN data_wa->* TO <line>.
+
+    MODIFY <table> FROM <line> INDEX tc->*-current_line.
+
   ENDMETHOD.
 
 
   METHOD zif_table_control~pbo_tc_line.
+    screen_lines = sy-loopc.
     set_component_attr_by_setting( ).
   ENDMETHOD.
 
@@ -620,7 +627,6 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     ELSEIF ucomm IS NOT INITIAL.
 
-      get_tc_screen_line( ).
       CALL FUNCTION 'SCROLLING_IN_TABLE'
         EXPORTING
           entry_act             = tc->*-top_line
@@ -829,7 +835,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 *......if the table is a view with tables with direct type input even
 *......fieldtext could be empty
           IF dfies-fieldtext IS INITIAL.
-            READ TABLE dd27pt INTO dd27p WITH KEY viewfield = dfies-fieldname."#EC CI_STDSEQ
+            READ TABLE dd27pt INTO dd27p WITH KEY viewfield = dfies-fieldname. "#EC CI_STDSEQ
             IF sy-subrc = 0.
               detail-scrtext_l = dd27p-ddtext.
             ELSE.
@@ -1136,14 +1142,14 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     LOOP AT SCREEN.
 
       "优先以具体模式为准
-       ##WARN_OK
+      ##WARN_OK
       READ TABLE parent->dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = id
                                                                           name    = screen-name
                                                                           zmode   = display_mode
                                                                           BINARY SEARCH.
       IF sy-subrc <> 0.
         "没有设置具体模式，再使用通用模式
-         ##WARN_OK
+        ##WARN_OK
         READ TABLE parent->dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = id
                                                                             name    = screen-name
                                                                             zmode   = '*'
@@ -1244,14 +1250,19 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     ASSERT sy-subrc = 0.
     GET REFERENCE OF <data> INTO data.
 
+    "data_wa
+    var = to_upper( '(' && program && ')' && data_wa_name ).
+    FIELD-SYMBOLS <data_wa> TYPE any.
+    ASSIGN (var) TO <data_wa>.
+    ASSERT sy-subrc = 0.
+    GET REFERENCE OF <data_wa> INTO data_wa.
+
     "OK_CODE
     var = to_upper( '(' && program && ')' && 'OK_CODE' ).
     FIELD-SYMBOLS <ok_code> TYPE sy-ucomm.
     ASSIGN (var) TO <ok_code>.
     ASSERT sy-subrc = 0.
     GET REFERENCE OF <ok_code> INTO ok_code.
-
-
 
   ENDMETHOD.
 
@@ -1265,11 +1276,11 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     me->tc_name             = tc_name.
     me->prefix              = prefix.
     me->data_name           = data_source.
+    me->data_wa_name        = data_wa.
     me->selbar              = selbar_name.
     me->in_filter_mode      = in_filter_mode.
     me->filter_column       = filter_column_name.
     me->ref_structure_name  = ref_structure_name.
-    me->screen_lines_field  = screen_lines_field.
 
     bound( ).
 
@@ -1347,23 +1358,6 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD get_tc_screen_line.
-
-    DATA var TYPE string.
-
-    "sy-loopc
-    var = to_upper( '(' && program && ')' && screen_lines_field ).
-
-    FIELD-SYMBOLS <screen_lines_field> TYPE sy-loopc.
-    ASSIGN (var) TO <screen_lines_field>.
-    ASSERT sy-subrc = 0.
-    me->screen_lines = <screen_lines_field>.
-
-    screen_lines = me->screen_lines.
-
-  ENDMETHOD.
-
-
   METHOD get_visible_columns.
 
     DATA: tc_column TYPE scxtab_column.
@@ -1383,16 +1377,16 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
       <column>-ref_field  = <column>-fieldname.
 
       "如果DDIC有，TC没有，最终以TC为准
-       ##WARN_OK
-      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname )."#EC CI_STDSEQ
+      ##WARN_OK
+      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ). "#EC CI_STDSEQ
       IF sy-subrc <> 0.
         DELETE columns INDEX tabix.
         CONTINUE.
       ENDIF.
 
       "如果DDIC有，TC有，但TC列不可见，最终以TC为准
-       ##WARN_OK
-      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ) invisible = abap_true."#EC CI_STDSEQ
+      ##WARN_OK
+      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ) invisible = abap_true. "#EC CI_STDSEQ
       IF sy-subrc = 0.
         DELETE columns INDEX tabix.
       ENDIF.
@@ -1400,7 +1394,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     ENDLOOP.
 
     "过滤字段不显示
-    DELETE columns WHERE fieldname =  filter_column. "#EC CI_STDSEQ
+    DELETE columns WHERE fieldname =  filter_column.     "#EC CI_STDSEQ
 
   ENDMETHOD.
 

@@ -1473,9 +1473,6 @@
        <LINE>       CURSOR tc_9002_01-current_line.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>    MODULE tc_9002_01_get_lines.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
        <LINE>    MODULE pbo_tc_line.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
@@ -1535,10 +1532,7 @@
        <LINE>      FIELD po_item-elikz.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>      MODULE pai_tc_line.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>      MODULE tc_9002_01_modify ON CHAIN-REQUEST.</LINE>
+       <LINE>      MODULE pai_tc_line ON CHAIN-REQUEST.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>    ENDCHAIN.</LINE>

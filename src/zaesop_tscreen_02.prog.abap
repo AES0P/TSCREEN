@@ -48,7 +48,7 @@ CLASS lcl_prog IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD constructor.
-    super->constructor( ).
+    super->constructor( refresh_interval = '5' ).
     ##WARN_OK
     SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
@@ -148,5 +148,6 @@ INCLUDE zaesop_tscreen_event_inc."通用EVENT include
 *&　　　　END-OF-SELECTION
 *&---------------------------------------------------------------------*
 ##DUPL_EVENT
+
 END-OF-SELECTION.
   CALL SCREEN 9000.

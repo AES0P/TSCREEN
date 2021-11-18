@@ -111,13 +111,13 @@
      <CLSNAME>ZIF_TABLE_CONTROL</CLSNAME>
      <CMPNAME>PAI_TC_LINE</CMPNAME>
      <LANGU>1</LANGU>
-     <DESCRIPT>PAI 4 tc each line(Should be redefine by customer)</DESCRIPT>
+     <DESCRIPT>PAI 4 tc each line</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZIF_TABLE_CONTROL</CLSNAME>
      <CMPNAME>PBO_TC_LINE</CMPNAME>
      <LANGU>1</LANGU>
-     <DESCRIPT>PBO 4 tc each line(Should be redefine by customer)</DESCRIPT>
+     <DESCRIPT>PBO 4 tc each line</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZIF_TABLE_CONTROL</CLSNAME>

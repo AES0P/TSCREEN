@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& REPORT ZAESOP_TSCREEN_13
 *&---------------------------------------------------------------------*
-*&  子屏幕带table control
+*&  zcl_treport 作为报表，zcl_tscreen&zcl_tscreen_with_components 作为主屏幕和子屏幕，并在子屏幕中使用 TABLE CONTROL 控件
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_13.
 
@@ -16,11 +16,10 @@ TABLES ekko.
 DATA ok_code TYPE sy-ucomm.
 
 DATA: po_items        TYPE STANDARD TABLE OF zsekpo,
-      po_items_filter TYPE STANDARD TABLE OF zsekpo,
+      po_items_filter TYPE STANDARD TABLE OF zsekpo ##NEEDED,
       po_item         LIKE LINE OF po_items.
 
-CONTROLS tc_9002_01 TYPE TABLEVIEW USING SCREEN 9002.
-DATA g_tc_9002_01_lines TYPE sy-loopc.
+CONTROLS tc_9002_01 TYPE TABLEVIEW USING SCREEN '9002'.
 
 *&---------------------------------------------------------------------*
 *&　　　　PARAMETERS
@@ -31,7 +30,7 @@ PARAMETERS: p_ebeln TYPE ekko-ebeln.
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_treport.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
@@ -49,14 +48,14 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_13_v9000 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
   PUBLIC SECTION.
     METHODS pbo REDEFINITION.
     METHODS pai REDEFINITION.
 ENDCLASS.
 
 CLASS lcl_tscreen_13_v9001 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -71,7 +70,7 @@ CLASS lcl_tscreen_13_v9001 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_13_v9002 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen_with_components.
+  INHERITING FROM zcl_tscreen_with_components FINAL.
 
   PUBLIC SECTION.
 
@@ -82,7 +81,7 @@ CLASS lcl_tscreen_13_v9002 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_table_control.
+  INHERITING FROM zcl_table_control FINAL.
 
   PUBLIC SECTION.
 
@@ -135,10 +134,11 @@ CLASS lcl_prog IMPLEMENTATION.
 
     "此处为屏幕添加控件对象
     CASE sy-dynnr.
-      WHEN 9002.
+      WHEN '9002'.
         TRY.
             NEW lcl_tc_po_items( view ).
-          CATCH cx_uuid_error.
+          CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
         ENDTRY.
     ENDCASE.
 
@@ -155,6 +155,7 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 CLASS lcl_tscreen_13_v9000 IMPLEMENTATION.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -184,13 +185,14 @@ CLASS lcl_tscreen_13_v9001 IMPLEMENTATION.
 
   METHOD get_data.
 
-    SELECT SINGLE *
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
-     WHERE ebeln = ebeln.
+     WHERE ebeln = ebeln.                                 "#EC CI_SUBRC
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -206,8 +208,8 @@ CLASS lcl_tscreen_13_v9001 IMPLEMENTATION.
         SELECT ebeln,bukrs,bstyp,bsart,bsakz,loekz,statu,aedat,ernam
           FROM ekko
           INTO TABLE @DATA(lt_ekko)
-         UP TO 500 ROWS
-         ORDER BY ebeln.
+         UP TO '500' ROWS
+         ORDER BY ebeln.                  "#EC CI_NOWHERE "#EC CI_SUBRC
 
         ekko-ebeln = f4_event( key_field = 'EBELN' value_tab = lt_ekko ).
         CHECK ekko-ebeln IS NOT INITIAL.
@@ -228,6 +230,7 @@ CLASS lcl_tscreen_13_v9002 IMPLEMENTATION.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -242,7 +245,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
     super->constructor( parent             = CAST zcl_tscreen( tscreen )
                         tc_name            = 'TC_9002_01'
                         data_source        = 'PO_ITEMS'
-                        screen_lines_field = 'G_TC_9002_01_LINES'
+                        data_wa            = 'PO_ITEM'
                         hide_empty_fields  = abap_true
                         ref_structure_name = 'ZSEKPO' ).
 
@@ -250,15 +253,15 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_data.
-
-    SELECT *
+    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
+    SELECT * ##TOO_MANY_ITAB_FIELDS
       FROM ekpo
       LEFT JOIN makt
         ON ekpo~matnr = makt~matnr
        AND makt~spras = sy-langu
       INTO CORRESPONDING FIELDS OF TABLE po_items
      WHERE ebeln = ebeln
-     ORDER BY ebelp.
+     ORDER BY ebelp.                                      "#EC CI_SUBRC
 
   ENDMETHOD.
 
@@ -282,13 +285,13 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
   METHOD before_filter_table_writeback .
 
-    SELECT *
+    SELECT * ##ITAB_KEY_IN_SELECT
        FROM @po_items AS its
       WHERE filter = @abap_true
        INTO CORRESPONDING FIELDS OF TABLE @po_items_filter.
     CHECK sy-subrc = 0.
 
-    DELETE po_items WHERE filter = abap_true.
+    DELETE po_items WHERE filter = abap_true. "#EC CI_STDSEQ
     SORT po_items ASCENDING BY ebeln ebelp.
 
   ENDMETHOD.
@@ -299,7 +302,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
     DATA po_item_filter LIKE LINE OF po_items_filter.
     po_item_filter-filter = abap_false.
-    MODIFY po_items_filter FROM po_item_filter TRANSPORTING filter WHERE filter = abap_true.
+    MODIFY po_items_filter FROM po_item_filter TRANSPORTING filter WHERE filter = abap_true. "#EC CI_STDSEQ
 
     APPEND LINES OF po_items_filter TO po_items.
     SORT po_items ASCENDING BY ebeln ebelp.
@@ -310,25 +313,5 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
 ENDCLASS.
 
+##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT INCLUDE
-
-*&---------------------------------------------------------------------*
-*& MODULE TC_9002_01_GET_LINES OUTPUT
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
-MODULE tc_9002_01_get_lines OUTPUT.
-  g_tc_9002_01_lines = sy-loopc.
-ENDMODULE.
-*&---------------------------------------------------------------------*
-*&      MODULE  TC_9002_01_MODIFY  INPUT
-*&---------------------------------------------------------------------*
-*       TEXT
-*----------------------------------------------------------------------*
-MODULE tc_9002_01_modify INPUT.
-
-  MODIFY po_items
-    FROM po_item
-   INDEX tc_9002_01-current_line.
-
-ENDMODULE.

@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_10
 *&---------------------------------------------------------------------*
-*&  原生 TABLE CONTROL 控件
+*&  zcl_treport 作为报表，zcl_tscreen_with_components 作为自建屏幕，示例怎么使用原生 TABLE CONTROL 控件
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_10.
 
@@ -18,8 +18,7 @@ DATA ok_code TYPE sy-ucomm.
 DATA: po_items TYPE STANDARD TABLE OF zsekpo,
       po_item  LIKE LINE OF po_items.
 
-CONTROLS tc_9000_01 TYPE TABLEVIEW USING SCREEN 9000.
-DATA g_tc_9000_01_lines TYPE sy-loopc.
+CONTROLS tc_9000_01 TYPE TABLEVIEW USING SCREEN '9000'.
 
 *&---------------------------------------------------------------------*
 *&　　　　PARAMETERS
@@ -30,7 +29,7 @@ PARAMETERS: p_ebeln TYPE ekko-ebeln.
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_treport.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
@@ -38,6 +37,8 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
     CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_10' READ-ONLY.
 
     CLASS-METHODS push_view.
+
+    ##CALLED
     CLASS-METHODS tc_command.
 
     METHODS show REDEFINITION.
@@ -45,7 +46,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_10_v9000 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen_with_components.
+  INHERITING FROM zcl_tscreen_with_components FINAL.
 
   PUBLIC SECTION.
 
@@ -82,20 +83,22 @@ CLASS lcl_prog IMPLEMENTATION.
 
     "此处为屏幕添加控件对象
     CASE sy-dynnr.
-      WHEN 9000.
+      WHEN '9000'.
         TRY.
             NEW zcl_table_control( parent             = CAST zcl_tscreen( view )
                                    tc_name            = 'TC_9000_01'
                                    data_source        = 'PO_ITEMS'
-                                   screen_lines_field = 'G_TC_9000_01_LINES'
+                                   data_wa            = 'PO_ITEM'
                                    hide_empty_fields  = abap_true
                                    ref_structure_name = 'ZSEKPO' ).
-          CATCH cx_uuid_error.
+          CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
         ENDTRY.
     ENDCASE.
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD tc_command.
 
     "如果控件的相关功能需要传入参数，则需要仿造此方式，如果不需要则直接使用event处理方式
@@ -126,24 +129,26 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_data.
-
-    SELECT SINGLE *
+    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
-     WHERE ebeln = ebeln.
+     WHERE ebeln = ebeln.                                 "#EC CI_SUBRC
 
     "仅示例，行数据查询不应该在此处处理
+    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
     SELECT *
       FROM ekpo
       LEFT JOIN makt
         ON ekpo~matnr = makt~matnr
        AND makt~spras = sy-langu
-      INTO CORRESPONDING FIELDS OF TABLE po_items
+      INTO CORRESPONDING FIELDS OF TABLE po_items  ##TOO_MANY_ITAB_FIELDS
      WHERE ebeln = ebeln
-     ORDER BY ebelp.
+     ORDER BY ebelp.                                      "#EC CI_SUBRC
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -168,11 +173,12 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
 *&---------------------------------------------------------------------*
       WHEN 'EBELN'.
 
+
         SELECT ebeln,bukrs,bstyp,bsart,bsakz,loekz,statu,aedat,ernam
           FROM ekko
           INTO TABLE @DATA(lt_ekko)
-         UP TO 500 ROWS
-         ORDER BY ebeln.
+         UP TO '500' ROWS
+         ORDER BY ebeln.                                  "#EC CI_SUBRC #EC CI_NOWHERE
 
         ekko-ebeln = f4_event( key_field = 'EBELN' value_tab = lt_ekko ).
         CHECK ekko-ebeln IS NOT INITIAL.
@@ -185,25 +191,5 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
 
 ENDCLASS.
 
+##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT include
-
-*&---------------------------------------------------------------------*
-*& Module TC_9000_01_GET_LINES OUTPUT
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
-MODULE tc_9000_01_get_lines OUTPUT.
-  g_tc_9000_01_lines = sy-loopc.
-ENDMODULE.
-*&---------------------------------------------------------------------*
-*&      Module  TC_9000_01_MODIFY  INPUT
-*&---------------------------------------------------------------------*
-*       text
-*----------------------------------------------------------------------*
-MODULE tc_9000_01_modify INPUT.
-
-  MODIFY po_items
-    FROM po_item
-   INDEX tc_9000_01-current_line.
-
-ENDMODULE.
