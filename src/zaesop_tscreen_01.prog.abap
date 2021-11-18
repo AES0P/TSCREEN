@@ -1,32 +1,32 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_01
 *&---------------------------------------------------------------------*
-*&
+*&  将报表程序执行事件等效为选择屏幕的事件流，通过处理每一个事件流方法，响应每一个报表事件
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_01.
 
 *&---------------------------------------------------------------------*
 *&　　　　PARAMETERS
 *&---------------------------------------------------------------------*
-PARAMETERS: p_ebeln TYPE ekko-ebeln,
-            p_bukrs TYPE ekko-bukrs DEFAULT '0000',
-            p_bstyp TYPE ekko-bstyp,
-            p_bsart TYPE ekko-bsart,
-            p_loekz TYPE ekko-loekz.
+PARAMETERS: p_ebeln TYPE ekko-ebeln ##NEEDED ,
+            ##NEEDED p_bukrs TYPE ekko-bukrs DEFAULT '0000',
+            ##NEEDED p_bstyp TYPE ekko-bstyp,
+            ##NEEDED p_bsart TYPE ekko-bsart,
+            ##NEEDED p_loekz TYPE ekko-loekz.
 
 SELECTION-SCREEN SKIP 1.
 *&---------------------------------------------------------------------*
 *&　　　　SELECTION-SCREEN
 *&---------------------------------------------------------------------*
 TABLES ekko.
-SELECT-OPTIONS: s_ernam FOR ekko-ernam.
-SELECT-OPTIONS: s_aedat FOR ekko-aedat.
+##NEEDED SELECT-OPTIONS: s_ernam FOR ekko-ernam.
+##NEEDED SELECT-OPTIONS: s_aedat FOR ekko-aedat.
 
 *&---------------------------------------------------------------------*
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_treport.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
@@ -57,6 +57,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD initialize.
 *    BREAK-POINT."INITIALIZATION事件里不可显示任何消息,可通过断点验证事件是否触发
   ENDMETHOD.
@@ -116,4 +117,5 @@ AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_bukrs.
       MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
 
-INCLUDE zaesop_tscreen_event_inc."通用EVENT include
+  ##INCL_OK
+  INCLUDE zaesop_tscreen_event_inc."通用EVENT include

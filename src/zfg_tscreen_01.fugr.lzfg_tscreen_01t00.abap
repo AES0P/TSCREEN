@@ -1,6 +1,6 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
-*   generation date: 2021/09/28 at 17:08:11
+*   generation date: 2021.11.16 at 14:42:01
 *   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 *...processing: ZTDYNPRO_ATTR...................................*

@@ -32,7 +32,9 @@ public section.
   class-methods GET_INSTANCE
     returning
       value(INSTANCE) type ref to ZCL_TSCREEN_STACK .
-  methods CLEAR .
+  methods CLEAR
+    raising
+      ZCX_TSCREEN .
   methods IS_EXISTS
     importing
       !PROGRAM type SY-REPID
@@ -86,14 +88,14 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
 
     FIELD-SYMBOLS <view> LIKE LINE OF tscreens.
     READ TABLE tscreens ASSIGNING <view> WITH KEY dynnr_super = dynnr_super
-                                                  dynnr       = dynnr.
+                                                  dynnr       = dynnr."#EC CI_STDSEQ
     IF sy-subrc = 0.
       tscreen = <view>-tscreen.
     ELSE.
 
       DATA tscreens_copy TYPE tty_view.
       tscreens_copy = tscreens.
-      DELETE tscreens_copy WHERE dynnr_super IS INITIAL OR dynnr <> dynnr.
+      DELETE tscreens_copy WHERE dynnr_super IS INITIAL OR dynnr <> dynnr."#EC CI_STDSEQ
       READ TABLE tscreens_copy ASSIGNING <view> INDEX lines( tscreens_copy ).
       IF sy-subrc = 0.
         tscreen = <view>-tscreen.
@@ -125,7 +127,7 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
 
     READ TABLE tscreens TRANSPORTING NO FIELDS WITH KEY program     = program
                                                         dynnr_super = dynnr_super
-                                                        dynnr       = dynnr.
+                                                        dynnr       = dynnr. "#EC CI_STDSEQ
     CHECK sy-subrc = 0.
     is_exists = abap_true.
 
@@ -135,7 +137,7 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
   METHOD is_super_exists.
 
     READ TABLE tscreens TRANSPORTING NO FIELDS WITH KEY program = program
-                                                        dynnr   = dynnr_super.
+                                                        dynnr   = dynnr_super."#EC CI_STDSEQ
     CHECK sy-subrc = 0.
     is_exists = abap_true.
 

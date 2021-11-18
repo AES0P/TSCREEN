@@ -86,7 +86,7 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
-       <LINE>  &quot;exit顺序：行-头-主屏幕</LINE>
+       <LINE>  &quot;exit</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>  MODULE exit AT EXIT-COMMAND.</LINE>
@@ -444,7 +444,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -922,7 +921,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
       </RPY_DYFATC>
@@ -990,7 +988,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -1141,7 +1138,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -2022,7 +2018,7 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
-       <LINE>  &quot;exit顺序：行-头-主屏幕</LINE>
+       <LINE>  &quot;exit</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>  MODULE exit AT EXIT-COMMAND.</LINE>

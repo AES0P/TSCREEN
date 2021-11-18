@@ -25,7 +25,7 @@ PARAMETERS: p_ebeln TYPE ekko-ebeln.
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_treport.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
@@ -41,7 +41,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_06_v9000 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -51,7 +51,7 @@ CLASS lcl_tscreen_06_v9000 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_06_v9001 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -63,7 +63,7 @@ CLASS lcl_tscreen_06_v9001 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_06_v9002 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -75,7 +75,7 @@ CLASS lcl_tscreen_06_v9002 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_06_v9003 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -104,6 +104,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -123,11 +124,12 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 CLASS lcl_tscreen_06_v9000 IMPLEMENTATION.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
   METHOD pai.
-    CASE ok_code.
+    CASE ucomm.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
           set_display_mode( zcl_tscreen=>display_mode_show ).
@@ -138,6 +140,7 @@ CLASS lcl_tscreen_06_v9000 IMPLEMENTATION.
         lcl_prog=>parent_dynnr = '9003'.
         CALL SCREEN '9003'.
     ENDCASE.
+    CLEAR sy-ucomm.
   ENDMETHOD.
 
 ENDCLASS.
@@ -149,15 +152,16 @@ CLASS lcl_tscreen_06_v9001 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>parent_dynnr ).
-    SELECT SINGLE *
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
-     WHERE ebeln = p_ebeln.
+     WHERE ebeln = p_ebeln.                               "#EC CI_SUBRC
     IF lcl_prog=>parent_dynnr = '9003'.
       ekko-ebeln += 1.
     ENDIF.
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -181,16 +185,18 @@ CLASS lcl_tscreen_06_v9002 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>parent_dynnr ).
-    SELECT SINGLE *
+    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekpo
       INTO CORRESPONDING FIELDS OF ekpo
      WHERE ebeln = p_ebeln
-       AND ebelp = '10'.
+       AND ebelp = '10'.                                  "#EC CI_SUBRC
     IF lcl_prog=>parent_dynnr = '9003'.
       ekpo-ebeln += 1.
     ENDIF.
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -209,11 +215,12 @@ ENDCLASS.
 
 CLASS lcl_tscreen_06_v9003 IMPLEMENTATION.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
   METHOD pai.
-    CASE ok_code.
+    CASE ucomm.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
           set_display_mode( zcl_tscreen=>display_mode_show ).
@@ -229,8 +236,10 @@ CLASS lcl_tscreen_06_v9003 IMPLEMENTATION.
         ENDTRY.
         LEAVE TO SCREEN 0.
     ENDCASE.
+    CLEAR sy-ucomm.
   ENDMETHOD.
 
 ENDCLASS.
 
+##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT include

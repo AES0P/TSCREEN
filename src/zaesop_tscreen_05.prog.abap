@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_05
 *&---------------------------------------------------------------------*
-*&
+*&  zcl_treport 作为报表，zcl_tscreen 既作为主屏幕，又作为子屏幕，通过1:n的搭配，示例其简单组合后的威力
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_05.
 
@@ -25,7 +25,7 @@ PARAMETERS: p_ebeln TYPE ekko-ebeln.
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_treport.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
@@ -44,7 +44,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_05_v9000 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -54,7 +54,7 @@ CLASS lcl_tscreen_05_v9000 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_05_v9001 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -66,7 +66,7 @@ CLASS lcl_tscreen_05_v9001 DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_05_v9002 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -109,6 +109,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -127,11 +128,12 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 CLASS lcl_tscreen_05_v9000 IMPLEMENTATION.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
   METHOD pai.
-    CASE ok_code.
+    CASE ucomm.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
           set_display_mode( zcl_tscreen=>display_mode_show ).
@@ -139,6 +141,7 @@ CLASS lcl_tscreen_05_v9000 IMPLEMENTATION.
           set_display_mode( zcl_tscreen=>display_mode_modify ).
         ENDIF.
     ENDCASE.
+    CLEAR sy-ucomm.
   ENDMETHOD.
 
 ENDCLASS.
@@ -150,12 +153,13 @@ CLASS lcl_tscreen_05_v9001 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
-    SELECT SINGLE *
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
-     WHERE ebeln = p_ebeln.
+     WHERE ebeln = p_ebeln.                               "#EC CI_SUBRC
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -179,13 +183,15 @@ CLASS lcl_tscreen_05_v9002 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
-    SELECT SINGLE *
+    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekpo
       INTO CORRESPONDING FIELDS OF ekpo
      WHERE ebeln = p_ebeln
-       AND ebelp = '10'.
+       AND ebelp = '10'.                                  "#EC CI_SUBRC
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -202,4 +208,5 @@ CLASS lcl_tscreen_05_v9002 IMPLEMENTATION.
 
 ENDCLASS.
 
+##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT include

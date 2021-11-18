@@ -237,24 +237,32 @@ CLASS zcl_table_control DEFINITION
         REDEFINITION .
     METHODS zif_tscreen_component~set_component_attr_by_setting
         REDEFINITION .
-  PROTECTED SECTION.
+protected section.
 
-    DATA parent TYPE REF TO zcl_tscreen .
-    DATA tc TYPE REF TO scxtab_control .
-    DATA data_name TYPE string .
-    DATA data TYPE REF TO data .
-    DATA ok_code TYPE REF TO sy-ucomm .
-    DATA screen_util TYPE REF TO zcl_tscreen_util .
-    DATA screen_lines_field TYPE string .
+  data PARENT type ref to ZCL_TSCREEN .
+  data TC type ref to SCXTAB_CONTROL .
+  data DATA_NAME type STRING .
+  data DATA type ref to DATA .
+  data OK_CODE type ref to SY-UCOMM .
+  data SCREEN_UTIL type ref to ZCL_TSCREEN_UTIL .
+  data SCREEN_LINES_FIELD type STRING .
 
-    METHODS initialize_by_tscreen
-      IMPORTING
-        !tscreen TYPE REF TO zcl_tscreen .
-    METHODS bound .
-    METHODS get_tc_screen_line
-      RETURNING
-        VALUE(screen_lines) TYPE sy-loopc .
-  PRIVATE SECTION.
+  methods INITIALIZE_BY_TSCREEN
+    importing
+      !TSCREEN type ref to ZCL_TSCREEN .
+  methods BOUND .
+  methods GET_TC_SCREEN_LINE
+    returning
+      value(SCREEN_LINES) type SY-LOOPC .
+  methods SET_TC_SCREEN_LINE
+    importing
+      !LINE type I
+    returning
+      value(COMPONENT) type ref to ZCL_TABLE_CONTROL .
+  methods GET_DATA_SIZE
+    returning
+      value(SIZE) type I .
+private section.
 ENDCLASS.
 
 
@@ -314,7 +322,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD user_command_extend.
+  METHOD user_command_extend ##NEEDED.
     "to be redefine
   ENDMETHOD.
 
@@ -459,7 +467,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
                INTO where
        SEPARATED BY space.
 
-        LOOP AT <tab> TRANSPORTING NO FIELDS WHERE (where).
+        LOOP AT <tab> TRANSPORTING NO FIELDS WHERE (where). "#EC CI_NESTED
           EXIT.
         ENDLOOP.
         IF sy-subrc <> 0.
@@ -474,10 +482,11 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
       ENDLOOP.
 
-    ELSEIF empty_fields IS NOT INITIAL.
+    ELSE.
 
-      LOOP AT empty_fields INTO empty_field.
-        set_column_visible( field_prefix && '-' && empty_field-field ).
+      FIELD-SYMBOLS <empty_field> LIKE LINE OF empty_fields.
+      LOOP AT empty_fields ASSIGNING <empty_field>.
+        set_column_visible( field_prefix && '-' && <empty_field>-field ).
       ENDLOOP.
       IF sy-subrc = 0.
         FREE: empty_fields.
@@ -582,7 +591,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zif_table_control~pai_tc_line.
+  METHOD zif_table_control~pai_tc_line ##NEEDED.
     "to be redefine
   ENDMETHOD.
 
@@ -592,7 +601,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zif_table_control~poh.
+  METHOD zif_table_control~poh ##NEEDED.
     "to be redefine
   ENDMETHOD.
 
@@ -798,7 +807,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
       ENDIF.
     ENDIF.
 
-    REFRESH details.
+    CLEAR details.
     LOOP AT get_visible_columns( ) INTO field.
       CLEAR detail.
 
@@ -814,13 +823,13 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
         EXCEPTIONS
           OTHERS     = 1.
       IF sy-subrc = 0.
-        MOVE-CORRESPONDING dfies TO detail.
+        MOVE-CORRESPONDING dfies TO detail ##ENH_OK.
 *........fixed type in table leads to missing text
         IF detail-scrtext_l IS INITIAL.
 *......if the table is a view with tables with direct type input even
 *......fieldtext could be empty
           IF dfies-fieldtext IS INITIAL.
-            READ TABLE dd27pt INTO dd27p WITH KEY viewfield = dfies-fieldname.
+            READ TABLE dd27pt INTO dd27p WITH KEY viewfield = dfies-fieldname."#EC CI_STDSEQ
             IF sy-subrc = 0.
               detail-scrtext_l = dd27p-ddtext.
             ELSE.
@@ -863,7 +872,8 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 *    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end of 1424238
 *..consider user setting in terms of conversion exits
 *..if tbconvert is set, show the value always converted
-      SELECT SINGLE * FROM rseumod INTO rseumod WHERE uname = sy-uname.
+      SELECT SINGLE *                         "#EC CI_ALL_FIELDS_NEEDED
+        FROM rseumod INTO rseumod WHERE uname = sy-uname. "#EC CI_SEL_NESTED
       IF sy-subrc = 0 AND rseumod-tbconvert = abap_true.
         detail-low_noconv = detail-low.
       ELSE.
@@ -1030,9 +1040,12 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
       WHEN OTHERS.
 
-        user_command_extend( ucomm ).
+*        user_command_extend( ucomm ).
 
     ENDCASE.
+
+    "可以对现有功能增强，也可实现自开发功能
+    user_command_extend( ucomm ).
 
     CLEAR ok_code->*.
 
@@ -1107,6 +1120,8 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
       set_invisible( ).
     ENDIF.
 
+    set_tc_screen_line( get_data_size( ) ).
+
     component = get_component( ).
 
   ENDMETHOD.
@@ -1121,12 +1136,14 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     LOOP AT SCREEN.
 
       "优先以具体模式为准
+       ##WARN_OK
       READ TABLE parent->dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = id
                                                                           name    = screen-name
                                                                           zmode   = display_mode
                                                                           BINARY SEARCH.
       IF sy-subrc <> 0.
         "没有设置具体模式，再使用通用模式
+         ##WARN_OK
         READ TABLE parent->dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = id
                                                                             name    = screen-name
                                                                             zmode   = '*'
@@ -1199,12 +1216,12 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD after_filter_table_writeback.
+  METHOD after_filter_table_writeback  ##NEEDED.
     "to be redefine
   ENDMETHOD.
 
 
-  METHOD before_filter_table_writeback.
+  METHOD before_filter_table_writeback  ##NEEDED.
     "to be redefine
   ENDMETHOD.
 
@@ -1287,7 +1304,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
 
   METHOD get_column.
-    READ TABLE tc->*-cols INTO tc_column WITH KEY screen-name = column_name.
+    READ TABLE tc->*-cols INTO tc_column WITH KEY screen-name = column_name. "#EC CI_STDSEQ
   ENDMETHOD.
 
 
@@ -1320,7 +1337,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   METHOD get_selected_columns.
 
     FIELD-SYMBOLS <tc_column> TYPE scxtab_column.
-    LOOP AT tc->*-cols ASSIGNING <tc_column> WHERE selected = abap_true.
+    LOOP AT tc->*-cols ASSIGNING <tc_column> WHERE selected = abap_true. "#EC CI_STDSEQ
       DATA: selected_column LIKE LINE OF selected_columns.
       selected_column-fieldname = screen_util->get_no_prefix_column_name( <tc_column>-screen-name ).
       APPEND selected_column TO selected_columns.
@@ -1366,14 +1383,16 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
       <column>-ref_field  = <column>-fieldname.
 
       "如果DDIC有，TC没有，最终以TC为准
-      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ).
+       ##WARN_OK
+      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname )."#EC CI_STDSEQ
       IF sy-subrc <> 0.
         DELETE columns INDEX tabix.
         CONTINUE.
       ENDIF.
 
       "如果DDIC有，TC有，但TC列不可见，最终以TC为准
-      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ) invisible = abap_true.
+       ##WARN_OK
+      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ) invisible = abap_true."#EC CI_STDSEQ
       IF sy-subrc = 0.
         DELETE columns INDEX tabix.
       ENDIF.
@@ -1381,7 +1400,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     ENDLOOP.
 
     "过滤字段不显示
-    DELETE columns WHERE fieldname =  filter_column.
+    DELETE columns WHERE fieldname =  filter_column. "#EC CI_STDSEQ
 
   ENDMETHOD.
 
@@ -1419,7 +1438,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     DATA: tc_column TYPE scxtab_column.
     tc_column-selected = mode.
 
-    MODIFY tc->*-cols FROM tc_column TRANSPORTING selected WHERE selected <> mode.
+    MODIFY tc->*-cols FROM tc_column TRANSPORTING selected WHERE selected <> mode. "#EC CI_STDSEQ
 
   ENDMETHOD.
 
@@ -1558,6 +1577,26 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     set_visibility( abap_true ).
 
     table_control ?= get_component( ).
+
+  ENDMETHOD.
+
+
+  METHOD get_data_size.
+
+    FIELD-SYMBOLS <data> TYPE STANDARD TABLE.
+    ASSIGN data->* TO <data>.
+    ASSERT sy-subrc = 0.
+
+    size = lines( <data> ).
+
+  ENDMETHOD.
+
+
+  METHOD set_tc_screen_line.
+
+    tc->*-lines = line.
+
+    component ?= get_component( ).
 
   ENDMETHOD.
 ENDCLASS.

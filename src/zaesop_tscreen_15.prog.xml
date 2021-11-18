@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <PROGDIR>
-    <NAME>ZAESOP_TSCREEN_14</NAME>
+    <NAME>ZAESOP_TSCREEN_15</NAME>
     <SUBC>1</SUBC>
     <RSTAT>T</RSTAT>
     <RLOAD>1</RLOAD>
@@ -13,7 +13,7 @@
    <DYNPROS>
     <item>
      <HEADER>
-      <PROGRAM>ZAESOP_TSCREEN_14</PROGRAM>
+      <PROGRAM>ZAESOP_TSCREEN_15</PROGRAM>
       <SCREEN>9000</SCREEN>
       <LANGUAGE>1</LANGUAGE>
       <DESCRIPT>主屏幕</DESCRIPT>
@@ -36,33 +36,46 @@
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>226</LENGTH>
-       <HEIGHT>013</HEIGHT>
+       <HEIGHT>012</HEIGHT>
+      </RPY_DYCATT>
+      <RPY_DYCATT>
+       <TYPE>SUBSCREEN</TYPE>
+       <NAME>SUB_ITEM</NAME>
+       <ELEMENT_OF>SCREEN</ELEMENT_OF>
+       <LINE>014</LINE>
+       <COLUMN>002</COLUMN>
+       <LENGTH>225</LENGTH>
+       <HEIGHT>016</HEIGHT>
+       <C_RESIZE_V>X</C_RESIZE_V>
+       <C_RESIZE_H>X</C_RESIZE_H>
+       <C_LINE_MIN>012</C_LINE_MIN>
+       <C_COLN_MIN>112</C_COLN_MIN>
       </RPY_DYCATT>
       <RPY_DYCATT>
        <TYPE>STRIP_CTRL</TYPE>
        <NAME>ITEM_TABS</NAME>
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
-       <LINE>015</LINE>
-       <COLUMN>003</COLUMN>
+       <LINE>031</LINE>
+       <COLUMN>002</COLUMN>
        <LENGTH>226</LENGTH>
-       <HEIGHT>021</HEIGHT>
+       <HEIGHT>028</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
-       <C_LINE_MIN>005</C_LINE_MIN>
-       <C_COLN_MIN>015</C_COLN_MIN>
+       <C_LINE_MIN>015</C_LINE_MIN>
+       <C_COLN_MIN>114</C_COLN_MIN>
       </RPY_DYCATT>
       <RPY_DYCATT>
        <TYPE>SUBSCREEN</TYPE>
        <NAME>ITEM_TABS_SCA</NAME>
        <ELEMENT_OF>ITEM_TABS</ELEMENT_OF>
-       <LINE>017</LINE>
-       <COLUMN>004</COLUMN>
+       <LINE>033</LINE>
+       <COLUMN>003</COLUMN>
        <LENGTH>224</LENGTH>
-       <HEIGHT>018</HEIGHT>
+       <HEIGHT>025</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
-       <C_LINE_MIN>003</C_LINE_MIN>
-       <C_COLN_MIN>012</C_COLN_MIN>
+       <C_LINE_MIN>010</C_LINE_MIN>
+       <C_COLN_MIN>112</C_COLN_MIN>
        <C_SCROLL_V>X</C_SCROLL_V>
        <C_SCROLL_H>X</C_SCROLL_H>
       </RPY_DYCATT>
@@ -85,11 +98,11 @@
        <CONT_NAME>ITEM_TABS</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>ITEM_TABS_TAB1</NAME>
-       <TEXT>订单行___</TEXT>
+       <TEXT>交货计划____</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>006</LENGTH>
-       <VISLENGTH>006</VISLENGTH>
+       <LENGTH>008</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <PUSH_FCODE>ITEM_TABS_F01</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
@@ -101,29 +114,13 @@
        <CONT_NAME>ITEM_TABS</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>ITEM_TABS_TAB2</NAME>
-       <TEXT>交货计划____</TEXT>
+       <TEXT>采购历史____</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>008</LENGTH>
        <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <PUSH_FCODE>ITEM_TABS_F02</PUSH_FCODE>
-       <FORMAT>CHAR</FORMAT>
-       <REQU_ENTRY>N</REQU_ENTRY>
-       <REF_FIELD>ITEM_TABS_SCA</REF_FIELD>
-      </RPY_DYFATC>
-      <RPY_DYFATC>
-       <CONT_TYPE>STRIP_CTRL</CONT_TYPE>
-       <CONT_NAME>ITEM_TABS</CONT_NAME>
-       <TYPE>PUSH</TYPE>
-       <NAME>ITEM_TABS_TAB3</NAME>
-       <TEXT>采购历史____</TEXT>
-       <LINE>001</LINE>
-       <COLUMN>003</COLUMN>
-       <LENGTH>008</LENGTH>
-       <VISLENGTH>008</VISLENGTH>
-       <HEIGHT>001</HEIGHT>
-       <PUSH_FCODE>ITEM_TABS_F03</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
        <REF_FIELD>ITEM_TABS_SCA</REF_FIELD>
@@ -143,6 +140,9 @@
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>  CALL SUBSCREEN sub_header INCLUDING sy-repid &apos;9001&apos;.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>  CALL SUBSCREEN sub_item INCLUDING sy-repid lcl_prog=&gt;sub_screen.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
@@ -180,6 +180,9 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
+       <LINE>  CALL SUBSCREEN sub_item.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
        <LINE>  CALL SUBSCREEN sub_header.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
@@ -190,7 +193,7 @@
     </item>
     <item>
      <HEADER>
-      <PROGRAM>ZAESOP_TSCREEN_14</PROGRAM>
+      <PROGRAM>ZAESOP_TSCREEN_15</PROGRAM>
       <SCREEN>9001</SCREEN>
       <LANGUAGE>1</LANGUAGE>
       <DESCRIPT>采购订单抬头</DESCRIPT>
@@ -218,7 +221,7 @@
        <COLUMN>001</COLUMN>
        <LENGTH>152</LENGTH>
        <VISLENGTH>152</VISLENGTH>
-       <HEIGHT>009</HEIGHT>
+       <HEIGHT>010</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
@@ -762,6 +765,22 @@
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>TC_9002_01_SHOW</NAME>
+       <ICON_NAME>ICON_COLLAPSE_ALL</ICON_NAME>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>009</LINE>
+       <COLUMN>005</COLUMN>
+       <LENGTH>004</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9002_01_SHOW</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>OKCODE</TYPE>
        <TEXT>____________________</TEXT>
        <LENGTH>020</LENGTH>
@@ -798,7 +817,7 @@
     </item>
     <item>
      <HEADER>
-      <PROGRAM>ZAESOP_TSCREEN_14</PROGRAM>
+      <PROGRAM>ZAESOP_TSCREEN_15</PROGRAM>
       <SCREEN>9002</SCREEN>
       <LANGUAGE>1</LANGUAGE>
       <DESCRIPT>EKPO</DESCRIPT>
@@ -820,7 +839,7 @@
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
        <LINE>003</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>181</LENGTH>
+       <LENGTH>185</LENGTH>
        <HEIGHT>024</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
@@ -845,22 +864,6 @@
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
-       <NAME>TC_9002_01_HIDE</NAME>
-       <ICON_NAME>ICON_COLLAPSE_ALL</ICON_NAME>
-       <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>001</COLUMN>
-       <LENGTH>004</LENGTH>
-       <VISLENGTH>002</VISLENGTH>
-       <HEIGHT>001</HEIGHT>
-       <PUSH_FCODE>TC_9002_01_HIDE</PUSH_FCODE>
-       <FORMAT>CHAR</FORMAT>
-       <REQU_ENTRY>N</REQU_ENTRY>
-      </RPY_DYFATC>
-      <RPY_DYFATC>
-       <CONT_TYPE>SCREEN</CONT_TYPE>
-       <CONT_NAME>SCREEN</CONT_NAME>
-       <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_DETAIL</NAME>
        <TEXT>__</TEXT>
        <ICON_NAME>ICON_DETAIL</ICON_NAME>
@@ -880,14 +883,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_DDIC</NAME>
-       <TEXT>_____________________________________________________</TEXT>
+       <TEXT>_____________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
        <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>009</COLUMN>
-       <LENGTH>066</LENGTH>
+       <LENGTH>090</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -1020,14 +1023,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_COVT</NAME>
-       <TEXT>________________________</TEXT>
+       <TEXT>____________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>046</COLUMN>
-       <LENGTH>034</LENGTH>
+       <LENGTH>046</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -1057,12 +1060,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_SORT_DOWN</NAME>
-       <TEXT>降序__________________________________________________________</TEXT>
+       <TEXT>降序__________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>056</COLUMN>
-       <LENGTH>065</LENGTH>
+       <LENGTH>073</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -1656,7 +1659,7 @@
     </item>
     <item>
      <HEADER>
-      <PROGRAM>ZAESOP_TSCREEN_14</PROGRAM>
+      <PROGRAM>ZAESOP_TSCREEN_15</PROGRAM>
       <SCREEN>9003</SCREEN>
       <LANGUAGE>1</LANGUAGE>
       <DESCRIPT>EKET</DESCRIPT>
@@ -1679,7 +1682,7 @@
        <LINE>003</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>222</LENGTH>
-       <HEIGHT>019</HEIGHT>
+       <HEIGHT>037</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
        <C_SCROLL_V>X</C_SCROLL_V>
@@ -1876,14 +1879,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9003_01_COVT</NAME>
-       <TEXT>__________________________________________________________________</TEXT>
+       <TEXT>_____________________________________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>046</COLUMN>
-       <LENGTH>076</LENGTH>
+       <LENGTH>079</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -1913,12 +1916,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9003_01_SORT_DOWN</NAME>
-       <TEXT>降序______________________________________________________________________________________</TEXT>
+       <TEXT>降序________________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>056</COLUMN>
-       <LENGTH>093</LENGTH>
+       <LENGTH>095</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -2831,7 +2834,7 @@
     </item>
     <item>
      <HEADER>
-      <PROGRAM>ZAESOP_TSCREEN_14</PROGRAM>
+      <PROGRAM>ZAESOP_TSCREEN_15</PROGRAM>
       <SCREEN>9004</SCREEN>
       <LANGUAGE>1</LANGUAGE>
       <DESCRIPT>EKBE</DESCRIPT>
@@ -2854,7 +2857,7 @@
        <LINE>003</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>225</LENGTH>
-       <HEIGHT>024</HEIGHT>
+       <HEIGHT>037</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
        <C_LINE_MIN>005</C_LINE_MIN>
@@ -2913,14 +2916,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9004_01_DDIC</NAME>
-       <TEXT>___________________________________________________________________________________________________________</TEXT>
+       <TEXT>_________________________________________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
        <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>009</COLUMN>
-       <LENGTH>120</LENGTH>
+       <LENGTH>126</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -3053,14 +3056,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9004_01_COVT</NAME>
-       <TEXT>___________________________________________________</TEXT>
+       <TEXT>______________________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>046</COLUMN>
-       <LENGTH>061</LENGTH>
+       <LENGTH>064</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -3090,12 +3093,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9004_01_SORT_DOWN</NAME>
-       <TEXT>降序____________________________________________________________________________</TEXT>
+       <TEXT>降序______________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>056</COLUMN>
-       <LENGTH>083</LENGTH>
+       <LENGTH>085</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -3941,6 +3944,56 @@
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>PROCESS ON VALUE-REQUEST.</LINE>
+      </RPY_DYFLOW>
+     </FLOW_LOGIC>
+    </item>
+    <item>
+     <HEADER>
+      <PROGRAM>ZAESOP_TSCREEN_15</PROGRAM>
+      <SCREEN>9005</SCREEN>
+      <LANGUAGE>1</LANGUAGE>
+      <DESCRIPT>empty</DESCRIPT>
+      <TYPE>I</TYPE>
+      <NEXTSCREEN>9005</NEXTSCREEN>
+      <LINES>027</LINES>
+      <COLUMNS>120</COLUMNS>
+      <KEEP_SCPOS>X</KEEP_SCPOS>
+      <NO_TOOLBAR>X</NO_TOOLBAR>
+     </HEADER>
+     <CONTAINERS>
+      <RPY_DYCATT>
+       <TYPE>SCREEN</TYPE>
+       <NAME>SCREEN</NAME>
+      </RPY_DYCATT>
+     </CONTAINERS>
+     <FIELDS>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>OKCODE</TYPE>
+       <TEXT>____________________</TEXT>
+       <LENGTH>020</LENGTH>
+       <VISLENGTH>020</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <INPUT_FLD>X</INPUT_FLD>
+      </RPY_DYFATC>
+     </FIELDS>
+     <FLOW_LOGIC>
+      <RPY_DYFLOW>
+       <LINE>PROCESS BEFORE OUTPUT.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>* MODULE STATUS_9005.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>*</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>PROCESS AFTER INPUT.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>* MODULE USER_COMMAND_9005.</LINE>
       </RPY_DYFLOW>
      </FLOW_LOGIC>
     </item>

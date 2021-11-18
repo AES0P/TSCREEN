@@ -26,14 +26,12 @@ public section.
     for ZIF_TSCREEN~DYNPRO_TYPE_SELSCREEN .
   aliases DYNPRO_TYPE_SUBSCREEN
     for ZIF_TSCREEN~DYNPRO_TYPE_SUBSCREEN .
-  aliases IS_INITIALIZED
-    for ZIF_TSCREEN~IS_INITIALIZED .
-  aliases PROGRAM
-    for ZIF_TSCREEN~PROGRAM .
   aliases EXIT
     for ZIF_TSCREEN~EXIT .
   aliases HANDLE_EVENT
     for ZIF_TSCREEN~HANDLE_EVENT .
+  aliases IS_INITIALIZED
+    for ZIF_TSCREEN~IS_INITIALIZED .
   aliases PAI
     for ZIF_TSCREEN~PAI .
   aliases PBO
@@ -42,6 +40,8 @@ public section.
     for ZIF_TSCREEN~POH .
   aliases POV
     for ZIF_TSCREEN~POV .
+  aliases PROGRAM
+    for ZIF_TSCREEN~PROGRAM .
 
   types TY_FCODE type FCODE .
   types:
@@ -49,20 +49,20 @@ public section.
 
   methods CONSTRUCTOR
     importing
-      value(PROGRAM) type SYREPID
-      value(DYNNR) type SY-DYNNR
-      value(DYNNR_SUPER) type SY-DYNNR optional
-      value(DYNPRO_TYPE) type SCRHTYP optional
-      value(PFSTATUS) type SYPFKEY optional
-      value(PFSTATUS_REPID) type SYREPID optional
-      value(EXCLUDING_FCODE) type TTY_FCODE optional
-      value(TITLEBAR) type GUI_TITLE optional
-      value(TITLEBAR_REPID) type SYREPID optional
-      value(TITLEBAR_VAR1) type STRING optional
-      value(TITLEBAR_VAR2) type STRING optional
-      value(TITLEBAR_VAR3) type STRING optional
-      value(TITLEBAR_VAR4) type STRING optional
-      value(TITLEBAR_VAR5) type STRING optional .
+      !PROGRAM type SYREPID
+      !DYNNR type SY-DYNNR
+      !DYNNR_SUPER type SY-DYNNR optional
+      !DYNPRO_TYPE type SCRHTYP optional
+      !PFSTATUS type SYPFKEY optional
+      !PFSTATUS_REPID type SYREPID optional
+      !EXCLUDING_FCODE type TTY_FCODE optional
+      !TITLEBAR type GUI_TITLE optional
+      !TITLEBAR_REPID type SYREPID optional
+      !TITLEBAR_VAR1 type STRING optional
+      !TITLEBAR_VAR2 type STRING optional
+      !TITLEBAR_VAR3 type STRING optional
+      !TITLEBAR_VAR4 type STRING optional
+      !TITLEBAR_VAR5 type STRING optional .
   methods INITIALIZE_PBO_BY_DYNNR
     importing
       value(DYNNR) type SY-DYNNR default SY-DYNNR
@@ -71,18 +71,18 @@ public section.
   methods INITIALIZE_PBO .
   methods SET_PFSTATUS
     importing
-      value(PFSTATUS) type SYPFKEY
-      value(PFSTATUS_REPID) type SYREPID optional
+      !PFSTATUS type SYPFKEY
+      !PFSTATUS_REPID type SYREPID optional
       value(EXCLUDING_FCODE) type TTY_FCODE optional .
   methods SET_TITLEBAR
     importing
-      value(TITLEBAR) type GUI_TITLE
-      value(TITLEBAR_REPID) type SYREPID optional
-      value(TITLEBAR_VAR1) type STRING optional
-      value(TITLEBAR_VAR2) type STRING optional
-      value(TITLEBAR_VAR3) type STRING optional
-      value(TITLEBAR_VAR4) type STRING optional
-      value(TITLEBAR_VAR5) type STRING optional .
+      !TITLEBAR type GUI_TITLE
+      !TITLEBAR_REPID type SYREPID optional
+      !TITLEBAR_VAR1 type STRING optional
+      !TITLEBAR_VAR2 type STRING optional
+      !TITLEBAR_VAR3 type STRING optional
+      !TITLEBAR_VAR4 type STRING optional
+      !TITLEBAR_VAR5 type STRING optional .
   PROTECTED SECTION.
 
     DATA pfstatus TYPE pfstatus .
@@ -174,7 +174,7 @@ CLASS ZCL_TSCREEN_ROOT IMPLEMENTATION.
     me->pfstatus        = pfstatus.
     me->pfstatus_repid  = pfstatus_repid.
     me->excluding_fcode = excluding_fcode.
-  ENDMETHOD.
+  ENDMETHOD. "#EC CI_VALPAR
 
 
   METHOD set_titlebar.

@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_03
 *&---------------------------------------------------------------------*
-*&
+*&  zcl_treport 作为报表，zcl_tscreen 作为自建屏幕，通过1:1的搭配，示例其简单组合后的威力
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_03.
 
@@ -24,7 +24,7 @@ PARAMETERS: p_ebeln TYPE ekko-ebeln.
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_treport.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
@@ -39,7 +39,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 ENDCLASS.
 
 CLASS lcl_tscreen_03_v9000 DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -72,6 +72,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -93,17 +94,18 @@ CLASS lcl_tscreen_03_v9000 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( ).
-    SELECT SINGLE *
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
-     WHERE ebeln = p_ebeln.
+     WHERE ebeln = p_ebeln.                               "#EC CI_SUBRC
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
   METHOD pai.
-    CASE ok_code.
+    CASE ucomm.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
           set_display_mode( zcl_tscreen=>display_mode_show ).
@@ -111,8 +113,10 @@ CLASS lcl_tscreen_03_v9000 IMPLEMENTATION.
           set_display_mode( zcl_tscreen=>display_mode_modify ).
         ENDIF.
     ENDCASE.
+    CLEAR sy-ucomm.
   ENDMETHOD.
 
 ENDCLASS.
 
+##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT include

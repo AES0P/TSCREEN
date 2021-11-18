@@ -163,7 +163,7 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
-       <LINE>  &quot;exit顺序：页签-头-主屏幕</LINE>
+       <LINE>  &quot;exit</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>  MODULE exit AT EXIT-COMMAND.</LINE>
@@ -528,7 +528,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -1006,7 +1005,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
       </RPY_DYFATC>
@@ -1074,7 +1072,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -1225,7 +1222,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -3755,13 +3751,6 @@
      <ID>R</ID>
      <ENTRY>TREPORT &amp; TSCREEN (1:1:N) NO SELECTION_SCREEN</ENTRY>
      <LENGTH>45</LENGTH>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>P_EBELN</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>12</LENGTH>
-     <SPLIT>D</SPLIT>
     </item>
    </TPOOL>
   </asx:values>

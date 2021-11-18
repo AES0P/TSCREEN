@@ -85,7 +85,7 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
-       <LINE>  &quot;exit顺序：行-头-主屏幕</LINE>
+       <LINE>  &quot;exit</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>  MODULE exit AT EXIT-COMMAND.</LINE>
@@ -443,7 +443,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -1453,12 +1452,6 @@
       <RPY_DYFLOW>
        <LINE>  &quot;约定：和TC控件相关的功能必须带上TC名：比如按钮的功能码应该是 控件名+功能码 tc_9002_01_INSERT</LINE>
       </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>*&amp;SPWIZARD: PBO FLOW LOGIC FOR TABLECONTROL &apos;tc_9002_01&apos;</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE tc_9002_01_change_tc_attr.</LINE>
-      </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>  MODULE pbo.</LINE>
@@ -1494,10 +1487,6 @@
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW/>
-      <RPY_DYFLOW>
-       <LINE>  MODULE exit AT EXIT-COMMAND.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>

@@ -63,7 +63,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
 
   METHOD add_component.
 
-    IF NOT line_exists( components[ group = group ] ).
+    IF NOT line_exists( components[ group = group ] )."#EC CI_STDSEQ
       FIELD-SYMBOLS <component> TYPE ty_component.
       APPEND INITIAL LINE TO components ASSIGNING <component>.
       <component>-group      = group.
@@ -92,7 +92,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
       DATA iterator TYPE REF TO cl_object_collection_iterator.
       iterator = <component>-components->get_iterator( ).
 
-      WHILE iterator->has_next( ).
+      WHILE iterator->has_next( )."#EC CI_NESTED
         CAST zif_tscreen_component( iterator->get_next( ) )->change_visibility( )->change_editable( display_mode ).
       ENDWHILE.
 
@@ -102,7 +102,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
 
 
   METHOD del_component.
-    components[ group = group ]-components->remove( get_component( group = group id = id ) ).
+    components[ group = group ]-components->remove( get_component( group = group id = id ) ). "#EC CI_STDSEQ
   ENDMETHOD.
 
 
@@ -135,7 +135,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
       iterator = get_components_iterator( <component>-group ).
 
       DATA component TYPE REF TO object.
-      WHILE iterator->has_next( ).
+      WHILE iterator->has_next( )."#EC CI_NESTED
         component = iterator->get_next( ).
         TRY.
             CALL METHOD component->(method).
@@ -173,7 +173,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
       DATA iterator TYPE REF TO cl_object_collection_iterator.
       iterator = <component>-components->get_iterator( ).
 
-      WHILE iterator->has_next( ).
+      WHILE iterator->has_next( )."#EC CI_NESTED
         DATA component TYPE REF TO zif_tscreen_component.
         component ?= iterator->get_next( ).
         "有的控件的PBO事件可以在父屏幕的PBO里一起处理，有的不行，比如table control

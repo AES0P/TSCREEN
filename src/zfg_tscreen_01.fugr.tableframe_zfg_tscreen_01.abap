@@ -1,6 +1,6 @@
 *---------------------------------------------------------------------*
 *    program for:   TABLEFRAME_ZFG_TSCREEN_01
-*   generation date: 2021/11/06 at 09:30:58
+*   generation date: 2021.11.16 at 14:42:00
 *   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 FUNCTION TABLEFRAME_ZFG_TSCREEN_01     .

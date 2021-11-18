@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& REPORT ZAESOP_TSCREEN_13
 *&---------------------------------------------------------------------*
-*&  原生 TABLE CONTROL 控件，带筛选功能
+*&  子屏幕带table control
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_13.
 
@@ -159,7 +159,7 @@ CLASS lcl_tscreen_13_v9000 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD pai.
-    CASE ok_code.
+    CASE ucomm.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
           set_display_mode( zcl_tscreen=>display_mode_show ).
@@ -167,6 +167,7 @@ CLASS lcl_tscreen_13_v9000 IMPLEMENTATION.
           set_display_mode( zcl_tscreen=>display_mode_modify ).
         ENDIF.
     ENDCASE.
+    CLEAR sy-ucomm.
   ENDMETHOD.
 
 ENDCLASS.
@@ -310,15 +311,6 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 ENDCLASS.
 
 INCLUDE zaesop_tscreen_event_inc."通用EVENT INCLUDE
-
-*&---------------------------------------------------------------------*
-*& MODULE TC_9002_01_CHANGE_TC_ATTR OUTPUT
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
-MODULE tc_9002_01_change_tc_attr OUTPUT.
-  DESCRIBE TABLE po_items LINES tc_9002_01-lines.
-ENDMODULE.
 
 *&---------------------------------------------------------------------*
 *& MODULE TC_9002_01_GET_LINES OUTPUT

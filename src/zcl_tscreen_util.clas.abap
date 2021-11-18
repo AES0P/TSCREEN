@@ -98,7 +98,7 @@ CLASS zcl_tscreen_util DEFINITION
     CLASS-DATA tscreen_util TYPE REF TO zcl_tscreen_util .
     DATA program TYPE syrepid .
     DATA dynnr TYPE sy-dynnr .
-    DATA bring_out_data TYPE REF TO data .
+    DATA bring_out_data TYPE REF TO data ##NEEDED.
 
     METHODS constructor
       IMPORTING
@@ -119,10 +119,11 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
       EXCEPTIONS
         id_illegal_name = 1
         OTHERS          = 2.
-    IF sy-subrc <> 0.
+
+    IF sy-subrc <> 0 ##NEEDED.
     ENDIF.
 
-  ENDMETHOD.
+  ENDMETHOD.                                             "#EC CI_VALPAR
 
 
   METHOD set_dynnr.
@@ -150,7 +151,7 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
 
 
   METHOD is_valid_string.
-
+    ##FS_ASSIGN_OK
     FIELD-SYMBOLS <result> TYPE STANDARD TABLE.
 
     FIND ALL OCCURRENCES OF REGEX '[^[:print:]]'
@@ -288,7 +289,7 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
       value = dynpro_field-fieldvalue.
     ENDIF.
 
-  ENDMETHOD.
+  ENDMETHOD."#EC CI_VALPAR
 
 
   METHOD get_dynnr.
@@ -369,13 +370,11 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
       CONCATENATE key_field '= ''' INTO where SEPARATED BY space." key_field = '
       CONCATENATE where value '''' INTO where."  key_field = 'value'
 
-      FIELD-SYMBOLS <struc> TYPE any.
       LOOP AT value_tab REFERENCE INTO bring_out_data WHERE (where).
         EXIT.
       ENDLOOP.
 
     ENDIF.
-
 
   ENDMETHOD.
 
@@ -389,8 +388,8 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
         functioncode           = fcode
       EXCEPTIONS
         function_not_supported = 1
-        OTHERS                 = 2.
-    IF sy-subrc <> 0.
+        OTHERS                 = 2."#EC CI_SUBRC
+    IF sy-subrc <> 0 ##NEEDED.
 * Implement suitable error handling here
     ENDIF.
 
@@ -421,7 +420,7 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
       WHEN 'ME23N'.
 
         SET PARAMETER ID 'BES' FIELD value.
-        CALL TRANSACTION tcode AND SKIP FIRST SCREEN.
+        CALL TRANSACTION tcode AND SKIP FIRST SCREEN. "#EC CI_CALLTA
 
       WHEN 'MM03'.
 
@@ -446,5 +445,5 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
 
     ENDCASE.
 
-  ENDMETHOD.
+  ENDMETHOD."#EC CI_VALPAR
 ENDCLASS.

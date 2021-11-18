@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_02
 *&---------------------------------------------------------------------*
-*&
+*&  将自建屏幕的各事件流抽象，并按照模板方法执行
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_02.
 
@@ -19,7 +19,7 @@ DATA ok_code TYPE sy-ucomm.
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen.
+  INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
 
@@ -49,16 +49,18 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( ).
-    SELECT SINGLE *
+    ##WARN_OK
+    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
       FROM ekko
-      INTO CORRESPONDING FIELDS OF ekko.
+      INTO CORRESPONDING FIELDS OF ekko.                  "#EC CI_SUBRC
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
   METHOD pai.
-    CASE ok_code.
+    CASE ucomm.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
           set_display_mode( zcl_tscreen=>display_mode_show ).
@@ -66,7 +68,7 @@ CLASS lcl_prog IMPLEMENTATION.
           set_display_mode( zcl_tscreen=>display_mode_modify ).
         ENDIF.
     ENDCASE.
-
+    CLEAR sy-ucomm.
   ENDMETHOD.
 
   METHOD poh.
@@ -109,8 +111,9 @@ CLASS lcl_prog IMPLEMENTATION.
          INNER JOIN usr21
             ON adrp~persnumber = usr21~persnumber
           INTO TABLE @DATA(lt_users)
+          ##NUMBER_OK
          UP TO 500 ROWS
-         ORDER BY bname.
+         ORDER BY bname.                                  "#EC CI_SUBRC
 
         "获取选中值
         ekko-ernam = f4_event( key_field = 'BNAME' value_tab = lt_users ).
@@ -120,10 +123,11 @@ CLASS lcl_prog IMPLEMENTATION.
             bring_out( EXPORTING source = 'NAME_TEXT'  CHANGING target = ekko-desp ).
             bring_out( EXPORTING source = 'PERSNUMBER' CHANGING target = ekko-unsez ).
           CATCH zcx_tscreen INTO DATA(lcx_tscreen).
-*            MESSAGE lcx_tscreen->get_text( ) TYPE 'A'.
+            MESSAGE lcx_tscreen->get_text( ) TYPE 'A'.
         ENDTRY.
 
         "联动
+        ##USER_OK
         IF ekko-ernam = sy-uname.
           ekko-zterm = '1'.
         ELSE.
@@ -137,10 +141,12 @@ CLASS lcl_prog IMPLEMENTATION.
 
 ENDCLASS.
 
+##INCL_OK
+INCLUDE zaesop_tscreen_event_inc."通用EVENT include
+
 *&---------------------------------------------------------------------*
 *&　　　　END-OF-SELECTION
 *&---------------------------------------------------------------------*
+##DUPL_EVENT
 END-OF-SELECTION.
   CALL SCREEN 9000.
-
-  INCLUDE zaesop_tscreen_event_inc."通用EVENT include

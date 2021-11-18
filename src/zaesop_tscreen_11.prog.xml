@@ -376,7 +376,6 @@
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>2</MODIFIC>
-       <UP_LOWER>X</UP_LOWER>
        <FOREIGNKEY>X</FOREIGNKEY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
@@ -647,14 +646,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9000_01_DDIC</NAME>
-       <TEXT>_________________________________________</TEXT>
+       <TEXT>_______________________________________________</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
        <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>017</LINE>
        <COLUMN>027</COLUMN>
-       <LENGTH>054</LENGTH>
+       <LENGTH>060</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -787,14 +786,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9000_01_COVT</NAME>
-       <TEXT>__________________</TEXT>
+       <TEXT>_____________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>017</LINE>
        <COLUMN>064</COLUMN>
-       <LENGTH>028</LENGTH>
+       <LENGTH>031</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -824,12 +823,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9000_01_SORT_DOWN</NAME>
-       <TEXT>降序______________________________________________________</TEXT>
+       <TEXT>降序________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>017</LINE>
        <COLUMN>074</COLUMN>
-       <LENGTH>061</LENGTH>
+       <LENGTH>063</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -903,22 +902,6 @@
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <PUSH_FCODE>TC_9000_01_TEST</PUSH_FCODE>
-       <FORMAT>CHAR</FORMAT>
-       <REQU_ENTRY>N</REQU_ENTRY>
-      </RPY_DYFATC>
-      <RPY_DYFATC>
-       <CONT_TYPE>SCREEN</CONT_TYPE>
-       <CONT_NAME>SCREEN</CONT_NAME>
-       <TYPE>PUSH</TYPE>
-       <NAME>%#AUTOTEXT002</NAME>
-       <TEXT>_</TEXT>
-       <ICON_NAME>ICON_DECEASED_PATIENT</ICON_NAME>
-       <WITH_ICON>X</WITH_ICON>
-       <LINE>039</LINE>
-       <COLUMN>022</COLUMN>
-       <LENGTH>006</LENGTH>
-       <VISLENGTH>002</VISLENGTH>
-       <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
@@ -1303,13 +1286,6 @@
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>  &quot;约定：和TC控件相关的功能必须带上TC名：比如按钮的功能码应该是 控件名+功能码 TC_9000_01_INSERT</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW/>
-      <RPY_DYFLOW>
-       <LINE>*&amp;SPWIZARD: PBO FLOW LOGIC FOR TABLECONTROL &apos;TC_9000_01&apos;</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE tc_9000_01_change_tc_attr.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>

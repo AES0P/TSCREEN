@@ -18,7 +18,9 @@ interface ZIF_TSCREEN
     raising
       ZCX_TSCREEN .
   methods PBO .
-  methods PAI .
+  methods PAI
+    importing
+      !UCOMM type SY-UCOMM default SY-UCOMM .
   methods POH .
   methods POV .
   methods EXIT

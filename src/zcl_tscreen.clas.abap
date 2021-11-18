@@ -79,13 +79,17 @@ protected section.
   data SCREEN_UTIL type ref to ZCL_TSCREEN_UTIL .
 
   methods GET_DYNPRO_SETTING .
-  methods REMOVE_CHILD_SCREEN .
+  methods REMOVE_CHILD_SCREEN
+    raising
+      ZCX_TSCREEN .
   methods GET_SUPER_SCREEN
     returning
       value(PARENT) type ref to ZIF_TSCREEN
     raising
       ZCX_TSCREEN .
-  methods CHANGE_SCREEN_EDITABLE .
+  methods CHANGE_SCREEN_EDITABLE
+    raising
+      ZCX_TSCREEN .
   methods SET_ELEMENT_ATTR_BY_SETTING
     importing
       value(OBJECT) type ANY optional .
@@ -234,12 +238,14 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
 
     LOOP AT SCREEN.
       "优先以具体模式为准
+      ##WARN_OK
       READ TABLE dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = object
                                                                   name    = screen-name
                                                                   zmode   = display_mode
                                                                   BINARY SEARCH.
       IF sy-subrc <> 0.
         "没有设置具体模式，再使用通用模式
+        ##WARN_OK
         READ TABLE dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = object
                                                                     name    = screen-name
                                                                     zmode   = '*'
@@ -293,11 +299,11 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
 
   METHOD get_dynpro_setting.
 
-    SELECT *
+    SELECT *  "#EC CI_SEL_DEL
      FROM ztdynpro_attr
      INTO CORRESPONDING FIELDS OF TABLE dynpro_attr_setting
     WHERE cprog = program
-      AND dynnr = dynnr.
+      AND dynnr = dynnr."#EC CI_SUBRC
 
     SORT dynpro_attr_setting ASCENDING BY tc_name name zmode group_name.
 
@@ -348,7 +354,7 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
     CHECK dynnr_super IS NOT INITIAL AND dynpro_type = zif_tscreen=>dynpro_type_subscreen.
 
     DATA tscreen TYPE zcl_tscreen_stack=>ty_view.
-    READ TABLE zcl_tscreen_stack=>get_instance( )->tscreens INTO tscreen WITH KEY dynnr = dynnr_super.
+    READ TABLE zcl_tscreen_stack=>get_instance( )->tscreens INTO tscreen WITH KEY dynnr = dynnr_super. "#EC CI_STDSEQ
     CHECK sy-subrc = 0.
     parent = tscreen-tscreen.
 
@@ -364,7 +370,7 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
 
     DATA tabix TYPE sy-tabix.
     FIELD-SYMBOLS <tscreen> TYPE zcl_tscreen_stack=>ty_view.
-    LOOP AT stack->tscreens ASSIGNING <tscreen> WHERE tscreen->dynnr_super = dynnr.
+    LOOP AT stack->tscreens ASSIGNING <tscreen> WHERE tscreen->dynnr_super = dynnr. "#EC CI_STDSEQ
       tabix = sy-tabix.
       <tscreen>-tscreen->handle_event( 'EXIT' ).
       DELETE stack->tscreens INDEX tabix.
@@ -373,19 +379,19 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zif_tscreen~pai.
+  METHOD zif_tscreen~pai ##NEEDED.
 *CALL METHOD SUPER->ZIF_TSCREEN~PAI
 *    .
   ENDMETHOD.
 
 
-  METHOD zif_tscreen~poh.
+  METHOD zif_tscreen~poh ##NEEDED.
 *CALL METHOD SUPER->ZIF_TSCREEN~POH
 *    .
   ENDMETHOD.
 
 
-  METHOD zif_tscreen~pov.
+  METHOD zif_tscreen~pov ##NEEDED.
 *CALL METHOD SUPER->ZIF_TSCREEN~POV
 *    .
   ENDMETHOD.
@@ -397,7 +403,7 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
     LOOP AT dynpro_attr_setting ASSIGNING <attr_setting> WHERE group_name = ''
                                                            AND tc_name    = 'PF-STATUS'
                                                            AND xnodi      = abap_true
-                                                           AND zmode      = display_mode.
+                                                           AND zmode      = display_mode. "#EC CI_STDSEQ
 
       APPEND <attr_setting>-name TO excluding_fcode.
 
@@ -407,5 +413,5 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
                          pfstatus_repid  = pfstatus_repid
                          excluding_fcode = excluding_fcode ).
 
-  ENDMETHOD.
+  ENDMETHOD. "#EC CI_VALPAR
 ENDCLASS.

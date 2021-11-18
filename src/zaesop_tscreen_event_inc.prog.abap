@@ -13,7 +13,7 @@ INITIALIZATION.
   lcl_prog=>push_view( ).
   TRY.
       zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'INIT' ).
-    CATCH zcx_tscreen INTO DATA(gx_tscreen).
+    CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
 

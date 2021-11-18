@@ -3,7 +3,7 @@
 *&---------------------------------------------------------------------*
 *& 多页签带table control
 *&---------------------------------------------------------------------*
-REPORT zaesop_tscreen_14.
+REPORT zaesop_tscreen_15.
 
 *&---------------------------------------------------------------------*
 *&　　　　TABLES
@@ -47,8 +47,9 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
   PUBLIC SECTION.
 
     CLASS-DATA view_cls_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
-    CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_14' READ-ONLY.
+    CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_15' READ-ONLY.
 
+    CLASS-DATA sub_screen TYPE sy-dynnr VALUE '9002'.
     CLASS-METHODS push_view.
     CLASS-METHODS get_parent_screen
       IMPORTING
@@ -61,7 +62,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 
 ENDCLASS.
 
-CLASS lcl_tscreen_14_v9000 DEFINITION CREATE PUBLIC
+CLASS lcl_tscreen_15_v9000 DEFINITION CREATE PUBLIC
   INHERITING FROM zcl_tscreen.
 
   PUBLIC SECTION.
@@ -71,7 +72,7 @@ CLASS lcl_tscreen_14_v9000 DEFINITION CREATE PUBLIC
 
 ENDCLASS.
 
-CLASS lcl_tscreen_14_v9001 DEFINITION CREATE PUBLIC
+CLASS lcl_tscreen_15_v9001 DEFINITION CREATE PUBLIC
   INHERITING FROM zcl_tscreen.
 
   PUBLIC SECTION.
@@ -79,11 +80,12 @@ CLASS lcl_tscreen_14_v9001 DEFINITION CREATE PUBLIC
     METHODS constructor.
 
     METHODS pbo REDEFINITION.
+    METHODS pai REDEFINITION.
     METHODS poh REDEFINITION.
 
 ENDCLASS.
 
-CLASS lcl_tscreen_14_v9002 DEFINITION CREATE PUBLIC
+CLASS lcl_tscreen_15_v9002 DEFINITION CREATE PUBLIC
   INHERITING FROM zcl_tscreen_with_components.
 
   PUBLIC SECTION.
@@ -93,7 +95,7 @@ CLASS lcl_tscreen_14_v9002 DEFINITION CREATE PUBLIC
 
 ENDCLASS.
 
-CLASS lcl_tscreen_14_v9003 DEFINITION CREATE PUBLIC
+CLASS lcl_tscreen_15_v9003 DEFINITION CREATE PUBLIC
   INHERITING FROM zcl_tscreen_with_components.
 
   PUBLIC SECTION.
@@ -103,7 +105,7 @@ CLASS lcl_tscreen_14_v9003 DEFINITION CREATE PUBLIC
 
 ENDCLASS.
 
-CLASS lcl_tscreen_14_v9004 DEFINITION CREATE PUBLIC
+CLASS lcl_tscreen_15_v9004 DEFINITION CREATE PUBLIC
   INHERITING FROM zcl_tscreen_with_components.
 
   PUBLIC SECTION.
@@ -236,7 +238,7 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
-CLASS lcl_tscreen_14_v9000 IMPLEMENTATION.
+CLASS lcl_tscreen_15_v9000 IMPLEMENTATION.
 
   METHOD pbo.
   ENDMETHOD.
@@ -258,7 +260,7 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
-CLASS lcl_tscreen_14_v9001 IMPLEMENTATION.
+CLASS lcl_tscreen_15_v9001 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
@@ -266,6 +268,19 @@ CLASS lcl_tscreen_14_v9001 IMPLEMENTATION.
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
      WHERE ebeln = p_ebeln.
+  ENDMETHOD.
+
+  METHOD pai.
+    CASE UCOMM.
+      WHEN 'TC_9002_01_SHOW'.
+        IF lcl_prog=>sub_screen = '9002'.
+          lcl_prog=>sub_screen  = '9005'.
+        ELSE.
+          lcl_prog=>sub_screen  = '9002'.
+        ENDIF.
+      WHEN OTHERS.
+    ENDCASE.
+
   ENDMETHOD.
 
   METHOD pbo.
@@ -287,7 +302,7 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
-CLASS lcl_tscreen_14_v9002 IMPLEMENTATION.
+CLASS lcl_tscreen_15_v9002 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
@@ -301,7 +316,7 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
-CLASS lcl_tscreen_14_v9003 IMPLEMENTATION.
+CLASS lcl_tscreen_15_v9003 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
@@ -315,7 +330,7 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
-CLASS lcl_tscreen_14_v9004 IMPLEMENTATION.
+CLASS lcl_tscreen_15_v9004 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
@@ -531,13 +546,12 @@ ENDMODULE.
 CONSTANTS: BEGIN OF c_item_tabs,
              tab1 LIKE sy-ucomm VALUE 'ITEM_TABS_F01', "%%%约定，tab页签必须包含 _TABS_ 字符
              tab2 LIKE sy-ucomm VALUE 'ITEM_TABS_F02', "%%%约定，tab页签必须包含 _TABS_ 字符
-             tab3 LIKE sy-ucomm VALUE 'ITEM_TABS_F03', "%%%约定，tab页签必须包含 _TABS_ 字符
            END OF c_item_tabs.
 *&SPWIZARD: DATA FOR TABSTRIP 'ITEM_TABS'
 CONTROLS:  item_tabs TYPE TABSTRIP.
 DATA: BEGIN OF g_item_tabs,
         subscreen   LIKE sy-dynnr,
-        prog        LIKE sy-repid VALUE 'ZAESOP_TSCREEN_14',
+        prog        LIKE sy-repid VALUE 'ZAESOP_TSCREEN_15',
         pressed_tab LIKE sy-ucomm VALUE c_item_tabs-tab1,
       END OF g_item_tabs.
 
@@ -547,10 +561,8 @@ MODULE item_tabs_active_tab_set OUTPUT.
   item_tabs-activetab = g_item_tabs-pressed_tab.
   CASE g_item_tabs-pressed_tab.
     WHEN c_item_tabs-tab1.
-      g_item_tabs-subscreen = '9002'.
-    WHEN c_item_tabs-tab2.
       g_item_tabs-subscreen = '9003'.
-    WHEN c_item_tabs-tab3.
+    WHEN c_item_tabs-tab2.
       g_item_tabs-subscreen = '9004'.
     WHEN OTHERS.
 *&SPWIZARD:      DO NOTHING
@@ -566,8 +578,6 @@ MODULE item_tabs_active_tab_get INPUT.
       g_item_tabs-pressed_tab = c_item_tabs-tab1.
     WHEN c_item_tabs-tab2.
       g_item_tabs-pressed_tab = c_item_tabs-tab2.
-    WHEN c_item_tabs-tab3.
-      g_item_tabs-pressed_tab = c_item_tabs-tab3.
     WHEN OTHERS.
 *&SPWIZARD:      DO NOTHING
   ENDCASE.
