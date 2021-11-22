@@ -10,10 +10,15 @@ interface ZIF_TSCREEN_COMPONENT
   constants C_COMPONENT_INVISIBLE type ABAP_BOOL value ABAP_FALSE ##NO_TEXT.
   constants C_COMPONENT_EDITABLE type ABAP_BOOL value ABAP_TRUE ##NO_TEXT.
   constants C_COMPONENT_DISPLAY type ABAP_BOOL value ABAP_FALSE ##NO_TEXT.
+  constants C_COMPONENT_EDITOR type STRING value 'EDITOR' ##NO_TEXT.
+  constants C_COMPONENT_TC type STRING value 'TC' ##NO_TEXT.
 
   methods GET_COMPONENT
     returning
       value(COMPONENT) type ref to ZIF_TSCREEN_COMPONENT .
+  methods INITIALIZE_BY_TSCREEN
+    importing
+      !TSCREEN type ref to ZCL_TSCREEN .
   methods CHANGE_VISIBILITY
     importing
       !VISIBILITY type ABAP_BOOL optional

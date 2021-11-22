@@ -81,6 +81,8 @@ CLASS zcl_table_control DEFINITION
       FOR zif_table_control~unfilter .
     ALIASES user_command
       FOR zif_table_control~user_command .
+    ALIASES initialize_by_tscreen
+      FOR zif_tscreen_component~initialize_by_tscreen .
 
     METHODS constructor
       IMPORTING
@@ -235,6 +237,8 @@ CLASS zcl_table_control DEFINITION
         REDEFINITION .
     METHODS zif_tscreen_component~change_visibility
         REDEFINITION .
+    METHODS zif_tscreen_component~initialize_by_tscreen
+        REDEFINITION .
     METHODS zif_tscreen_component~set_component_attr_by_setting
         REDEFINITION .
   PROTECTED SECTION.
@@ -248,9 +252,6 @@ CLASS zcl_table_control DEFINITION
     DATA ok_code TYPE REF TO sy-ucomm .
     DATA screen_util TYPE REF TO zcl_tscreen_util .
 
-    METHODS initialize_by_tscreen
-      IMPORTING
-        !tscreen TYPE REF TO zcl_tscreen .
     METHODS bound .
     METHODS set_tc_screen_line
       IMPORTING
@@ -1399,19 +1400,6 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD initialize_by_tscreen.
-
-    me->parent  = tscreen.
-
-    program     = tscreen->program.
-    dynnr       = tscreen->dynnr.
-    screen_util = tscreen->get_screen_util( ).
-
-    CAST zcl_tscreen_with_components( tscreen )->add_component( group = 'TC' component = me ).
-
-  ENDMETHOD.
-
-
   METHOD is_deletion_confirmed.
     is_confirmed = abap_true.
   ENDMETHOD.
@@ -1591,6 +1579,19 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     tc->*-lines = line.
 
     component ?= get_component( ).
+
+  ENDMETHOD.
+
+
+  METHOD zif_tscreen_component~initialize_by_tscreen.
+
+    me->parent  = tscreen.
+
+    program     = tscreen->program.
+    dynnr       = tscreen->dynnr.
+    screen_util = tscreen->get_screen_util( ).
+
+    CAST zcl_tscreen_with_components( tscreen )->add_component( group = zif_tscreen_component=>c_component_tc component = me ).
 
   ENDMETHOD.
 ENDCLASS.

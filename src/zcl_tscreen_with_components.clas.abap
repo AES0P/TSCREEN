@@ -191,6 +191,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
 
   METHOD zif_tscreen~exit.
 
+    call_components_method( 'FREE' ).
     CLEAR: components.
 
     super->exit( ).

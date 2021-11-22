@@ -178,7 +178,7 @@ CLASS lcl_tscreen_11_v9000 IMPLEMENTATION.
         CHECK ekko-ebeln IS NOT INITIAL.
 
         get_data( ekko-ebeln ).
-        CAST lcl_tc_po_items( get_component( group = 'TC' id = 'TC_9000_01' ) )->get_data( ekko-ebeln ).
+        CAST lcl_tc_po_items( get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9000_01' ) )->get_data( ekko-ebeln ).
 
     ENDCASE.
   ENDMETHOD.
