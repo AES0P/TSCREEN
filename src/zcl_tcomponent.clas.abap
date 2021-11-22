@@ -1,47 +1,48 @@
-class ZCL_TCOMPONENT definition
-  public
-  abstract
-  create public .
+CLASS zcl_tcomponent DEFINITION
+  PUBLIC
+  ABSTRACT
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_TSCREEN_COMPONENT
-      abstract methods CHANGE_EDITABLE
-                       CHANGE_VISIBILITY
-                       SET_COMPONENT_ATTR_BY_SETTING
-      data values CALL_ATTR_METHOD_BY_PARENT = ABAP_TRUE
-                  VISIBILITY = ZIF_TSCREEN_COMPONENT=>C_COMPONENT_VISIBLE .
+    INTERFACES zif_tscreen_component
+      ABSTRACT METHODS change_editable
+      change_visibility
+      set_component_attr_by_setting
+      initialize_by_tscreen
+      DATA VALUES call_attr_method_by_parent = abap_true
+      visibility = zif_tscreen_component=>c_component_visible .
 
-  aliases CALL_ATTR_METHOD_BY_PARENT
-    for ZIF_TSCREEN_COMPONENT~CALL_ATTR_METHOD_BY_PARENT .
-  aliases CHANGE_EDITABLE
-    for ZIF_TSCREEN_COMPONENT~CHANGE_EDITABLE .
-  aliases CHANGE_VISIBILITY
-    for ZIF_TSCREEN_COMPONENT~CHANGE_VISIBILITY .
-  aliases C_COMPONENT_DISPLAY
-    for ZIF_TSCREEN_COMPONENT~C_COMPONENT_DISPLAY .
-  aliases C_COMPONENT_EDITABLE
-    for ZIF_TSCREEN_COMPONENT~C_COMPONENT_EDITABLE .
-  aliases C_COMPONENT_INVISIBLE
-    for ZIF_TSCREEN_COMPONENT~C_COMPONENT_INVISIBLE .
-  aliases C_COMPONENT_VISIBLE
-    for ZIF_TSCREEN_COMPONENT~C_COMPONENT_VISIBLE .
-  aliases DISPLAY_MODE
-    for ZIF_TSCREEN_COMPONENT~DISPLAY_MODE .
-  aliases GET_COMPONENT
-    for ZIF_TSCREEN_COMPONENT~GET_COMPONENT .
-  aliases ID
-    for ZIF_TSCREEN_COMPONENT~ID .
-  aliases SET_COMPONENT_ATTR_BY_SETTING
-    for ZIF_TSCREEN_COMPONENT~SET_COMPONENT_ATTR_BY_SETTING .
-  aliases VISIBILITY
-    for ZIF_TSCREEN_COMPONENT~VISIBILITY .
+    ALIASES call_attr_method_by_parent
+      FOR zif_tscreen_component~call_attr_method_by_parent .
+    ALIASES change_editable
+      FOR zif_tscreen_component~change_editable .
+    ALIASES change_visibility
+      FOR zif_tscreen_component~change_visibility .
+    ALIASES c_component_display
+      FOR zif_tscreen_component~c_component_display .
+    ALIASES c_component_editable
+      FOR zif_tscreen_component~c_component_editable .
+    ALIASES c_component_invisible
+      FOR zif_tscreen_component~c_component_invisible .
+    ALIASES c_component_visible
+      FOR zif_tscreen_component~c_component_visible .
+    ALIASES display_mode
+      FOR zif_tscreen_component~display_mode .
+    ALIASES get_component
+      FOR zif_tscreen_component~get_component .
+    ALIASES id
+      FOR zif_tscreen_component~id .
+    ALIASES set_component_attr_by_setting
+      FOR zif_tscreen_component~set_component_attr_by_setting .
+    ALIASES visibility
+      FOR zif_tscreen_component~visibility .
 
-  methods CONSTRUCTOR
-    importing
-      !ID type STRING optional
-    raising
-      CX_UUID_ERROR .
+    METHODS constructor
+      IMPORTING
+        !id TYPE string OPTIONAL
+      RAISING
+        cx_uuid_error .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.

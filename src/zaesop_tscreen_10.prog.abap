@@ -59,6 +59,9 @@ CLASS lcl_tscreen_10_v9000 DEFINITION CREATE PUBLIC
     METHODS pai REDEFINITION.
     METHODS pov REDEFINITION.
 
+  PROTECTED SECTION.
+    METHODS add_components REDEFINITION.
+
 ENDCLASS.
 
 *&---------------------------------------------------------------------*
@@ -80,21 +83,6 @@ CLASS lcl_prog IMPLEMENTATION.
     ENDCASE.
 
     CREATE OBJECT view TYPE (class_name).
-
-    "此处为屏幕添加控件对象
-    CASE sy-dynnr.
-      WHEN '9000'.
-        TRY.
-            NEW zcl_table_control( parent             = CAST zcl_tscreen( view )
-                                   tc_name            = 'TC_9000_01'
-                                   data_source        = 'PO_ITEMS'
-                                   data_wa            = 'PO_ITEM'
-                                   hide_empty_fields  = abap_true
-                                   ref_structure_name = 'ZSEKPO' ).
-          CATCH cx_uuid_error INTO DATA(lx_uuid_error).
-            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-        ENDTRY.
-    ENDCASE.
 
   ENDMETHOD.
 
@@ -126,6 +114,8 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( ).
     get_data( p_ebeln ).
+    "此处为屏幕添加控件对象
+    add_components( ).
   ENDMETHOD.
 
   METHOD get_data.
@@ -178,7 +168,7 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
           FROM ekko
           INTO TABLE @DATA(lt_ekko)
          UP TO '500' ROWS
-         ORDER BY ebeln.                                  "#EC CI_SUBRC #EC CI_NOWHERE
+         ORDER BY ebeln.                   "#EC CI_SUBRC #EC CI_NOWHERE
 
         ekko-ebeln = f4_event( key_field = 'EBELN' value_tab = lt_ekko ).
         CHECK ekko-ebeln IS NOT INITIAL.
@@ -188,6 +178,20 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD add_components.
+
+    TRY.
+        NEW zcl_table_control( parent             = CAST zcl_tscreen( me )
+                               tc_name            = 'TC_9000_01'
+                               data_source        = 'PO_ITEMS'
+                               data_wa            = 'PO_ITEM'
+                               hide_empty_fields  = abap_true
+                               ref_structure_name = 'ZSEKPO' ).
+      CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+        MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+    ENDTRY.
+
+  ENDMETHOD.
 
 ENDCLASS.
 

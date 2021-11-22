@@ -118,8 +118,7 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
         values          = vrm_values
       EXCEPTIONS
         id_illegal_name = 1
-        OTHERS          = 2.
-
+        OTHERS          = 2. "#EC CI_SUBRC
     IF sy-subrc <> 0 ##NEEDED.
     ENDIF.
 

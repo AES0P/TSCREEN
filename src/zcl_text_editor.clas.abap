@@ -125,7 +125,7 @@ CLASS ZCL_TEXT_EDITOR IMPLEMENTATION.
 *    "由控件自身负责处理配置表控制的实现
 *    call_attr_method_by_parent = abap_false.
 
-  ENDMETHOD.
+  ENDMETHOD.                                             "#EC CI_VALPAR
 
 
   METHOD free.

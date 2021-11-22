@@ -45,6 +45,8 @@ protected section.
 
   data COMPONENTS type TTY_COMPONENT .
 
+  methods ADD_COMPONENTS
+  abstract .
   methods CALL_COMPONENTS_METHOD
     importing
       !METHOD type SEOCPDKEY-CPDNAME .

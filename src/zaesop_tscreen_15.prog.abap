@@ -95,6 +95,9 @@ CLASS lcl_tscreen_15_v9002 DEFINITION CREATE PUBLIC
     METHODS constructor.
     METHODS pbo REDEFINITION.
 
+  PROTECTED SECTION.
+    METHODS add_components REDEFINITION.
+
 ENDCLASS.
 
 CLASS lcl_tscreen_15_v9003 DEFINITION CREATE PUBLIC
@@ -105,6 +108,9 @@ CLASS lcl_tscreen_15_v9003 DEFINITION CREATE PUBLIC
     METHODS constructor.
     METHODS pbo REDEFINITION.
 
+  PROTECTED SECTION.
+    METHODS add_components REDEFINITION.
+
 ENDCLASS.
 
 CLASS lcl_tscreen_15_v9004 DEFINITION CREATE PUBLIC
@@ -114,6 +120,9 @@ CLASS lcl_tscreen_15_v9004 DEFINITION CREATE PUBLIC
 
     METHODS constructor.
     METHODS pbo REDEFINITION.
+
+  PROTECTED SECTION.
+    METHODS add_components REDEFINITION.
 
 ENDCLASS.
 
@@ -195,28 +204,6 @@ CLASS lcl_prog IMPLEMENTATION.
 
     CREATE OBJECT view TYPE (class_name).
 
-    "此处为屏幕添加控件对象
-    CASE sy-dynnr.
-      WHEN '9002'.
-        TRY.
-            NEW lcl_tc_po_items( view ).
-          CATCH cx_uuid_error INTO DATA(lx_uuid_error).
-            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-        ENDTRY.
-      WHEN '9003'.
-        TRY.
-            NEW lcl_tc_po_plans( view ).
-          CATCH cx_uuid_error INTO lx_uuid_error.
-            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-        ENDTRY.
-      WHEN '9004'.
-        TRY.
-            NEW lcl_tc_po_histories( view ).
-          CATCH cx_uuid_error INTO lx_uuid_error.
-            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-        ENDTRY.
-    ENDCASE.
-
   ENDMETHOD.
 
   METHOD get_parent_screen.
@@ -249,11 +236,11 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 CLASS lcl_tscreen_15_v9000 IMPLEMENTATION.
 
-  ##NEEDED
   METHOD constructor.
     super->constructor( refresh_interval = '5' ).
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
@@ -329,10 +316,22 @@ CLASS lcl_tscreen_15_v9002 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
+    "此处为屏幕添加控件对象
+    add_components( ).
   ENDMETHOD.
 
   ##NEEDED
   METHOD pbo.
+  ENDMETHOD.
+
+  METHOD add_components.
+
+    TRY.
+        NEW lcl_tc_po_items( me ).
+      CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+        MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+    ENDTRY.
+
   ENDMETHOD.
 
 ENDCLASS.
@@ -344,10 +343,22 @@ CLASS lcl_tscreen_15_v9003 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
+    "此处为屏幕添加控件对象
+    add_components( ).
   ENDMETHOD.
 
   ##NEEDED
   METHOD pbo.
+  ENDMETHOD.
+
+  METHOD add_components.
+
+    TRY.
+        NEW lcl_tc_po_plans( me ).
+      CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+        MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+    ENDTRY.
+
   ENDMETHOD.
 
 ENDCLASS.
@@ -359,10 +370,22 @@ CLASS lcl_tscreen_15_v9004 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = lcl_prog=>get_parent_screen( sy-dynnr ) ).
+    "此处为屏幕添加控件对象
+    add_components( ).
   ENDMETHOD.
 
   ##NEEDED
   METHOD pbo.
+  ENDMETHOD.
+
+  METHOD add_components.
+
+    TRY.
+        NEW lcl_tc_po_histories( me ).
+      CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+        MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+    ENDTRY.
+
   ENDMETHOD.
 
 ENDCLASS.
@@ -500,7 +523,7 @@ CLASS lcl_tc_po_plans IMPLEMENTATION.
 
   METHOD get_data.
 
-    SELECT *
+    SELECT * "#EC CI_ALL_FIELDS_NEEDED
       FROM eket
       INTO CORRESPONDING FIELDS OF TABLE po_plans
      WHERE ebeln = ebeln
@@ -529,7 +552,7 @@ CLASS lcl_tc_po_histories IMPLEMENTATION.
 
   METHOD get_data.
 
-    SELECT *
+    SELECT * "#EC CI_ALL_FIELDS_NEEDED
       FROM ekbe
       INTO CORRESPONDING FIELDS OF TABLE po_histories
      WHERE ebeln = ebeln

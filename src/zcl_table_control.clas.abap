@@ -643,7 +643,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
           no_entry_or_page_act  = 1
           no_entry_to           = 2
           no_ok_code_or_page_go = 3
-          OTHERS                = 0.
+          OTHERS                = 0."#EC CI_SUBRC
       IF sy-subrc = 0.
       ENDIF.
 
@@ -808,7 +808,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
           dd27p_tab_a    = dd27pt
         EXCEPTIONS
           access_failure = 1
-          OTHERS         = 2.
+          OTHERS         = 2."#EC CI_SUBRC
       IF sy-subrc <> 0.
 * Implement suitable error handling here
       ENDIF.
@@ -1476,7 +1476,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   METHOD set_column.
 
     FIELD-SYMBOLS <tc_column> TYPE scxtab_column.
-    READ TABLE tc->*-cols ASSIGNING <tc_column> WITH KEY screen-name = column_name.
+    READ TABLE tc->*-cols ASSIGNING <tc_column> WITH KEY screen-name = column_name."#EC CI_STDSEQ
     IF sy-subrc = 0.
       <tc_column> = tc_column.
     ENDIF.

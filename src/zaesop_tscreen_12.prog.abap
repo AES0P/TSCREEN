@@ -57,6 +57,9 @@ CLASS lcl_tscreen_12_v9000 DEFINITION CREATE PUBLIC
     METHODS pai REDEFINITION.
     METHODS pov REDEFINITION.
 
+  PROTECTED SECTION.
+    METHODS add_components REDEFINITION.
+
 ENDCLASS.
 
 
@@ -101,16 +104,6 @@ CLASS lcl_prog IMPLEMENTATION.
 
     CREATE OBJECT view TYPE (class_name).
 
-    "此处为屏幕添加控件对象
-    CASE sy-dynnr.
-      WHEN '9000'.
-        TRY.
-            NEW lcl_tc_po_items( view ).
-          CATCH cx_uuid_error INTO DATA(lx_uuid_error).
-            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-        ENDTRY.
-    ENDCASE.
-
   ENDMETHOD.
 
   METHOD show.
@@ -127,6 +120,8 @@ CLASS lcl_tscreen_12_v9000 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( ).
     get_data( p_ebeln ).
+    "此处为屏幕添加控件对象
+    add_components( ).
   ENDMETHOD.
 
   METHOD get_data.
@@ -177,6 +172,15 @@ CLASS lcl_tscreen_12_v9000 IMPLEMENTATION.
     ENDCASE.
   ENDMETHOD.
 
+  METHOD add_components.
+
+    TRY.
+        NEW lcl_tc_po_items( me ).
+      CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+        MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+    ENDTRY.
+
+  ENDMETHOD.
 
 ENDCLASS.
 

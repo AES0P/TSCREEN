@@ -14,7 +14,7 @@ CLASS zcl_text_editor_tool DEFINITION
         VALUE(length_content)       TYPE i OPTIONAL
         VALUE(style)                TYPE i OPTIONAL
         !wordwrap_mode              TYPE i DEFAULT cl_gui_textedit=>wordwrap_at_fixed_position
-        !length_line                TYPE i DEFAULT 132
+        !length_line                TYPE i DEFAULT '132'
         !wordwrap_to_linebreak_mode TYPE i DEFAULT cl_gui_textedit=>false
         !filedrop_mode              TYPE i OPTIONAL
         VALUE(lifetime)             TYPE i OPTIONAL
@@ -57,5 +57,5 @@ CLASS ZCL_TEXT_EDITOR_TOOL IMPLEMENTATION.
 
     editor = instance.
 
-  ENDMETHOD.
+  ENDMETHOD."#EC CI_VALPAR
 ENDCLASS.
