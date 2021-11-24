@@ -859,14 +859,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_DDIC</NAME>
-       <TEXT>_____________________________________________________________________________</TEXT>
+       <TEXT>___________________________________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
        <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>009</COLUMN>
-       <LENGTH>090</LENGTH>
+       <LENGTH>120</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -999,14 +999,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_COVT</NAME>
-       <TEXT>____________________________________</TEXT>
+       <TEXT>___________________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>046</COLUMN>
-       <LENGTH>046</LENGTH>
+       <LENGTH>061</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -1036,12 +1036,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_SORT_DOWN</NAME>
-       <TEXT>降序__________________________________________________________________</TEXT>
+       <TEXT>降序____________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>056</COLUMN>
-       <LENGTH>073</LENGTH>
+       <LENGTH>083</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -1225,10 +1225,25 @@
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9002_01</CONT_NAME>
        <TYPE>TEXT</TYPE>
+       <NAME>#MAKTX</NAME>
+       <TEXT>长文本___</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>005</COLUMN>
+       <LENGTH>006</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <TC_HEADING>X</TC_HEADING>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TC_9002_01</CONT_NAME>
+       <TYPE>TEXT</TYPE>
        <NAME>PO_ITEM-MENGE</NAME>
        <TEXT>数量__</TEXT>
        <LINE>001</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>006</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>017</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1243,7 +1258,7 @@
        <NAME>PO_ITEM-MEINS</NAME>
        <TEXT>基本单位____</TEXT>
        <LINE>001</LINE>
-       <COLUMN>006</COLUMN>
+       <COLUMN>007</COLUMN>
        <LENGTH>008</LENGTH>
        <VISLENGTH>011</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1258,7 +1273,7 @@
        <NAME>PO_ITEM-BSTME</NAME>
        <TEXT>采购单位____</TEXT>
        <LINE>001</LINE>
-       <COLUMN>007</COLUMN>
+       <COLUMN>008</COLUMN>
        <LENGTH>008</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1273,7 +1288,7 @@
        <NAME>PO_ITEM-MWSKZ</NAME>
        <TEXT>税码__</TEXT>
        <LINE>001</LINE>
-       <COLUMN>008</COLUMN>
+       <COLUMN>009</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>005</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1288,7 +1303,7 @@
        <NAME>PO_ITEM-RETPO</NAME>
        <TEXT>退货项目____</TEXT>
        <LINE>001</LINE>
-       <COLUMN>009</COLUMN>
+       <COLUMN>010</COLUMN>
        <LENGTH>008</LENGTH>
        <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1303,7 +1318,7 @@
        <NAME>PO_ITEM-CHARG</NAME>
        <TEXT>批次__</TEXT>
        <LINE>001</LINE>
-       <COLUMN>010</COLUMN>
+       <COLUMN>011</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1318,7 +1333,7 @@
        <NAME>*PO_ITEM-ELIKZ</NAME>
        <TEXT>删除标识____</TEXT>
        <LINE>001</LINE>
-       <COLUMN>011</COLUMN>
+       <COLUMN>012</COLUMN>
        <LENGTH>008</LENGTH>
        <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1352,8 +1367,9 @@
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
-       <INPUT_FLD>X</INPUT_FLD>
        <OUTPUT_FLD>X</OUTPUT_FLD>
+       <OUTPUTONLY>X</OUTPUTONLY>
+       <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
@@ -1368,8 +1384,9 @@
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCI</GROUP4>
        <FORMAT>NUMC</FORMAT>
-       <INPUT_FLD>X</INPUT_FLD>
        <OUTPUT_FLD>X</OUTPUT_FLD>
+       <OUTPUTONLY>X</OUTPUTONLY>
+       <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
@@ -1399,8 +1416,24 @@
        <VISLENGTH>040</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
-       <INPUT_FLD>X</INPUT_FLD>
        <OUTPUT_FLD>X</OUTPUT_FLD>
+       <OUTPUTONLY>X</OUTPUTONLY>
+       <REQU_ENTRY>N</REQU_ENTRY>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
+       <CONT_NAME>TC_9002_01</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>TC_9002_01_MAKTX</NAME>
+       <TEXT>编辑______</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>005</COLUMN>
+       <LENGTH>008</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9002_01_MAKTX</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
@@ -1409,7 +1442,7 @@
        <NAME>PO_ITEM-MENGE</NAME>
        <TEXT>_________________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>006</COLUMN>
        <LENGTH>017</LENGTH>
        <VISLENGTH>017</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1424,7 +1457,7 @@
        <NAME>PO_ITEM-MEINS</NAME>
        <TEXT>___</TEXT>
        <LINE>001</LINE>
-       <COLUMN>006</COLUMN>
+       <COLUMN>007</COLUMN>
        <LENGTH>003</LENGTH>
        <VISLENGTH>011</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1439,7 +1472,7 @@
        <NAME>PO_ITEM-BSTME</NAME>
        <TEXT>___</TEXT>
        <LINE>001</LINE>
-       <COLUMN>007</COLUMN>
+       <COLUMN>008</COLUMN>
        <LENGTH>003</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1454,7 +1487,7 @@
        <NAME>PO_ITEM-MWSKZ</NAME>
        <TEXT>___</TEXT>
        <LINE>001</LINE>
-       <COLUMN>008</COLUMN>
+       <COLUMN>009</COLUMN>
        <LENGTH>003</LENGTH>
        <VISLENGTH>005</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1469,7 +1502,7 @@
        <NAME>PO_ITEM-RETPO</NAME>
        <TEXT>_</TEXT>
        <LINE>001</LINE>
-       <COLUMN>009</COLUMN>
+       <COLUMN>010</COLUMN>
        <LENGTH>001</LENGTH>
        <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1484,7 +1517,7 @@
        <NAME>PO_ITEM-CHARG</NAME>
        <TEXT>__________</TEXT>
        <LINE>001</LINE>
-       <COLUMN>010</COLUMN>
+       <COLUMN>011</COLUMN>
        <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -1498,7 +1531,7 @@
        <TYPE>CHECK</TYPE>
        <NAME>PO_ITEM-ELIKZ</NAME>
        <LINE>001</LINE>
-       <COLUMN>011</COLUMN>
+       <COLUMN>012</COLUMN>
        <LENGTH>001</LENGTH>
        <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -4010,12 +4043,28 @@
       <FUN_TEXT>显示/修改</FUN_TEXT>
      </RSMPE_FUNT>
      <RSMPE_FUNT>
+      <CODE>LEAVE</CODE>
+      <TEXTNO>001</TEXTNO>
+      <TEXT_TYPE>S</TEXT_TYPE>
+      <TEXT_NAME>ICON_CANCEL</TEXT_NAME>
+      <ICON_ID>@0W@</ICON_ID>
+      <FUN_TEXT>取消</FUN_TEXT>
+     </RSMPE_FUNT>
+     <RSMPE_FUNT>
       <CODE>SAVE</CODE>
       <TEXTNO>001</TEXTNO>
       <TEXT_TYPE>S</TEXT_TYPE>
       <TEXT_NAME>ICON_SYSTEM_SAVE</TEXT_NAME>
       <ICON_ID>@2L@</ICON_ID>
       <FUN_TEXT>保存</FUN_TEXT>
+     </RSMPE_FUNT>
+     <RSMPE_FUNT>
+      <CODE>TC_9002_01_LEAVE</CODE>
+      <TEXTNO>001</TEXTNO>
+      <TEXT_TYPE>S</TEXT_TYPE>
+      <TEXT_NAME>ICON_CANCEL</TEXT_NAME>
+      <ICON_ID>@0W@</ICON_ID>
+      <FUN_TEXT>取消</FUN_TEXT>
      </RSMPE_FUNT>
      <RSMPE_FUNT>
       <CODE>TEST_HIDE</CODE>
@@ -4099,7 +4148,15 @@
      </RSMPE_STAF>
      <RSMPE_STAF>
       <STATUS>9000</STATUS>
+      <FUNCTION>LEAVE</FUNCTION>
+     </RSMPE_STAF>
+     <RSMPE_STAF>
+      <STATUS>9000</STATUS>
       <FUNCTION>SAVE</FUNCTION>
+     </RSMPE_STAF>
+     <RSMPE_STAF>
+      <STATUS>9000</STATUS>
+      <FUNCTION>TC_9002_01_LEAVE</FUNCTION>
      </RSMPE_STAF>
      <RSMPE_STAF>
       <STATUS>9000</STATUS>

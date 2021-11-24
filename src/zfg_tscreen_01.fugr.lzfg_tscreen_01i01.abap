@@ -14,9 +14,9 @@ MODULE check_repeat INPUT.
     MESSAGE 'PF-STATUS控件只能按单独场景配置生效,不支持通用设置' TYPE 'E'.
   ENDIF.
 
-  SELECT SINGLE @abap_false
+  SELECT SINGLE @abap_false ##NEEDED
     FROM ztdynpro_attr
-    INTO @DATA(lv_is)
+    INTO @DATA(lv_is) ##NEEDED
    WHERE cprog      = @ztdynpro_attr-cprog
      AND dynnr      = @ztdynpro_attr-dynnr
      AND tc_name    = @ztdynpro_attr-tc_name
@@ -46,6 +46,7 @@ ENDMODULE.
 *----------------------------------------------------------------------*
 MODULE set_input INPUT.
 
+  ##NEEDED  ##DECL_MODUL
   DATA field TYPE string.
   GET CURSOR FIELD field.
 

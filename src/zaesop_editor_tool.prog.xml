@@ -10,70 +10,11 @@
     <FIXPT>X</FIXPT>
     <UCCHECK>X</UCCHECK>
    </PROGDIR>
-   <DYNPROS>
-    <item>
-     <HEADER>
-      <PROGRAM>ZAESOP_EDITOR_TOOL</PROGRAM>
-      <SCREEN>9000</SCREEN>
-      <LANGUAGE>1</LANGUAGE>
-      <DESCRIPT>90</DESCRIPT>
-      <TYPE>N</TYPE>
-      <NEXTSCREEN>9000</NEXTSCREEN>
-      <LINES>027</LINES>
-      <COLUMNS>120</COLUMNS>
-     </HEADER>
-     <CONTAINERS>
-      <RPY_DYCATT>
-       <TYPE>SCREEN</TYPE>
-       <NAME>SCREEN</NAME>
-      </RPY_DYCATT>
-     </CONTAINERS>
-     <FIELDS>
-      <RPY_DYFATC>
-       <CONT_TYPE>SCREEN</CONT_TYPE>
-       <CONT_NAME>SCREEN</CONT_NAME>
-       <TYPE>OKCODE</TYPE>
-       <NAME>OK_CODE</NAME>
-       <TEXT>____________________</TEXT>
-       <LENGTH>020</LENGTH>
-       <VISLENGTH>020</VISLENGTH>
-       <HEIGHT>001</HEIGHT>
-       <FORMAT>CHAR</FORMAT>
-       <INPUT_FLD>X</INPUT_FLD>
-      </RPY_DYFATC>
-     </FIELDS>
-     <FLOW_LOGIC>
-      <RPY_DYFLOW>
-       <LINE>PROCESS BEFORE OUTPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE status_9000.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW/>
-      <RPY_DYFLOW>
-       <LINE>PROCESS AFTER INPUT.</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
-       <LINE>  MODULE user_command_9000.</LINE>
-      </RPY_DYFLOW>
-     </FLOW_LOGIC>
-    </item>
-   </DYNPROS>
    <CUA>
     <ADM>
      <ACTCODE>000001</ACTCODE>
      <PFKCODE>000001</PFKCODE>
     </ADM>
-    <STA>
-     <RSMPE_STAT>
-      <CODE>9000</CODE>
-      <MODAL>D</MODAL>
-      <ACTCODE>000001</ACTCODE>
-      <PFKCODE>000001</PFKCODE>
-      <BUTCODE>0001</BUTCODE>
-      <INT_NOTE>9000</INT_NOTE>
-     </RSMPE_STAT>
-    </STA>
     <FUN>
      <RSMPE_FUNT>
       <CODE>/00</CODE>
@@ -167,24 +108,6 @@
       <FUNNO>003</FUNNO>
      </RSMPE_PFK>
     </PFK>
-    <SET>
-     <RSMPE_STAF>
-      <STATUS>9000</STATUS>
-      <FUNCTION>/00</FUNCTION>
-     </RSMPE_STAF>
-     <RSMPE_STAF>
-      <STATUS>9000</STATUS>
-      <FUNCTION>BACK</FUNCTION>
-     </RSMPE_STAF>
-     <RSMPE_STAF>
-      <STATUS>9000</STATUS>
-      <FUNCTION>DIS_MODE</FUNCTION>
-     </RSMPE_STAF>
-     <RSMPE_STAF>
-      <STATUS>9000</STATUS>
-      <FUNCTION>SAVE</FUNCTION>
-     </RSMPE_STAF>
-    </SET>
     <DOC>
      <RSMPE_ATRT>
       <OBJ_TYPE>A</OBJ_TYPE>

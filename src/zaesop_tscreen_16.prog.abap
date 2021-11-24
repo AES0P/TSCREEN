@@ -145,6 +145,8 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
       IMPORTING
         ebeln TYPE ekko-ebeln.
 
+    METHODS user_command_extend REDEFINITION.
+
     METHODS pai_tc_line REDEFINITION.
     METHODS pov REDEFINITION.
 
@@ -458,6 +460,34 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD user_command_extend .
+
+    CASE ucomm.
+      WHEN 'MAKTX'.
+
+        ASSIGN po_items[ get_current_line( ) ]-maktx TO FIELD-SYMBOL(<maktx>).
+
+        TRY.
+            CALL FUNCTION 'ZFM_GBC_TEXT_EDITOR'
+              EXPORTING
+                io_editor   = zcl_text_editor_tool=>get_instance( )->set_status_text( title = '物料描述' text = 'PO_ITEMS[ GET_CURRENT_LINE( ) ]-MAKTX'
+                                                                  )->set_statusbar_mode( 1
+                                                                  )->set_toolbar_mode( 1 )
+                iv_readonly = parent->display_mode
+              CHANGING
+                text        = <maktx>.
+
+          CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+            MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+          CATCH zcx_tscreen INTO DATA(lx_tscreen).
+            MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+        ENDTRY.
+
+      WHEN OTHERS.
+    ENDCASE.
+
+  ENDMETHOD.
+
   METHOD pai_tc_line .
 
     SELECT SINGLE maktx
@@ -562,7 +592,7 @@ CLASS lcl_tc_po_plans IMPLEMENTATION.
 
   METHOD get_data.
 
-    SELECT * "#EC CI_ALL_FIELDS_NEEDED
+    SELECT *                                  "#EC CI_ALL_FIELDS_NEEDED
       FROM eket
       INTO CORRESPONDING FIELDS OF TABLE po_plans
      WHERE ebeln = ebeln
@@ -591,7 +621,7 @@ CLASS lcl_tc_po_histories IMPLEMENTATION.
 
   METHOD get_data.
 
-    SELECT * "#EC CI_ALL_FIELDS_NEEDED
+    SELECT *                                  "#EC CI_ALL_FIELDS_NEEDED
       FROM ekbe
       INTO CORRESPONDING FIELDS OF TABLE po_histories
      WHERE ebeln = ebeln
