@@ -133,7 +133,7 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>示例脱离TSCREEN框架后单独使用EDITOR TOOL</ENTRY>
+     <ENTRY>示例脱离TSCREEN框架后单独使用TEXT EDITOR</ENTRY>
      <LENGTH>30</LENGTH>
     </item>
    </TPOOL>

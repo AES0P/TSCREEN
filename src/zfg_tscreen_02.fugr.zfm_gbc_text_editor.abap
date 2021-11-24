@@ -3,7 +3,7 @@ FUNCTION zfm_gbc_text_editor.
 *"*"本地接口：
 *"  IMPORTING
 *"     REFERENCE(IO_EDITOR) TYPE REF TO  ZIF_TEXT_EDITOR
-*"     REFERENCE(IV_READONLY) TYPE  XFELD
+*"     REFERENCE(IV_READONLY) TYPE  XFELD OPTIONAL
 *"  CHANGING
 *"     REFERENCE(TEXT) TYPE  ANY
 *"----------------------------------------------------------------------

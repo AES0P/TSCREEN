@@ -22,6 +22,7 @@
       </RSIMP>
       <RSIMP>
        <PARAMETER>IV_READONLY</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
        <REFERENCE>X</REFERENCE>
        <TYP>XFELD</TYP>
       </RSIMP>

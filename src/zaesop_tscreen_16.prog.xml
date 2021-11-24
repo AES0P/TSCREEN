@@ -4188,8 +4188,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>TREPORT &amp; TSCREEN (1:1:n) TABLE CONTROL TAB</ENTRY>
-     <LENGTH>43</LENGTH>
+     <ENTRY>TREPORT &amp; TSCREEN (1:1:n) TABLE CONTROL EDITOR TAB</ENTRY>
+     <LENGTH>50</LENGTH>
     </item>
     <item>
      <ID>S</ID>
