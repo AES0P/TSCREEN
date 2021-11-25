@@ -398,7 +398,7 @@
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
-       <VISLENGTH>011</VISLENGTH>
+       <VISLENGTH>012</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -415,7 +415,7 @@
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
-       <VISLENGTH>005</VISLENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -449,7 +449,7 @@
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
        <LENGTH>040</LENGTH>
-       <VISLENGTH>045</VISLENGTH>
+       <VISLENGTH>030</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
@@ -479,10 +479,10 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-XOBLG</NAME>
-       <TEXT>必输___________________________________</TEXT>
+       <TEXT>必输_______________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>007</COLUMN>
-       <LENGTH>037</LENGTH>
+       <LENGTH>033</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
@@ -496,10 +496,10 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-XOPTN</NAME>
-       <TEXT>可选__________________________________</TEXT>
+       <TEXT>可选________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>008</COLUMN>
-       <LENGTH>036</LENGTH>
+       <LENGTH>026</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
@@ -513,10 +513,10 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-XNODI</NAME>
-       <TEXT>隐藏_____________________________</TEXT>
+       <TEXT>隐藏_________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>009</COLUMN>
-       <LENGTH>031</LENGTH>
+       <LENGTH>035</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
@@ -530,10 +530,10 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-XDISP</NAME>
-       <TEXT>仅显示___</TEXT>
+       <TEXT>仅显示________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>010</COLUMN>
-       <LENGTH>006</LENGTH>
+       <LENGTH>035</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
@@ -583,7 +583,7 @@
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>004</LENGTH>
-       <VISLENGTH>011</VISLENGTH>
+       <VISLENGTH>012</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>KEY</GROUP1>
        <FORMAT>CHAR</FORMAT>
@@ -601,7 +601,7 @@
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>003</LENGTH>
-       <VISLENGTH>005</VISLENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>KEY</GROUP1>
        <FORMAT>CHAR</FORMAT>
@@ -638,7 +638,7 @@
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
        <LENGTH>057</LENGTH>
-       <VISLENGTH>045</VISLENGTH>
+       <VISLENGTH>030</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>KEY</GROUP1>
        <FORMAT>CHAR</FORMAT>
@@ -665,6 +665,7 @@
        <MODIFIC>X</MODIFIC>
        <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <POSS_ENTRY>1</POSS_ENTRY>
        <DICT_I_VAL>X</DICT_I_VAL>
       </RPY_DYFATC>
       <RPY_DYFATC>
@@ -777,12 +778,11 @@
       <RPY_DYFLOW>
        <LINE>    MODULE liste_init_workarea.</LINE>
       </RPY_DYFLOW>
-      <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>    CHAIN.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>      FIELD ztdynpro_attr-xoblg .</LINE>
+       <LINE>      FIELD ztdynpro_attr-xoblg.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>      FIELD ztdynpro_attr-xoptn.</LINE>
@@ -799,7 +799,6 @@
       <RPY_DYFLOW>
        <LINE>    ENDCHAIN.</LINE>
       </RPY_DYFLOW>
-      <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>    CHAIN.</LINE>
       </RPY_DYFLOW>
@@ -810,9 +809,6 @@
        <LINE>      FIELD ztdynpro_attr-dynnr .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>      FIELD ztdynpro_attr-zmode .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
        <LINE>      FIELD ztdynpro_attr-group_name .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
@@ -820,6 +816,9 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>      FIELD ztdynpro_attr-name .</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>      FIELD ztdynpro_attr-zmode .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>      FIELD ztdynpro_attr-xoblg .</LINE>
@@ -855,9 +854,6 @@
        <LINE>      FIELD ztdynpro_attr-dynnr .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
-       <LINE>      FIELD ztdynpro_attr-zmode .</LINE>
-      </RPY_DYFLOW>
-      <RPY_DYFLOW>
        <LINE>      FIELD ztdynpro_attr-group_name .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
@@ -867,16 +863,17 @@
        <LINE>      FIELD ztdynpro_attr-name .</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
+       <LINE>      FIELD ztdynpro_attr-zmode .</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
        <LINE>      MODULE liste_update_liste.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>      MODULE check_repeat ON CHAIN-REQUEST.</LINE>
       </RPY_DYFLOW>
-      <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>    ENDCHAIN.</LINE>
       </RPY_DYFLOW>
-      <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>  ENDLOOP.</LINE>
       </RPY_DYFLOW>

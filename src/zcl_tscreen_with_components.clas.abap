@@ -65,7 +65,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
 
   METHOD add_component.
 
-    IF NOT line_exists( components[ group = group ] )."#EC CI_STDSEQ
+    IF NOT line_exists( components[ group = group ] ).   "#EC CI_STDSEQ
       FIELD-SYMBOLS <component> TYPE ty_component.
       APPEND INITIAL LINE TO components ASSIGNING <component>.
       <component>-group      = group.
@@ -78,7 +78,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
     READ TABLE components ASSIGNING <component> WITH KEY group = group BINARY SEARCH.
     ASSERT sy-subrc = 0.
 
-    <component>-counts += 1.
+    ADD 1 TO <component>-counts.
     <component>-components->add( component ).
 
   ENDMETHOD.

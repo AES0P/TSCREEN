@@ -5,8 +5,8 @@ class ZCX_TSCREEN definition
 
 public section.
 
-  interfaces IF_T100_DYN_MSG .
   interfaces IF_T100_MESSAGE .
+  interfaces IF_T100_DYN_MSG .
 
   class-data ERROR type STRING .
   data SYST_AT_RAISE type SYST .

@@ -51,7 +51,7 @@ public section.
     importing
       !SOURCE type ANY
     changing
-      value(TARGET) type ANY
+      !TARGET type ANY
     raising
       ZCX_TSCREEN .
   methods GET_SCREEN_UTIL

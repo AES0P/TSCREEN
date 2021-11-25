@@ -859,14 +859,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_DDIC</NAME>
-       <TEXT>___________________________________________________________________________________________________________</TEXT>
+       <TEXT>_______________________________________________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
        <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>009</COLUMN>
-       <LENGTH>120</LENGTH>
+       <LENGTH>132</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -999,14 +999,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_COVT</NAME>
-       <TEXT>___________________________________________________</TEXT>
+       <TEXT>_________________________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>046</COLUMN>
-       <LENGTH>061</LENGTH>
+       <LENGTH>067</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -1036,12 +1036,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_SORT_DOWN</NAME>
-       <TEXT>降序____________________________________________________________________________</TEXT>
+       <TEXT>降序________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>056</COLUMN>
-       <LENGTH>083</LENGTH>
+       <LENGTH>087</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -1230,7 +1230,7 @@
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
        <LENGTH>006</LENGTH>
-       <VISLENGTH>008</VISLENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
@@ -1425,11 +1425,15 @@
        <CONT_NAME>TC_9002_01</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_MAKTX</NAME>
-       <TEXT>编辑______</TEXT>
+       <TEXT>_________________</TEXT>
+       <ICON_NAME>ICON_FAST_ENTRY</ICON_NAME>
+       <ICON_QINFO>编辑</ICON_QINFO>
+       <ICON_QSPEC>X</ICON_QSPEC>
+       <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
-       <LENGTH>008</LENGTH>
-       <VISLENGTH>008</VISLENGTH>
+       <LENGTH>026</LENGTH>
+       <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <PUSH_FCODE>TC_9002_01_MAKTX</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>

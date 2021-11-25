@@ -466,6 +466,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
       WHEN 'MAKTX'.
 
         ASSIGN po_items[ get_current_line( ) ]-maktx TO FIELD-SYMBOL(<maktx>).
+        CHECK sy-subrc = 0.
 
         TRY.
             CALL FUNCTION 'ZFM_GBC_TEXT_EDITOR'
