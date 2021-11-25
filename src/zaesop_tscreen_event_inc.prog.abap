@@ -54,6 +54,7 @@ AT SELECTION-SCREEN.
     CATCH zcx_tscreen INTO gx_tscreen.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
+
 *&---------------------------------------------------------------------*
 *&　　　　END-OF-SELECTION
 *&---------------------------------------------------------------------*
@@ -110,6 +111,7 @@ MODULE exit INPUT.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
 ENDMODULE.
+
 *&---------------------------------------------------------------------*
 *&      Module  PAI  INPUT
 *&---------------------------------------------------------------------*

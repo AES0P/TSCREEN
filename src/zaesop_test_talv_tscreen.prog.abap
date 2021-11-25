@@ -6,6 +6,11 @@
 REPORT zaesop_test_talv_tscreen.
 
 *&---------------------------------------------------------------------*
+*&    TYPE-POOLS
+*&---------------------------------------------------------------------*
+TYPE-POOLS vrm.
+
+*&---------------------------------------------------------------------*
 *&　　　　TABLES
 *&---------------------------------------------------------------------*
 TABLES ekko.
@@ -67,10 +72,40 @@ CLASS lcl_tscreen_03_v9001 DEFINITION CREATE PUBLIC
     METHODS pbo REDEFINITION.
     METHODS pai REDEFINITION.
 
+    METHODS fill_listbox.
+
   PROTECTED SECTION.
     METHODS add_components REDEFINITION.
 
 ENDCLASS.
+
+CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
+  INHERITING FROM zcl_table_control FINAL.
+
+  PUBLIC SECTION.
+
+    METHODS constructor
+      IMPORTING
+        tscreen TYPE REF TO zif_tscreen
+      RAISING
+        cx_uuid_error.
+
+    METHODS get_data
+      IMPORTING
+        ebeln TYPE ekko-ebeln.
+
+    METHODS user_command_extend REDEFINITION.
+
+    METHODS pai_tc_line REDEFINITION.
+    METHODS pbo_tc_line REDEFINITION.
+    METHODS poh REDEFINITION.
+    METHODS pov REDEFINITION.
+
+    METHODS is_line_insert REDEFINITION.
+    METHODS is_deletion_confirmed REDEFINITION.
+
+ENDCLASS.
+
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
@@ -176,21 +211,57 @@ CLASS lcl_tscreen_03_v9001 IMPLEMENTATION.
       INTO CORRESPONDING FIELDS OF ekko
      WHERE ebeln = lcl_prog=>ebeln.                       "#EC CI_SUBRC
 
-    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
-    SELECT * ##TOO_MANY_ITAB_FIELDS
-      FROM ekpo
-      LEFT JOIN makt
-        ON ekpo~matnr = makt~matnr
-       AND makt~spras = sy-langu
-      INTO CORRESPONDING FIELDS OF TABLE po_items
-     WHERE ebeln = lcl_prog=>ebeln
-     ORDER BY ebelp.                                      "#EC CI_SUBRC
     "此处为屏幕添加控件对象
     add_components( ).
+    display_mode = zcl_tscreen=>display_mode_modify.
+
+    "下拉框处理
+    fill_listbox( ).
   ENDMETHOD.
 
   ##NEEDED
   METHOD pbo.
+  ENDMETHOD.
+
+  METHOD fill_listbox.
+
+    "凭证类型
+    SELECT *
+      FROM t161t
+      BYPASSING BUFFER
+      INTO TABLE @DATA(lt_t161t)
+      UP TO '50' ROWS
+     WHERE spras = @sy-langu
+     ORDER BY bsart, bstyp.
+    IF sy-subrc = 0.
+
+      DATA vrm_values TYPE vrm_values.
+      LOOP AT lt_t161t ASSIGNING FIELD-SYMBOL(<ls_t161t>).
+        APPEND VALUE vrm_value( key = <ls_t161t>-bsart text = <ls_t161t>-batxt ) TO vrm_values.
+      ENDLOOP.
+
+      screen_util->set_listbox( vrm_id = 'EKKO-BSART' vrm_values = vrm_values ).
+
+    ENDIF.
+
+    "公司代码
+    "凭证类型
+    SELECT bukrs, butxt
+      FROM t001
+      INTO TABLE @DATA(lt_t001)
+      UP TO '50' ROWS
+     ORDER BY bukrs.
+    IF sy-subrc = 0.
+
+      CLEAR vrm_values.
+      LOOP AT lt_t001 ASSIGNING FIELD-SYMBOL(<ls_t001>).
+        APPEND VALUE vrm_value( key = <ls_t001>-bukrs text = <ls_t001>-butxt ) TO vrm_values.
+      ENDLOOP.
+
+      screen_util->set_listbox( vrm_id = 'EKKO-BUKRS' vrm_values = vrm_values ).
+
+    ENDIF.
+
   ENDMETHOD.
 
   METHOD pai.
@@ -208,14 +279,156 @@ CLASS lcl_tscreen_03_v9001 IMPLEMENTATION.
   METHOD add_components.
 
     TRY.
-        NEW zcl_table_control( parent             = CAST zcl_tscreen( me )
-                               tc_name            = 'TC_9001_01'
-                               data_source        = 'PO_ITEMS'
-                               data_wa            = 'PO_ITEM'
-                               ref_structure_name = 'ZSEKPO' ).
+        NEW lcl_tc_po_items( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
+
+  ENDMETHOD.
+
+ENDCLASS.
+
+
+*&---------------------------------------------------------------------*
+*&　　　　CLASS IMPLEMENTATION
+*&---------------------------------------------------------------------*
+CLASS lcl_tc_po_items IMPLEMENTATION.
+
+  METHOD constructor.
+    super->constructor( parent             = CAST zcl_tscreen( tscreen )
+                        tc_name            = 'TC_9001_01'
+                        data_source        = 'PO_ITEMS'
+                        data_wa            = 'PO_ITEM'
+                        ref_structure_name = 'ZSEKPO' ).
+
+    get_data( lcl_prog=>ebeln ).
+  ENDMETHOD.
+
+  METHOD get_data.
+    ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
+    SELECT * ##TOO_MANY_ITAB_FIELDS
+      FROM ekpo
+      LEFT JOIN makt
+        ON ekpo~matnr = makt~matnr
+       AND makt~spras = sy-langu
+      INTO CORRESPONDING FIELDS OF TABLE po_items
+     WHERE ebeln = ebeln
+     ORDER BY ebelp.                                      "#EC CI_SUBRC
+
+  ENDMETHOD.
+
+  METHOD user_command_extend .
+
+    CASE ucomm.
+      WHEN 'PO_ITEM-MATNR'."双击事件
+
+        screen_util->call_transaction( tcode = 'MM03' value = parent->cursor_filed_value ).
+
+      WHEN 'ELIKZ'.
+        MESSAGE '点击了删除标识' TYPE 'S'.
+      WHEN OTHERS.
+    ENDCASE.
+
+  ENDMETHOD.
+
+  METHOD pai_tc_line .
+
+    SELECT SINGLE maktx
+      FROM makt
+      INTO po_item-maktx
+     WHERE matnr = po_item-matnr
+       AND spras = sy-langu.                              "#EC CI_SUBRC
+
+    super->pai_tc_line( ).
+
+  ENDMETHOD.
+
+  METHOD pbo_tc_line .
+
+    super->pbo_tc_line( ).
+
+    CHECK parent->display_mode = zcl_tscreen=>display_mode_modify."修改模式才生效
+    IF po_item-ebelp MOD '20' <> 0.
+      set_cell_editable( 'PO_ITEM-MENGE' ).
+    ELSE.
+      set_cell_display( 'PO_ITEM-MENGE' ).
+    ENDIF.
+
+  ENDMETHOD.
+
+  METHOD poh .
+
+    CASE parent->cursor_filed.
+
+*&---------------------------------------------------------------------*
+*&        F1_EBELN
+*&---------------------------------------------------------------------*
+      WHEN 'PO_ITEM-EBELN'.
+
+        screen_util->call_transaction( tcode = 'ME23N' value = get_cell_value_by_cursor( ) )."跳转平台
+
+    ENDCASE.
+
+
+  ENDMETHOD.
+
+  METHOD pov .
+
+    CASE parent->cursor_filed.
+
+*&---------------------------------------------------------------------*
+*&        F4_MATNR
+*&---------------------------------------------------------------------*
+      WHEN 'PO_ITEM-MATNR'.
+
+        SELECT mara~matnr, makt~maktx                   "#EC CI_NOORDER
+          FROM mara
+         INNER JOIN makt
+            ON makt~matnr = mara~matnr
+           AND makt~spras = @sy-langu
+          INTO TABLE @DATA(lt_mara)
+         UP TO '100' ROWS.                                "#EC CI_SUBRC
+
+        po_item-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
+
+    ENDCASE.
+
+    super->pov( ).
+
+  ENDMETHOD.
+
+  METHOD is_line_insert .
+
+    is_line_insert = super->is_line_insert( )."添加空行
+
+    DATA(index) = lines( po_items ).
+
+    "根据最后一行的行号递增
+    po_items[ index ]-ebeln = ekko-ebeln.
+    IF po_items[ index ]-ebelp IS INITIAL.
+      IF index = 1.
+        po_items[ index ]-ebelp = 10.
+      ELSE.
+        po_items[ index ]-ebelp = po_items[ index - 1 ]-ebelp + 10.
+      ENDIF.
+    ENDIF.
+
+  ENDMETHOD.
+
+  METHOD is_deletion_confirmed .
+
+    DATA answer TYPE c.
+    CALL FUNCTION 'POPUP_TO_CONFIRM'
+      EXPORTING
+        text_question  = '删除行:' && po_items[ index ]-ebelp
+      IMPORTING
+        answer         = answer
+      EXCEPTIONS
+        text_not_found = 1
+        OTHERS         = 2.
+    IF sy-subrc = 0 AND answer = '1'.
+      is_confirmed = abap_true.
+    ENDIF.
 
   ENDMETHOD.
 
