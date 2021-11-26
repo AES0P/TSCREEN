@@ -38,9 +38,6 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 
     CLASS-METHODS push_view.
 
-    ##CALLED
-    CLASS-METHODS tc_command.
-
     METHODS show REDEFINITION.
 
 ENDCLASS.
@@ -83,20 +80,6 @@ CLASS lcl_prog IMPLEMENTATION.
     ENDCASE.
 
     CREATE OBJECT view TYPE (class_name).
-
-  ENDMETHOD.
-
-  ##NEEDED
-  METHOD tc_command.
-
-    "如果控件的相关功能需要传入参数，则需要仿造此方式，如果不需要则直接使用event处理方式
-*    DATA tc_group TYPE REF TO cl_object_collection_iterator.
-*    tc_group = CAST zcl_tscreen_with_components( zcl_tscreen_stack=>get_instance( )->top( ) )->get_components_iterator( group = 'TC' ).
-*
-*    WHILE tc_group->has_next( ).
-*      DATA(tc) = CAST zcl_table_control( tc_group->get_next( ) ).
-*      tc->user_command( ).
-*  ENDWHILE.
 
   ENDMETHOD.
 
@@ -181,7 +164,7 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
   METHOD add_components.
 
     TRY.
-        NEW zcl_table_control( parent             = CAST zcl_tscreen( me )
+        NEW zcl_table_control( parent             = me
                                tc_name            = 'TC_9000_01'
                                data_source        = 'PO_ITEMS'
                                data_wa            = 'PO_ITEM'

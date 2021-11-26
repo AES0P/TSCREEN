@@ -959,6 +959,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
   METHOD zif_table_control~user_command.
 
+
     SEARCH ok_code->* FOR tc_name."功能码必须包含TC名字
     IF sy-subrc <> 0 AND ok_code->* <> 'PICK'."PICK代表点击事件
       RETURN.
@@ -967,6 +968,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     DATA ucomm TYPE sy-ucomm.
     IF ok_code->* = 'PICK'.
       ucomm = parent->cursor_filed.
+      parent->cursor_filed_value = get_cell_value_by_cursor( ).
     ELSE.
       DATA: offset TYPE i.
       offset = strlen( tc_name ) + 1.

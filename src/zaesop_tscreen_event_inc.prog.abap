@@ -12,7 +12,7 @@
 INITIALIZATION.
   lcl_prog=>push_view( ).
   TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'INIT' ).
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'INIT' ).
     CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
@@ -23,7 +23,7 @@ INITIALIZATION.
 START-OF-SELECTION.
   lcl_prog=>push_view( ).
   TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'EXE' ).
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'EXE' ).
     CATCH zcx_tscreen INTO gx_tscreen.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
@@ -34,7 +34,7 @@ START-OF-SELECTION.
 AT SELECTION-SCREEN OUTPUT.
   lcl_prog=>push_view( ).
   TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'PBO' ).
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'PBO' ).
     CATCH zcx_tscreen INTO gx_tscreen.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
@@ -45,12 +45,12 @@ AT SELECTION-SCREEN OUTPUT.
 AT SELECTION-SCREEN.
   lcl_prog=>push_view( ).
   TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'AUTH' ).
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'AUTH' ).
     CATCH zcx_tscreen INTO DATA(gx_tscreen).
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
   TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'PAI' ).
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'PAI' ).
     CATCH zcx_tscreen INTO gx_tscreen.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
@@ -61,12 +61,12 @@ AT SELECTION-SCREEN.
 END-OF-SELECTION.
   lcl_prog=>push_view( ).
   TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'SHOW' ).
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'SHOW' ).
     CATCH zcx_tscreen INTO gx_tscreen.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
   TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'EXIT' ).
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'EXIT' ).
     CATCH zcx_tscreen INTO gx_tscreen.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
@@ -164,14 +164,12 @@ MODULE pov INPUT.
   ENDTRY.
 ENDMODULE.
 
-
 *&---------------------------------------------------------------------*
 *&      Module  TC_9000_01_USER_COMMAND  INPUT
 *&---------------------------------------------------------------------*
 *       text
 *----------------------------------------------------------------------*
 MODULE tc_user_command INPUT.
-*  lcl_tscreen_10=>tc_command( ).
   TRY.
       zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'USER_COMMAND' ).
     CATCH zcx_tscreen INTO gx_tscreen.

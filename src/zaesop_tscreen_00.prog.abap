@@ -31,7 +31,7 @@ REPORT zaesop_tscreen_00.
 *
 *    使用规约：
 *       1、TSCREEN对报表的事件控制，参考DEMO ZAESOP_TSCREEN_01，凡是使用TSCREEN
-*       的程序，必须存在继承于zcl_treport的本地类作为报表控制类（DEMO 02是特例，
+*       的程序，必须有且仅有1个继承于zcl_treport的本地类作为报表控制类（DEMO 02是特例，
 *       但不推荐，因为混淆了职责)。每个要使用TSCREEN的程序，都需要引入通用头文件：
 *       zaesop_tscreen_event_inc，且zcl_treport的本地类中必须存在方法push_view
 *

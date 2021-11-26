@@ -1,19 +1,22 @@
 *&---------------------------------------------------------------------*
-*& Report ZAESOP_TEST_TALV_TSCREEN
+*& Report ZAESOP_TSCREEN_17
 *&---------------------------------------------------------------------*
-*&
+*&  zcl_treport 作为报表，zcl_tscreen 作为选择屏幕+自建屏幕，通过1:1:N的搭配，示例其简单组合后的威力
 *&---------------------------------------------------------------------*
-REPORT zaesop_test_talv_tscreen.
-
-*&---------------------------------------------------------------------*
-*&    TYPE-POOLS
-*&---------------------------------------------------------------------*
-TYPE-POOLS vrm.
+REPORT zaesop_tscreen_17.
 
 *&---------------------------------------------------------------------*
 *&　　　　TABLES
 *&---------------------------------------------------------------------*
 TABLES ekko.
+
+*&---------------------------------------------------------------------*
+*&　　　　SELECTION-SCREEN
+*&---------------------------------------------------------------------*
+SELECTION-SCREEN BEGIN OF SCREEN 9900 AS SUBSCREEN.
+  PARAMETERS p_ebeln TYPE ekko-ebeln.
+  SELECT-OPTIONS s_bukrs FOR ekko-bukrs.
+SELECTION-SCREEN END OF SCREEN 9900.
 
 *&---------------------------------------------------------------------*
 *&　　　　DATA define
@@ -24,12 +27,6 @@ DATA: po_items TYPE STANDARD TABLE OF zsekpo,
       po_item  LIKE LINE OF po_items.
 
 CONTROLS tc_9001_01 TYPE TABLEVIEW USING SCREEN '9001'.
-
-*&---------------------------------------------------------------------*
-*&　　　　PARAMETERS
-*&---------------------------------------------------------------------*
-SELECT-OPTIONS: s_ebeln FOR ekko-ebeln." NO-DISPLAY.
-
 *&---------------------------------------------------------------------*
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
@@ -39,30 +36,26 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
   PUBLIC SECTION.
 
     CLASS-DATA view_cls_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
-    CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_03' READ-ONLY.
-    CLASS-DATA ebeln TYPE ekko-ebeln.
+    CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_17' READ-ONLY.
     CLASS-METHODS push_view.
 
-    METHODS pbo REDEFINITION.
     METHODS check_authority REDEFINITION.
     METHODS show REDEFINITION.
 
 ENDCLASS.
 
-CLASS lcl_tscreen_03_v9000 DEFINITION CREATE PUBLIC
+CLASS lcl_tscreen_17_v9000 DEFINITION CREATE PUBLIC
   INHERITING FROM zcl_tscreen FINAL.
 
   PUBLIC SECTION.
+    METHODS constructor.
 
     METHODS pbo REDEFINITION.
-
-  PRIVATE SECTION.
-
-    DATA talv TYPE REF TO zcl_talv_parent.
+    METHODS pai REDEFINITION.
 
 ENDCLASS.
 
-CLASS lcl_tscreen_03_v9001 DEFINITION CREATE PUBLIC
+CLASS lcl_tscreen_17_v9001 DEFINITION CREATE PUBLIC
   INHERITING FROM zcl_tscreen_with_components FINAL.
 
   PUBLIC SECTION.
@@ -70,12 +63,19 @@ CLASS lcl_tscreen_03_v9001 DEFINITION CREATE PUBLIC
     METHODS constructor.
 
     METHODS pbo REDEFINITION.
-    METHODS pai REDEFINITION.
-
-    METHODS fill_listbox.
 
   PROTECTED SECTION.
     METHODS add_components REDEFINITION.
+
+ENDCLASS.
+
+CLASS lcl_tscreen_17_v9900 DEFINITION CREATE PUBLIC
+  INHERITING FROM zcl_tscreen FINAL.
+
+  PUBLIC SECTION.
+    METHODS constructor.
+
+    METHODS pbo REDEFINITION.
 
 ENDCLASS.
 
@@ -90,9 +90,7 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
       RAISING
         cx_uuid_error.
 
-    METHODS get_data
-      IMPORTING
-        ebeln TYPE ekko-ebeln.
+    METHODS get_data.
 
     METHODS user_command_extend REDEFINITION.
 
@@ -113,7 +111,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD push_view.
 
-    CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid ).
+    CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '9000' ).
 
     DATA view TYPE REF TO zif_tscreen.
     CASE sy-dynnr.
@@ -127,15 +125,14 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
-  ##NEEDED
-  METHOD pbo.
-  ENDMETHOD.
-
   METHOD check_authority.
-    MESSAGE 'CHECK AUTHORITY' TYPE 'S'.
+    MESSAGE 'CHECK_AUTHORITY' TYPE 'I'.
+*    MESSAGE 'CHECK_AUTHORITY' TYPE 'S' DISPLAY LIKE 'E'.
+*    LEAVE TO SCREEN 0.
   ENDMETHOD.
 
   METHOD show.
+    check_authority( )."没有选择屏幕时，用户不能主动触发PAI，但在show里边校验权限即可
     CALL SCREEN 9000.
   ENDMETHOD.
 
@@ -144,129 +141,26 @@ ENDCLASS.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
-CLASS lcl_tscreen_03_v9000 IMPLEMENTATION.
-
-  METHOD pbo.
-
-    IF talv IS NOT BOUND.
-      "工厂模式生成TALV并直接展示
-      talv = zcl_talv_factory=>get_talv( VALUE #( type               = 'TALV_CUS'
-                                                  ddic_type          = 'EKKO'
-                                                  dynnr              = '9000'
-                                                  container_position = '01'
-                                                  container          = NEW cl_gui_custom_container( container_name = 'CON1' ) ) ) .
-      talv->display( ).
-    ELSE.
-      talv->refresh( ).
-    ENDIF.
-
-  ENDMETHOD.
-
-ENDCLASS.
-##CALLED
-FORM f9000_01_handle_on_pbo USING talv TYPE REF TO zcl_talv_parent
-                         CHANGING alv_table TYPE STANDARD TABLE ##NEEDED .
-
-  talv->save_fields( 'EBELN BUKRS BSTYP BSART LOEKZ AEDAT ERNAM' ).
-  talv->refresh( ).
-
-ENDFORM.
-##CALLED
-FORM f9000_01_handle_retrieve USING ddic_type TYPE tabname ##NEEDED
-                           CHANGING alv_table TYPE STANDARD TABLE.
-
-  SELECT *
-    FROM ekko
-    INTO CORRESPONDING FIELDS OF TABLE alv_table
-      UP TO '500' ROWS
-   WHERE ebeln IN s_ebeln
-   ORDER BY ebeln.
-
-ENDFORM.
-##CALLED
-FORM f9000_01_handle_double_click USING po_talv TYPE REF TO zcl_talv_parent ##NEEDED
-                                        ps_row TYPE lvc_s_row
-                                        ps_column TYPE lvc_s_col ##NEEDED
-                               CHANGING ct_alv_table TYPE STANDARD TABLE.
-
-  TYPES tty_ekko TYPE STANDARD TABLE OF ekko.
-  FIELD-SYMBOLS <ekko> TYPE tty_ekko.
-  ASSIGN ct_alv_table TO <ekko>.
-
-  lcl_prog=>ebeln = <ekko>[ ps_row-index ]-ebeln.
-
-  CALL SCREEN 9001.
-
-ENDFORM.
-
-*&---------------------------------------------------------------------*
-*&　　　　CLASS IMPLEMENTATION
-*&---------------------------------------------------------------------*
-CLASS lcl_tscreen_03_v9001 IMPLEMENTATION.
+CLASS lcl_tscreen_17_v9000 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( ).
-    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
-      FROM ekko
-      INTO CORRESPONDING FIELDS OF ekko
-     WHERE ebeln = lcl_prog=>ebeln.                       "#EC CI_SUBRC
-
-    "此处为屏幕添加控件对象
-    add_components( ).
-
-    display_mode = zcl_tscreen=>display_mode_modify."默认可编辑
-
-    "下拉框处理
-    fill_listbox( ).
-
+    display_mode = zcl_tscreen=>display_mode_modify.
   ENDMETHOD.
 
   ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 
-  METHOD fill_listbox.
-
-    "凭证类型
-    SELECT *
-      FROM t161t
- BYPASSING BUFFER
-      INTO TABLE @DATA(lt_t161t)
-     UP TO '50' ROWS
-     WHERE spras = @sy-langu
-     ORDER BY bsart, bstyp.
-    IF sy-subrc = 0.
-
-      DATA vrm_values TYPE vrm_values.
-      LOOP AT lt_t161t ASSIGNING FIELD-SYMBOL(<ls_t161t>).
-        APPEND VALUE vrm_value( key = <ls_t161t>-bsart text = <ls_t161t>-batxt ) TO vrm_values.
-      ENDLOOP.
-
-      screen_util->set_listbox( vrm_id = 'EKKO-BSART' vrm_values = vrm_values ).
-
-    ENDIF.
-
-    "公司代码
-    SELECT bukrs, butxt
-      FROM t001
-      INTO TABLE @DATA(lt_t001)
-     UP TO '50' ROWS
-     ORDER BY bukrs.
-    IF sy-subrc = 0.
-
-      CLEAR vrm_values.
-      LOOP AT lt_t001 ASSIGNING FIELD-SYMBOL(<ls_t001>).
-        APPEND VALUE vrm_value( key = <ls_t001>-bukrs text = <ls_t001>-butxt ) TO vrm_values.
-      ENDLOOP.
-
-      screen_util->set_listbox( vrm_id = 'EKKO-BUKRS' vrm_values = vrm_values ).
-
-    ENDIF.
-
-  ENDMETHOD.
-
   METHOD pai.
     CASE ucomm.
+      WHEN 'EXECUTE'.
+        TRY.
+            DATA(v9001) = CAST lcl_tscreen_17_v9001(  zcl_tscreen_stack=>get_instance( )->current( dynnr_super = '9000' dynnr = '9001' ) ).
+            CAST lcl_tc_po_items( v9001->get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9001_01' ) )->get_data( ).
+          CATCH zcx_tscreen INTO DATA(lx_tscreen) ##NEEDED.
+            MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+        ENDTRY.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
           set_display_mode( zcl_tscreen=>display_mode_show ).
@@ -277,6 +171,21 @@ CLASS lcl_tscreen_03_v9001 IMPLEMENTATION.
     CLEAR sy-ucomm.
   ENDMETHOD.
 
+ENDCLASS.
+*&---------------------------------------------------------------------*
+*&　　　　CLASS IMPLEMENTATION
+*&---------------------------------------------------------------------*
+CLASS lcl_tscreen_17_v9001 IMPLEMENTATION.
+
+  METHOD constructor.
+    super->constructor( dynnr_super = '9000' ).
+    add_components( ).
+  ENDMETHOD.
+
+  ##NEEDED
+  METHOD pbo.
+  ENDMETHOD.
+
   METHOD add_components.
 
     TRY.
@@ -285,6 +194,20 @@ CLASS lcl_tscreen_03_v9001 IMPLEMENTATION.
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
+  ENDMETHOD.
+
+ENDCLASS.
+*&---------------------------------------------------------------------*
+*&　　　　CLASS IMPLEMENTATION
+*&---------------------------------------------------------------------*
+CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
+
+  METHOD constructor.
+    super->constructor( dynnr_super = '9000' ).
+  ENDMETHOD.
+
+  ##NEEDED
+  METHOD pbo.
   ENDMETHOD.
 
 ENDCLASS.
@@ -302,18 +225,21 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
                         data_wa            = 'PO_ITEM'
                         ref_structure_name = 'ZSEKPO' ).
 
-    get_data( lcl_prog=>ebeln ).
+    get_data( ).
   ENDMETHOD.
 
   METHOD get_data.
     ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
     SELECT * ##TOO_MANY_ITAB_FIELDS
       FROM ekpo
+     INNER JOIN ekko
+        ON ekko~ebeln = ekpo~ebeln
       LEFT JOIN makt
         ON ekpo~matnr = makt~matnr
        AND makt~spras = sy-langu
       INTO CORRESPONDING FIELDS OF TABLE po_items
-     WHERE ebeln = ebeln
+     WHERE ekpo~ebeln = p_ebeln
+       AND ekko~bukrs IN s_bukrs
      ORDER BY ebelp.                                      "#EC CI_SUBRC
 
   ENDMETHOD.
@@ -434,6 +360,5 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
-
 ##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT include
