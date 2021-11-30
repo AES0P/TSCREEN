@@ -139,7 +139,8 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -166,7 +167,8 @@ CLASS lcl_tc_po_plans DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -183,7 +185,8 @@ CLASS lcl_tc_po_histories DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -290,14 +293,16 @@ CLASS lcl_tscreen_16_v9001 IMPLEMENTATION.
   METHOD pai.
     CASE ucomm.
       WHEN 'SAVE'.
-        CAST zif_text_editor( get_component( group = zif_tscreen_component=>c_component_editor id = 'LASTCHANGEDT' ) )->save_text( ).
+        TRY.
+            CAST zif_text_editor( get_component( group = zif_tscreen_component=>c_component_editor id = 'LASTCHANGEDT' ) )->save_text( ).
+          CATCH zcx_tscreen INTO DATA(lx_tscreen).
+            MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+        ENDTRY.
       WHEN 'TC_9002_01_SHOW'.
         IF lcl_prog=>sub_screen = '9002'.
           lcl_prog=>sub_screen  = '9005'.
-          CAST zcl_text_editor( get_component( group = zif_tscreen_component=>c_component_editor id = 'LASTCHANGEDT' ) )->change_visibility( zif_tscreen_component=>c_component_invisible ).
         ELSE.
           lcl_prog=>sub_screen  = '9002'.
-          CAST zcl_text_editor( get_component( group = zif_tscreen_component=>c_component_editor id = 'LASTCHANGEDT' ) )->change_visibility( zif_tscreen_component=>c_component_visible ).
         ENDIF.
       WHEN OTHERS.
     ENDCASE.
@@ -316,6 +321,15 @@ CLASS lcl_tscreen_16_v9001 IMPLEMENTATION.
 
   ##NEEDED
   METHOD pbo.
+    TRY.
+        IF lcl_prog=>sub_screen = '9005'.
+          CAST zcl_text_editor( get_component( group = zif_tscreen_component=>c_component_editor id = 'LASTCHANGEDT' ) )->change_visibility( zif_tscreen_component=>c_component_invisible ).
+        ELSE.
+          CAST zcl_text_editor( get_component( group = zif_tscreen_component=>c_component_editor id = 'LASTCHANGEDT' ) )->change_visibility( zif_tscreen_component=>c_component_visible ).
+        ENDIF.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+    ENDTRY.
   ENDMETHOD.
 
   METHOD poh.
@@ -371,6 +385,8 @@ CLASS lcl_tscreen_16_v9002 IMPLEMENTATION.
         NEW lcl_tc_po_items( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -398,6 +414,8 @@ CLASS lcl_tscreen_16_v9003 IMPLEMENTATION.
         NEW lcl_tc_po_plans( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -425,6 +443,8 @@ CLASS lcl_tscreen_16_v9004 IMPLEMENTATION.
         NEW lcl_tc_po_histories( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -491,13 +511,24 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
   METHOD pai_tc_line .
 
-    SELECT SINGLE maktx
-      FROM makt
-      INTO po_item-maktx
-     WHERE matnr = po_item-matnr
-       AND spras = sy-langu.                              "#EC CI_SUBRC
+    IF po_item-mwskz IS INITIAL.
+      po_item-mwskz = 'J3'.
+    ENDIF.
 
-    super->pai_tc_line( ).
+    "如果使用了自动带出功能，这里需要判断一下，自动带出时执行修改逻辑，但不修改自动带出的字段值
+    IF sy-ucomm = zcl_tscreen_util=>c_fcode_tc_pov_bring_out.
+      CLEAR sy-ucomm.
+      MODIFY po_items FROM po_item TRANSPORTING mwskz WHERE ebeln = po_item-ebeln AND ebelp = po_item-ebelp. "#EC CI_STDSEQ
+    ELSE.
+
+      SELECT SINGLE maktx
+        FROM makt
+        INTO po_item-maktx
+       WHERE matnr = po_item-matnr
+         AND spras = sy-langu.                            "#EC CI_SUBRC
+
+      super->pai_tc_line( ).
+    ENDIF.
 
   ENDMETHOD.
 
@@ -518,7 +549,14 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
           INTO TABLE @DATA(lt_mara)
          UP TO '100' ROWS.                                "#EC CI_SUBRC
 
-        po_item-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
+        ASSIGN po_items[ get_current_line( ) ] TO FIELD-SYMBOL(<po_item>).
+
+        <po_item>-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
+        TRY.
+            parent->bring_out( EXPORTING source = 'MAKTX' CHANGING target = <po_item>-maktx ).
+          CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
+            MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+        ENDTRY.
 
     ENDCASE.
 

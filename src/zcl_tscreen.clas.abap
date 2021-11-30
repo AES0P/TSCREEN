@@ -1,108 +1,118 @@
-class ZCL_TSCREEN definition
-  public
-  inheriting from ZCL_TSCREEN_ROOT
-  abstract
-  create public
+CLASS zcl_tscreen DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tscreen_root
+  ABSTRACT
+  CREATE PUBLIC
 
-  global friends ZIF_TSCREEN_COMPONENT .
+  GLOBAL FRIENDS zif_tscreen_component .
 
-public section.
+  PUBLIC SECTION.
 
-  types TY_ATTR_SETTING type ZTDYNPRO_ATTR .
-  types:
-    tty_attr_setting TYPE STANDARD TABLE OF ty_attr_setting WITH DEFAULT KEY .
+    TYPES ty_attr_setting TYPE ztdynpro_attr .
+    TYPES:
+      tty_attr_setting TYPE STANDARD TABLE OF ty_attr_setting WITH DEFAULT KEY .
 
-  constants DISPLAY_MODE_SHOW type ABAP_BOOL value ABAP_TRUE ##NO_TEXT.
-  constants DISPLAY_MODE_MODIFY type ABAP_BOOL value ABAP_FALSE ##NO_TEXT.
+    CONSTANTS display_mode_show TYPE abap_bool VALUE abap_true ##NO_TEXT.
+    CONSTANTS display_mode_modify TYPE abap_bool VALUE abap_false ##NO_TEXT.
 
-  methods CONSTRUCTOR
-    importing
-      !PROGRAM type SYREPID default SY-CPROG
-      !DYNNR type SY-DYNNR default SY-DYNNR
-      !DYNNR_SUPER type SY-DYNNR optional
-      !DYNPRO_TYPE type SCRHTYP default ZCL_TSCREEN=>DYNPRO_TYPE_NORMAL
-      !DISPLAY_MODE type ABAP_BOOL default ZCL_TSCREEN=>DISPLAY_MODE_SHOW
-      !PFSTATUS type SYPFKEY optional
-      !PFSTATUS_REPID type SYREPID optional
-      !EXCLUDING_FCODE type TTY_FCODE optional
-      !TITLEBAR type GUI_TITLE optional
-      !TITLEBAR_REPID type SYREPID optional
-      !TITLEBAR_VAR1 type STRING optional
-      !TITLEBAR_VAR2 type STRING optional
-      !TITLEBAR_VAR3 type STRING optional
-      !TITLEBAR_VAR4 type STRING optional
-      !TITLEBAR_VAR5 type STRING optional
-      !READ_DYNPRO_SETTING type ABAP_BOOL default ABAP_TRUE
-      !REFRESH_INTERVAL type I default 0 .
-  methods GET_DISPLAY_MODE
-    returning
-      value(DISPLAY_MODE) type SYUCOMM .
-  methods SET_DISPLAY_MODE
-    importing
-      !DISPLAY_MODE type ABAP_BOOL .
-  methods F4_EVENT
-    importing
-      value(KEY_FIELD) type DFIES-FIELDNAME
-      !VALUE_TAB type STANDARD TABLE
-      value(CALLBACK_FORM) type SY-XFORM optional
-    returning
-      value(VALUE) type SHVALUE_D .
-  methods BRING_OUT
-    importing
-      !SOURCE type ANY
-    changing
-      !TARGET type ANY
-    raising
-      ZCX_TSCREEN .
-  methods GET_SCREEN_UTIL
-    returning
-      value(SCREEN_UTIL) type ref to ZCL_TSCREEN_UTIL .
-  methods COUNTDOWN_BEGIN
-    importing
-      !REFRESH_INTERVAL type I .
-  methods COUNTDOWN_STOP .
+    METHODS constructor
+      IMPORTING
+        !program             TYPE syrepid DEFAULT sy-cprog
+        !dynnr               TYPE sy-dynnr DEFAULT sy-dynnr
+        !dynnr_super         TYPE sy-dynnr OPTIONAL
+        !dynpro_type         TYPE scrhtyp DEFAULT zcl_tscreen=>dynpro_type_normal
+        !display_mode        TYPE abap_bool DEFAULT zcl_tscreen=>display_mode_show
+        !pfstatus            TYPE sypfkey OPTIONAL
+        !pfstatus_repid      TYPE syrepid OPTIONAL
+        !excluding_fcode     TYPE tty_fcode OPTIONAL
+        !titlebar            TYPE gui_title OPTIONAL
+        !titlebar_repid      TYPE syrepid OPTIONAL
+        !titlebar_var1       TYPE string OPTIONAL
+        !titlebar_var2       TYPE string OPTIONAL
+        !titlebar_var3       TYPE string OPTIONAL
+        !titlebar_var4       TYPE string OPTIONAL
+        !titlebar_var5       TYPE string OPTIONAL
+        !read_dynpro_setting TYPE abap_bool DEFAULT abap_true
+        !refresh_interval    TYPE i DEFAULT 0 .
+    METHODS get_display_mode
+      RETURNING
+        VALUE(display_mode) TYPE syucomm .
+    METHODS set_display_mode
+      IMPORTING
+        !display_mode TYPE abap_bool .
+    METHODS f4_event
+      IMPORTING
+        VALUE(key_field)     TYPE dfies-fieldname
+        !value_tab           TYPE STANDARD TABLE
+        VALUE(callback_form) TYPE sy-xform OPTIONAL
+      RETURNING
+        VALUE(value)         TYPE shvalue_d .
+    METHODS bring_out
+      IMPORTING
+        !source TYPE any
+      CHANGING
+        !target TYPE any
+      RAISING
+        zcx_tscreen .
+    METHODS get_screen_util
+      RETURNING
+        VALUE(screen_util) TYPE REF TO zcl_tscreen_util .
+    METHODS countdown_begin
+      IMPORTING
+        !refresh_interval TYPE i .
+    METHODS countdown_stop .
 
-  methods SET_PFSTATUS
-    redefinition .
-  methods ZIF_TSCREEN~EXIT
-    redefinition .
-  methods ZIF_TSCREEN~HANDLE_EVENT
-    redefinition .
-  methods ZIF_TSCREEN~PAI
-    redefinition .
-  methods ZIF_TSCREEN~POH
-    redefinition .
-  methods ZIF_TSCREEN~POV
-    redefinition .
-protected section.
+    METHODS set_pfstatus
+        REDEFINITION .
+    METHODS zif_tscreen~exit
+        REDEFINITION .
+    METHODS zif_tscreen~handle_event
+        REDEFINITION .
+    METHODS zif_tscreen~pai
+        REDEFINITION .
+    METHODS zif_tscreen~poh
+        REDEFINITION .
+    METHODS zif_tscreen~pov
+        REDEFINITION .
+  PROTECTED SECTION.
 
-  data DISPLAY_MODE type ABAP_BOOL .
-  data FILEDNAME type FELD-NAME .
-  data CURSOR_FILED type FELD-NAME .
-  data CURSOR_FILED_VALUE type DYNFIELDVALUE .
-  data DYNPRO_ATTR_SETTING type TTY_ATTR_SETTING .
-  data SCREEN_UTIL type ref to ZCL_TSCREEN_UTIL .
-  data TIMER type ref to CL_GUI_TIMER .
+    DATA display_mode TYPE abap_bool .
+    DATA filedname TYPE feld-name .
+    DATA cursor_filed TYPE feld-name .
+    DATA cursor_filed_value TYPE dynfieldvalue .
+    DATA dynpro_attr_setting TYPE tty_attr_setting .
+    DATA screen_util TYPE REF TO zcl_tscreen_util .
+    DATA timer TYPE REF TO cl_gui_timer .
 
-  methods GET_DYNPRO_SETTING .
-  methods REMOVE_CHILD_SCREEN
-    raising
-      ZCX_TSCREEN .
-  methods GET_SUPER_SCREEN
-    returning
-      value(PARENT) type ref to ZIF_TSCREEN
-    raising
-      ZCX_TSCREEN .
-  methods CHANGE_SCREEN_EDITABLE
-    raising
-      ZCX_TSCREEN .
-  methods SET_ELEMENT_ATTR_BY_SETTING
-    importing
-      value(OBJECT) type ANY optional .
-  methods GET_CURRENT_INFO .
-  methods ON_COUNTDOWN_FINISHED
-    for event FINISHED of CL_GUI_TIMER .
-private section.
+    METHODS get_dynpro_setting .
+    METHODS remove_child_screen
+      RAISING
+        zcx_tscreen .
+    METHODS get_super_screen
+      RETURNING
+        VALUE(parent) TYPE REF TO zif_tscreen
+      RAISING
+        zcx_tscreen .
+    METHODS get_sub_screen_iterator
+      RETURNING
+        VALUE(sub_screen_iterator) TYPE REF TO cl_object_collection_iterator .
+    METHODS get_sub_screen
+      IMPORTING
+        !dynnr            TYPE sy-dynnr
+      RETURNING
+        VALUE(sub_screen) TYPE REF TO zif_tscreen
+      RAISING
+        zcx_tscreen .
+    METHODS change_screen_editable
+      RAISING
+        zcx_tscreen .
+    METHODS set_element_attr_by_setting
+      IMPORTING
+        VALUE(object) TYPE any OPTIONAL .
+    METHODS get_current_info .
+    METHODS on_countdown_finished
+        FOR EVENT finished OF cl_gui_timer .
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -313,11 +323,11 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
 
   METHOD get_dynpro_setting.
 
-    SELECT *  "#EC CI_SEL_DEL
+    SELECT *                                            "#EC CI_SEL_DEL
      FROM ztdynpro_attr
      INTO CORRESPONDING FIELDS OF TABLE dynpro_attr_setting
     WHERE cprog = program
-      AND dynnr = dynnr."#EC CI_SUBRC
+      AND dynnr = dynnr.                                  "#EC CI_SUBRC
 
     SORT dynpro_attr_setting ASCENDING BY tc_name name zmode group_name.
 
@@ -349,17 +359,19 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
   METHOD bring_out.
 
     CHECK get_display_mode( ) = zcl_tscreen=>display_mode_modify.
-    CHECK screen_util->bring_out_data IS NOT INITIAL.
+    IF screen_util->bring_out_data IS INITIAL.
+      zcx_tscreen=>raise_text( 'BRING OUT DATA IS INITIAL' ).
+    ENDIF.
 
     FIELD-SYMBOLS <source> TYPE any.
     ASSIGN screen_util->bring_out_data->* TO <source>.
 
     FIELD-SYMBOLS <target> TYPE any.
-    ASSIGN COMPONENT source OF STRUCTURE <source> TO <target>.
+    ASSIGN COMPONENT to_upper( source ) OF STRUCTURE <source> TO <target>.
     IF sy-subrc = 0.
       target = <target>.
     ELSE.
-      zcx_tscreen=>raise_text( 'No field found' ).
+      zcx_tscreen=>raise_text( 'NO FIELD FOUND' ).
     ENDIF.
 
   ENDMETHOD.
@@ -429,7 +441,7 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
                          pfstatus_repid  = pfstatus_repid
                          excluding_fcode = excluding_fcode ).
 
-  ENDMETHOD. "#EC CI_VALPAR
+  ENDMETHOD.                                             "#EC CI_VALPAR
 
 
   METHOD countdown_begin.
@@ -454,5 +466,44 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
   METHOD on_countdown_finished.
     MESSAGE 'Plz redefine ON_COUNTDOWN_FINISHED method for object of ZCL_TSCREEN' TYPE 'S'.
     timer->run( )."循环倒计时事件
+  ENDMETHOD.
+
+
+  METHOD get_sub_screen_iterator.
+
+    CHECK dynnr_super IS INITIAL AND dynpro_type = zif_tscreen=>dynpro_type_normal.
+
+    DATA sub_screen_collection TYPE REF TO  cl_object_collection.
+    CREATE OBJECT sub_screen_collection.
+
+    DATA tscreen TYPE zcl_tscreen_stack=>ty_view.
+    LOOP AT zcl_tscreen_stack=>get_instance( )->tscreens INTO tscreen WHERE dynnr_super = me->dynnr. "#EC CI_STDSEQ
+      sub_screen_collection->add( tscreen-tscreen ).
+    ENDLOOP.
+
+    sub_screen_iterator = sub_screen_collection->get_iterator( ).
+
+  ENDMETHOD.
+
+
+  METHOD get_sub_screen.
+
+    DATA iterator TYPE REF TO cl_object_collection_iterator.
+    iterator = get_sub_screen_iterator( ).
+
+    WHILE iterator->has_next( ).
+
+      sub_screen = CAST zif_tscreen( iterator->get_next( ) ).
+
+      IF sub_screen->dynnr = dynnr.
+        RETURN.
+      ELSE.
+        FREE sub_screen.
+      ENDIF.
+
+    ENDWHILE.
+
+    zcx_tscreen=>raise_text( 'No view found' ).
+
   ENDMETHOD.
 ENDCLASS.

@@ -1,22 +1,22 @@
-interface ZIF_TSCREEN_STACK
-  public .
+INTERFACE zif_tscreen_stack
+  PUBLIC .
 
 
-  methods SIZE
-    returning
-      value(SIZE) type I .
-  methods IS_EMPTY
-    returning
-      value(IS_EMPTY) type ABAP_BOOL .
-  methods PUSH
-    importing
-      !TSCREEN type ref to ZIF_TSCREEN .
-  methods POP
-    raising
-      ZCX_TSCREEN .
-  methods TOP
-    returning
-      value(TSCREEN) type ref to ZIF_TSCREEN
-    raising
-      ZCX_TSCREEN .
-endinterface.
+  METHODS size
+    RETURNING
+      VALUE(size) TYPE i .
+  METHODS is_empty
+    RETURNING
+      VALUE(is_empty) TYPE abap_bool .
+  METHODS push
+    IMPORTING
+      !tscreen TYPE REF TO zif_tscreen .
+  METHODS pop
+    RAISING
+      zcx_tscreen .
+  METHODS top
+    RETURNING
+      VALUE(tscreen) TYPE REF TO zif_tscreen
+    RAISING
+      zcx_tscreen .
+ENDINTERFACE.

@@ -92,7 +92,8 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -235,6 +236,8 @@ CLASS lcl_tscreen_13_v9002 IMPLEMENTATION.
         NEW lcl_tc_po_items( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.

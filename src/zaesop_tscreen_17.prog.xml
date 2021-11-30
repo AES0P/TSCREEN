@@ -23,6 +23,7 @@
       <COLUMNS>255</COLUMNS>
       <HOLD_DATA>X</HOLD_DATA>
       <KEEP_SCPOS>X</KEEP_SCPOS>
+      <NO_TOOLBAR>X</NO_TOOLBAR>
      </HEADER>
      <CONTAINERS>
       <RPY_DYCATT>
@@ -33,22 +34,53 @@
        <TYPE>SUBSCREEN</TYPE>
        <NAME>SUB_HEADER</NAME>
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
-       <LINE>001</LINE>
-       <COLUMN>002</COLUMN>
-       <LENGTH>226</LENGTH>
+       <LINE>002</LINE>
+       <COLUMN>001</COLUMN>
+       <LENGTH>225</LENGTH>
        <HEIGHT>013</HEIGHT>
       </RPY_DYCATT>
       <RPY_DYCATT>
        <TYPE>SUBSCREEN</TYPE>
        <NAME>SUB_ITEM</NAME>
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
-       <LINE>015</LINE>
+       <LINE>016</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>226</LENGTH>
-       <HEIGHT>186</HEIGHT>
+       <HEIGHT>185</HEIGHT>
       </RPY_DYCATT>
      </CONTAINERS>
      <FIELDS>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>EXPAND</NAME>
+       <ICON_NAME>ICON_COLLAPSE_ALL</ICON_NAME>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>001</LINE>
+       <COLUMN>001</COLUMN>
+       <LENGTH>004</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>EXPAND</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>TEXT</TYPE>
+       <NAME>%#AUTOTEXT001</NAME>
+       <TEXT>查询条件____</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>004</COLUMN>
+       <LENGTH>008</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <FIXED_FONT>X</FIXED_FONT>
+      </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
@@ -75,7 +107,7 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
-       <LINE>  CALL SUBSCREEN sub_header INCLUDING sy-repid &apos;9900&apos;.</LINE>
+       <LINE>  CALL SUBSCREEN sub_header INCLUDING sy-repid lcl_prog=&gt;sub_screen.</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
        <LINE>  CALL SUBSCREEN sub_item   INCLUDING sy-repid &apos;9001&apos;.</LINE>
@@ -168,13 +200,28 @@
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>TEXT</TYPE>
+       <NAME>%#AUTOTEXT001</NAME>
+       <TEXT>查询结果____</TEXT>
+       <LINE>001</LINE>
+       <COLUMN>004</COLUMN>
+       <LENGTH>008</LENGTH>
+       <VISLENGTH>008</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <FIXED_FONT>X</FIXED_FONT>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_DETAIL</NAME>
        <TEXT>__</TEXT>
        <ICON_NAME>ICON_DETAIL</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>006</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>001</COLUMN>
        <LENGTH>007</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -188,14 +235,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_DDIC</NAME>
-       <TEXT>_______________________________________________________________________________________________</TEXT>
+       <TEXT>_______________________________________________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
        <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>009</COLUMN>
-       <LENGTH>108</LENGTH>
+       <LINE>002</LINE>
+       <COLUMN>004</COLUMN>
+       <LENGTH>132</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -211,8 +258,8 @@
        <TEXT>______________________</TEXT>
        <ICON_NAME>ICON_INSERT_ROW</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>014</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>009</COLUMN>
        <LENGTH>027</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -228,8 +275,8 @@
        <NAME>TC_9001_01_DELETE</NAME>
        <ICON_NAME>ICON_DELETE_ROW</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>018</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>013</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -245,8 +292,8 @@
        <NAME>TC_9001_01_TOP</NAME>
        <ICON_NAME>ICON_FIRST_PAGE</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>024</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>019</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -262,8 +309,8 @@
        <NAME>TC_9001_01_PREVIOUS</NAME>
        <ICON_NAME>ICON_PREVIOUS_PAGE</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>028</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>023</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -279,8 +326,8 @@
        <NAME>TC_9001_01_NEXT</NAME>
        <ICON_NAME>ICON_NEXT_PAGE</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>032</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>027</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -296,8 +343,8 @@
        <NAME>TC_9001_01_BOTTOM</NAME>
        <ICON_NAME>ICON_LAST_PAGE</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>036</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>031</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -313,8 +360,8 @@
        <NAME>TC_9001_01_MARK</NAME>
        <ICON_NAME>ICON_SELECT_ALL</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>042</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>037</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -328,14 +375,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_COVT</NAME>
-       <TEXT>_____________________________________________</TEXT>
+       <TEXT>____________________________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>046</COLUMN>
-       <LENGTH>055</LENGTH>
+       <LINE>002</LINE>
+       <COLUMN>041</COLUMN>
+       <LENGTH>070</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -350,8 +397,8 @@
        <NAME>TC_9001_01_DEMARK</NAME>
        <ICON_NAME>ICON_DESELECT_ALL</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>050</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>045</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -365,12 +412,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_SORT_DOWN</NAME>
-       <TEXT>降序________________________________________________________________________</TEXT>
+       <TEXT>降序__________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>056</COLUMN>
-       <LENGTH>079</LENGTH>
+       <LINE>002</LINE>
+       <COLUMN>051</COLUMN>
+       <LENGTH>089</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -386,8 +433,8 @@
        <TEXT>_</TEXT>
        <ICON_NAME>ICON_SORT_UP</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>059</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>054</COLUMN>
        <LENGTH>006</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -404,8 +451,8 @@
        <TEXT>_</TEXT>
        <ICON_NAME>ICON_MASS_CHANGE</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>063</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>058</COLUMN>
        <LENGTH>006</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -421,8 +468,8 @@
        <TEXT>_</TEXT>
        <ICON_NAME>ICON_EMPTY_HANDLING_UNIT</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
-       <LINE>001</LINE>
-       <COLUMN>066</COLUMN>
+       <LINE>002</LINE>
+       <COLUMN>061</COLUMN>
        <LENGTH>006</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -931,6 +978,50 @@
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>  FIELD po_item-matnr MODULE pov.</LINE>
+      </RPY_DYFLOW>
+     </FLOW_LOGIC>
+    </item>
+    <item>
+     <HEADER>
+      <PROGRAM>ZAESOP_TSCREEN_17</PROGRAM>
+      <SCREEN>9002</SCREEN>
+      <LANGUAGE>1</LANGUAGE>
+      <DESCRIPT>empty</DESCRIPT>
+      <TYPE>I</TYPE>
+      <NEXTSCREEN>9002</NEXTSCREEN>
+      <LINES>027</LINES>
+      <COLUMNS>120</COLUMNS>
+      <KEEP_SCPOS>X</KEEP_SCPOS>
+      <NO_TOOLBAR>X</NO_TOOLBAR>
+     </HEADER>
+     <CONTAINERS>
+      <RPY_DYCATT>
+       <TYPE>SCREEN</TYPE>
+       <NAME>SCREEN</NAME>
+      </RPY_DYCATT>
+     </CONTAINERS>
+     <FIELDS>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>OKCODE</TYPE>
+       <TEXT>____________________</TEXT>
+       <LENGTH>020</LENGTH>
+       <VISLENGTH>020</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <INPUT_FLD>X</INPUT_FLD>
+      </RPY_DYFATC>
+     </FIELDS>
+     <FLOW_LOGIC>
+      <RPY_DYFLOW>
+       <LINE>PROCESS BEFORE OUTPUT.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>*</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>PROCESS AFTER INPUT.</LINE>
       </RPY_DYFLOW>
      </FLOW_LOGIC>
     </item>

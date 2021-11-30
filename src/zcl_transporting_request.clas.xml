@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+    <LANGU>1</LANGU>
+    <DESCRIPT>TRANSPORTING ZTABLE ENTRY</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <RSTAT>K</RSTAT>
+   </VSEOCLASS>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <ENTRY>Unexpected error</ENTRY>
+     <LENGTH>26</LENGTH>
+    </item>
+   </TPOOL>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+     <CMPNAME>CLEAR</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>CLEAR</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+     <CMPNAME>E071</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>更改 &amp; 的传输系统: 请求/任务的对象条目</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+     <CMPNAME>E071K</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>更改 &amp; 传输系统: 请求/任务的代码条目</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+     <CMPNAME>OBJECT</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>对象类型</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+     <CMPNAME>ORDER</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>请求/任务</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+     <CMPNAME>PGMID</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>请求和任务中的程序标识</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TRANSPORTING_REQUEST</CLSNAME>
+     <CMPNAME>TASK</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>请求/任务</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

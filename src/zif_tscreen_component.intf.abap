@@ -18,7 +18,9 @@ interface ZIF_TSCREEN_COMPONENT
       value(COMPONENT) type ref to ZIF_TSCREEN_COMPONENT .
   methods INITIALIZE_BY_TSCREEN
     importing
-      !TSCREEN type ref to ZCL_TSCREEN .
+      !TSCREEN type ref to ZCL_TSCREEN
+    raising
+      ZCX_TSCREEN .
   methods CHANGE_VISIBILITY
     importing
       !VISIBILITY type ABAP_BOOL optional

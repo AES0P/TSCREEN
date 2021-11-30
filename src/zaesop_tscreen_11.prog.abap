@@ -57,6 +57,8 @@ CLASS lcl_tscreen_11_v9000 DEFINITION CREATE PUBLIC
     METHODS pai REDEFINITION.
     METHODS pov REDEFINITION.
 
+    METHODS check_data.
+
   PROTECTED SECTION.
     METHODS add_components REDEFINITION.
 
@@ -71,7 +73,8 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -127,6 +130,7 @@ CLASS lcl_tscreen_11_v9000 IMPLEMENTATION.
     get_data( p_ebeln ).
     "此处为屏幕添加控件对象
     add_components( ).
+    set_display_mode( zcl_tscreen=>display_mode_modify ).
   ENDMETHOD.
 
   METHOD get_data.
@@ -143,6 +147,9 @@ CLASS lcl_tscreen_11_v9000 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD pai.
+
+    check_data( ).
+
     CASE ucomm.
       WHEN 'DIS_MODE'.
         IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
@@ -152,6 +159,14 @@ CLASS lcl_tscreen_11_v9000 IMPLEMENTATION.
         ENDIF.
     ENDCASE.
     CLEAR sy-ucomm.
+  ENDMETHOD.
+
+  METHOD check_data.
+
+    IF ekko-aedat < sy-datum.
+      MESSAGE '日期在过去' TYPE 'E'.
+    ENDIF.
+
   ENDMETHOD.
 
   METHOD pov.
@@ -173,7 +188,12 @@ CLASS lcl_tscreen_11_v9000 IMPLEMENTATION.
         CHECK ekko-ebeln IS NOT INITIAL.
 
         get_data( ekko-ebeln ).
-        CAST lcl_tc_po_items( get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9000_01' ) )->get_data( ekko-ebeln ).
+
+        TRY.
+            CAST lcl_tc_po_items( get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9000_01' ) )->get_data( ekko-ebeln ).
+          CATCH zcx_tscreen INTO DATA(lx_tscreen).
+            MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+        ENDTRY.
 
     ENDCASE.
   ENDMETHOD.
@@ -184,6 +204,8 @@ CLASS lcl_tscreen_11_v9000 IMPLEMENTATION.
         NEW lcl_tc_po_items( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -202,7 +224,6 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
                         data_wa            = 'PO_ITEM'
                         hide_empty_fields  = abap_true
                         ref_structure_name = 'ZSEKPO' ).
-
     get_data( p_ebeln ).
   ENDMETHOD.
 
@@ -231,13 +252,24 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
   METHOD pai_tc_line .
 
-    SELECT SINGLE maktx
-      FROM makt
-      INTO po_item-maktx
-     WHERE matnr = po_item-matnr
-       AND spras = sy-langu.                              "#EC CI_SUBRC
+    IF po_item-mwskz IS INITIAL.
+      po_item-mwskz = 'J3'.
+    ENDIF.
 
-    super->pai_tc_line( ).
+    "如果使用了自动带出功能，这里需要判断一下，自动带出时执行修改逻辑，但不修改自动带出的字段值
+    IF sy-ucomm = zcl_tscreen_util=>c_fcode_tc_pov_bring_out.
+      CLEAR sy-ucomm.
+      MODIFY po_items FROM po_item TRANSPORTING mwskz WHERE ebeln = po_item-ebeln AND ebelp = po_item-ebelp. "#EC CI_STDSEQ
+    ELSE.
+
+      SELECT SINGLE maktx
+        FROM makt
+        INTO po_item-maktx
+       WHERE matnr = po_item-matnr
+         AND spras = sy-langu.                            "#EC CI_SUBRC
+
+      super->pai_tc_line( ).
+    ENDIF.
 
   ENDMETHOD.
 
@@ -287,7 +319,14 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
           INTO TABLE @DATA(lt_mara)
          UP TO '100' ROWS.                                "#EC CI_SUBRC
 
-        po_item-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
+        ASSIGN po_items[ get_current_line( ) ] TO FIELD-SYMBOL(<po_item>).
+
+        <po_item>-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
+        TRY.
+            parent->bring_out( EXPORTING source = 'MAKTX' CHANGING target = <po_item>-maktx ).
+          CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
+            MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+        ENDTRY.
 
     ENDCASE.
 

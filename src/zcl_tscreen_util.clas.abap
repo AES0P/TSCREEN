@@ -18,6 +18,8 @@ CLASS zcl_tscreen_util DEFINITION
     TYPES:
       tty_elements TYPE STANDARD TABLE OF ty_element WITH EMPTY KEY .
 
+    CONSTANTS c_fcode_tc_pov_bring_out TYPE sy-ucomm VALUE 'TC_POV_BRING_OUT' ##NO_TEXT.
+
     CLASS-METHODS get_instance
       IMPORTING
         !program    TYPE sy-repid OPTIONAL
@@ -98,7 +100,7 @@ CLASS zcl_tscreen_util DEFINITION
     CLASS-DATA tscreen_util TYPE REF TO zcl_tscreen_util .
     DATA program TYPE syrepid .
     DATA dynnr TYPE sy-dynnr .
-    DATA bring_out_data TYPE REF TO data ##NEEDED.
+    DATA bring_out_data TYPE REF TO data  ##NEEDED.
 
     METHODS constructor
       IMPORTING
@@ -282,13 +284,14 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
         stepl_not_found      = 10
         OTHERS               = 11.
     IF sy-subrc <> 0 .
-      read_sysmsg( abap_true ).
+*      read_sysmsg( abap_true ).
+      read_sysmsg( ).
     ELSE.
       READ TABLE dynpro_fields INTO dynpro_field INDEX 1.
       value = dynpro_field-fieldvalue.
     ENDIF.
 
-  ENDMETHOD."#EC CI_VALPAR
+  ENDMETHOD.                                             "#EC CI_VALPAR
 
 
   METHOD get_dynnr.
@@ -372,6 +375,12 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
       LOOP AT value_tab REFERENCE INTO bring_out_data WHERE (where).
         EXIT.
       ENDLOOP.
+      IF sy-subrc <> 0.
+        REPLACE '=' IN where WITH 'CS'.
+        LOOP AT value_tab REFERENCE INTO bring_out_data WHERE (where).
+          EXIT.
+        ENDLOOP.
+      ENDIF.
 
     ENDIF.
 
@@ -387,7 +396,7 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
         functioncode           = fcode
       EXCEPTIONS
         function_not_supported = 1
-        OTHERS                 = 2."#EC CI_SUBRC
+        OTHERS                 = 2. "#EC CI_SUBRC
     IF sy-subrc <> 0 ##NEEDED.
 * Implement suitable error handling here
     ENDIF.
@@ -419,7 +428,7 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
       WHEN 'ME23N'.
 
         SET PARAMETER ID 'BES' FIELD value.
-        CALL TRANSACTION tcode AND SKIP FIRST SCREEN. "#EC CI_CALLTA
+        CALL TRANSACTION tcode AND SKIP FIRST SCREEN.    "#EC CI_CALLTA
 
       WHEN 'MM03'.
 
@@ -444,5 +453,5 @@ CLASS ZCL_TSCREEN_UTIL IMPLEMENTATION.
 
     ENDCASE.
 
-  ENDMETHOD."#EC CI_VALPAR
+  ENDMETHOD.                                             "#EC CI_VALPAR
 ENDCLASS.

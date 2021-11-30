@@ -128,7 +128,8 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -150,7 +151,8 @@ CLASS lcl_tc_po_plans DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -167,7 +169,8 @@ CLASS lcl_tc_po_histories DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data
       IMPORTING
@@ -295,6 +298,8 @@ CLASS lcl_tscreen_14_v9002 IMPLEMENTATION.
         NEW lcl_tc_po_items( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -322,6 +327,8 @@ CLASS lcl_tscreen_14_v9003 IMPLEMENTATION.
         NEW lcl_tc_po_plans( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -349,6 +356,8 @@ CLASS lcl_tscreen_14_v9004 IMPLEMENTATION.
         NEW lcl_tc_po_histories( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -450,7 +459,7 @@ CLASS lcl_tc_po_plans IMPLEMENTATION.
 
   METHOD get_data.
 
-    SELECT * "#EC CI_ALL_FIELDS_NEEDED
+    SELECT *                                  "#EC CI_ALL_FIELDS_NEEDED
       FROM eket
       INTO CORRESPONDING FIELDS OF TABLE po_plans
      WHERE ebeln = ebeln
@@ -479,7 +488,7 @@ CLASS lcl_tc_po_histories IMPLEMENTATION.
 
   METHOD get_data.
 
-    SELECT * "#EC CI_ALL_FIELDS_NEEDED
+    SELECT *                                  "#EC CI_ALL_FIELDS_NEEDED
       FROM ekbe
       INTO CORRESPONDING FIELDS OF TABLE po_histories
      WHERE ebeln = ebeln

@@ -35,7 +35,7 @@
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
-       <LENGTH>226</LENGTH>
+       <LENGTH>145</LENGTH>
        <HEIGHT>012</HEIGHT>
       </RPY_DYCATT>
       <RPY_DYCATT>
@@ -44,7 +44,7 @@
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
        <LINE>014</LINE>
        <COLUMN>002</COLUMN>
-       <LENGTH>225</LENGTH>
+       <LENGTH>145</LENGTH>
        <HEIGHT>016</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
@@ -214,9 +214,13 @@
        <NAME>CON_LAST_CHANGE</NAME>
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
        <LINE>005</LINE>
-       <COLUMN>075</COLUMN>
-       <LENGTH>061</LENGTH>
+       <COLUMN>088</COLUMN>
+       <LENGTH>040</LENGTH>
        <HEIGHT>005</HEIGHT>
+       <C_RESIZE_V>X</C_RESIZE_V>
+       <C_RESIZE_H>X</C_RESIZE_H>
+       <C_LINE_MIN>002</C_LINE_MIN>
+       <C_COLN_MIN>010</C_COLN_MIN>
       </RPY_DYCATT>
      </CONTAINERS>
      <FIELDS>
@@ -225,11 +229,11 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>FRAME</TYPE>
        <NAME>%#AUTOTEXT001</NAME>
-       <TEXT>采购订单抬头______________________________________________________________________________________________________________________________</TEXT>
+       <TEXT>采购订单抬头____________________________________________________________________________________________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>152</LENGTH>
-       <VISLENGTH>152</VISLENGTH>
+       <LENGTH>131</LENGTH>
+       <VISLENGTH>131</VISLENGTH>
        <HEIGHT>010</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
@@ -241,7 +245,7 @@
        <NAME>EKKO-LIFNR</NAME>
        <TEXT>供应商____________</TEXT>
        <LINE>002</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>002</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -260,7 +264,7 @@
        <NAME>EKKO-LIFNR</NAME>
        <TEXT>__________</TEXT>
        <LINE>002</LINE>
-       <COLUMN>026</COLUMN>
+       <COLUMN>018</COLUMN>
        <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -280,7 +284,7 @@
        <NAME>EKKO-EKORG</NAME>
        <TEXT>采购组织___________</TEXT>
        <LINE>002</LINE>
-       <COLUMN>040</COLUMN>
+       <COLUMN>037</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -299,7 +303,7 @@
        <NAME>EKKO-EKORG</NAME>
        <TEXT>____</TEXT>
        <LINE>002</LINE>
-       <COLUMN>061</COLUMN>
+       <COLUMN>053</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>004</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -318,7 +322,7 @@
        <NAME>EKKO-BEDAT</NAME>
        <TEXT>凭证日期___________</TEXT>
        <LINE>002</LINE>
-       <COLUMN>075</COLUMN>
+       <COLUMN>072</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -335,7 +339,7 @@
        <NAME>EKKO-BEDAT</NAME>
        <TEXT>__________</TEXT>
        <LINE>002</LINE>
-       <COLUMN>096</COLUMN>
+       <COLUMN>088</COLUMN>
        <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -351,7 +355,7 @@
        <NAME>EKKO-EBELN</NAME>
        <TEXT>采购凭证___________</TEXT>
        <LINE>003</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>002</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -368,7 +372,7 @@
        <NAME>EKKO-EBELN</NAME>
        <TEXT>__________</TEXT>
        <LINE>003</LINE>
-       <COLUMN>026</COLUMN>
+       <COLUMN>018</COLUMN>
        <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -386,7 +390,7 @@
        <NAME>EKKO-EKGRP</NAME>
        <TEXT>采购组____________</TEXT>
        <LINE>003</LINE>
-       <COLUMN>040</COLUMN>
+       <COLUMN>037</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -405,7 +409,7 @@
        <NAME>EKKO-EKGRP</NAME>
        <TEXT>___</TEXT>
        <LINE>003</LINE>
-       <COLUMN>061</COLUMN>
+       <COLUMN>053</COLUMN>
        <LENGTH>003</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -422,15 +426,15 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-AEDAT</NAME>
-       <TEXT>创建日期_________</TEXT>
+       <TEXT>创建日期___________</TEXT>
        <LINE>003</LINE>
-       <COLUMN>075</COLUMN>
-       <LENGTH>013</LENGTH>
-       <VISLENGTH>013</VISLENGTH>
+       <COLUMN>072</COLUMN>
+       <LENGTH>015</LENGTH>
+       <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
-       <MODIFIC>2</MODIFIC>
+       <MODIFIC>F</MODIFIC>
        <REQU_ENTRY>N</REQU_ENTRY>
        <LABELLEFT>X</LABELLEFT>
       </RPY_DYFATC>
@@ -441,7 +445,7 @@
        <NAME>EKKO-AEDAT</NAME>
        <TEXT>__________</TEXT>
        <LINE>003</LINE>
-       <COLUMN>096</COLUMN>
+       <COLUMN>088</COLUMN>
        <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -457,7 +461,7 @@
        <NAME>EKKO-BUKRS</NAME>
        <TEXT>公司代码___________</TEXT>
        <LINE>004</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>002</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -476,7 +480,7 @@
        <NAME>EKKO-BUKRS</NAME>
        <TEXT>____</TEXT>
        <LINE>004</LINE>
-       <COLUMN>026</COLUMN>
+       <COLUMN>018</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>004</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -495,7 +499,7 @@
        <NAME>EKKO-ZTERM</NAME>
        <TEXT>付款条件________</TEXT>
        <LINE>004</LINE>
-       <COLUMN>040</COLUMN>
+       <COLUMN>037</COLUMN>
        <LENGTH>012</LENGTH>
        <VISLENGTH>012</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -512,7 +516,7 @@
        <NAME>EKKO-ZTERM</NAME>
        <TEXT>____</TEXT>
        <LINE>004</LINE>
-       <COLUMN>061</COLUMN>
+       <COLUMN>053</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>004</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -528,7 +532,7 @@
        <NAME>EKKO-ERNAM</NAME>
        <TEXT>创建者____________</TEXT>
        <LINE>004</LINE>
-       <COLUMN>075</COLUMN>
+       <COLUMN>072</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -545,7 +549,7 @@
        <NAME>EKKO-ERNAM</NAME>
        <TEXT>____________</TEXT>
        <LINE>004</LINE>
-       <COLUMN>096</COLUMN>
+       <COLUMN>088</COLUMN>
        <LENGTH>012</LENGTH>
        <VISLENGTH>012</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -561,7 +565,7 @@
        <NAME>EKKO-DESP</NAME>
        <TEXT>______________</TEXT>
        <LINE>004</LINE>
-       <COLUMN>109</COLUMN>
+       <COLUMN>101</COLUMN>
        <LENGTH>014</LENGTH>
        <VISLENGTH>014</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -579,7 +583,7 @@
        <NAME>EKKO-UNSEZ</NAME>
        <TEXT>____________</TEXT>
        <LINE>004</LINE>
-       <COLUMN>124</COLUMN>
+       <COLUMN>116</COLUMN>
        <LENGTH>012</LENGTH>
        <VISLENGTH>012</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -596,7 +600,7 @@
        <NAME>EKKO-BSART</NAME>
        <TEXT>凭证类型___________</TEXT>
        <LINE>005</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>002</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -615,7 +619,7 @@
        <NAME>EKKO-BSART</NAME>
        <TEXT>____</TEXT>
        <LINE>005</LINE>
-       <COLUMN>026</COLUMN>
+       <COLUMN>018</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>004</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -634,7 +638,7 @@
        <NAME>EKKO-ZBD1T</NAME>
        <TEXT>付款_____________</TEXT>
        <LINE>005</LINE>
-       <COLUMN>040</COLUMN>
+       <COLUMN>037</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -651,7 +655,7 @@
        <NAME>EKKO-ZBD1T</NAME>
        <TEXT>___</TEXT>
        <LINE>005</LINE>
-       <COLUMN>061</COLUMN>
+       <COLUMN>053</COLUMN>
        <LENGTH>003</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -664,10 +668,25 @@
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
+       <NAME>%#AUTOTEXT002</NAME>
+       <TEXT>##</TEXT>
+       <LINE>005</LINE>
+       <COLUMN>085</COLUMN>
+       <LENGTH>002</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <INVISIBLE>X</INVISIBLE>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>TEXT</TYPE>
        <NAME>EKKO-SPRAS</NAME>
        <TEXT>语言_____________</TEXT>
        <LINE>006</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>002</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -686,7 +705,7 @@
        <NAME>EKKO-SPRAS</NAME>
        <TEXT>__</TEXT>
        <LINE>006</LINE>
-       <COLUMN>026</COLUMN>
+       <COLUMN>018</COLUMN>
        <LENGTH>002</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -707,7 +726,7 @@
        <NAME>EKKO-WAERS</NAME>
        <TEXT>货币_____________</TEXT>
        <LINE>007</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>002</COLUMN>
        <LENGTH>015</LENGTH>
        <VISLENGTH>015</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -726,7 +745,7 @@
        <NAME>EKKO-WAERS</NAME>
        <TEXT>_____</TEXT>
        <LINE>007</LINE>
-       <COLUMN>026</COLUMN>
+       <COLUMN>018</COLUMN>
        <LENGTH>005</LENGTH>
        <VISLENGTH>005</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -746,7 +765,7 @@
        <ICON_NAME>ICON_COLLAPSE_ALL</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>009</LINE>
-       <COLUMN>005</COLUMN>
+       <COLUMN>004</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
@@ -815,7 +834,7 @@
        <ELEMENT_OF>SCREEN</ELEMENT_OF>
        <LINE>003</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>185</LENGTH>
+       <LENGTH>189</LENGTH>
        <HEIGHT>024</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
@@ -999,14 +1018,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_COVT</NAME>
-       <TEXT>_________________________________________________________</TEXT>
+       <TEXT>____________________________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>046</COLUMN>
-       <LENGTH>067</LENGTH>
+       <LENGTH>070</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -1036,12 +1055,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_SORT_DOWN</NAME>
-       <TEXT>降序________________________________________________________________________________</TEXT>
+       <TEXT>降序__________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>056</COLUMN>
-       <LENGTH>087</LENGTH>
+       <LENGTH>089</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -1425,14 +1444,14 @@
        <CONT_NAME>TC_9002_01</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9002_01_MAKTX</NAME>
-       <TEXT>_________________</TEXT>
+       <TEXT>___________________</TEXT>
        <ICON_NAME>ICON_FAST_ENTRY</ICON_NAME>
        <ICON_QINFO>编辑</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
-       <LENGTH>026</LENGTH>
+       <LENGTH>028</LENGTH>
        <VISLENGTH>006</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <PUSH_FCODE>TC_9002_01_MAKTX</PUSH_FCODE>

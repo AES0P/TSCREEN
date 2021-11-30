@@ -134,8 +134,6 @@ CLASS lcl_prog IMPLEMENTATION.
           ekko-zterm = '0'.
         ENDIF.
 
-        "注意：联动字段和带出字段都需要在TSCREEN中配置才能生效
-
     ENDCASE.
   ENDMETHOD.
 

@@ -1,61 +1,67 @@
-class ZCL_TSCREEN_WITH_COMPONENTS definition
-  public
-  inheriting from ZCL_TSCREEN
-  abstract
-  create public .
+CLASS zcl_tscreen_with_components DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tscreen
+  ABSTRACT
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  types:
-    BEGIN OF ty_component,
+    TYPES:
+      BEGIN OF ty_component,
         group      TYPE string,
         counts     TYPE i,
         components TYPE REF TO cl_object_collection,
       END OF ty_component .
-  types:
-    tty_component TYPE STANDARD TABLE OF ty_component WITH DEFAULT KEY .
+    TYPES:
+      tty_component TYPE STANDARD TABLE OF ty_component WITH DEFAULT KEY .
 
-  methods ADD_COMPONENT
-    importing
-      !GROUP type STRING
-      !COMPONENT type ref to ZIF_TSCREEN_COMPONENT .
-  methods GET_COMPONENT
-    importing
-      !GROUP type STRING
-      !ID type STRING
-    returning
-      value(COMPONENT) type ref to ZIF_TSCREEN_COMPONENT .
-  methods DEL_COMPONENT
-    importing
-      !GROUP type STRING
-      !ID type STRING
-    returning
-      value(DELETED) type ABAP_BOOL .
-  methods GET_COMPONENTS_ITERATOR
-    importing
-      !GROUP type STRING
-    returning
-      value(ITERATOR) type ref to CL_OBJECT_COLLECTION_ITERATOR .
+    METHODS add_component
+      IMPORTING
+        !group     TYPE string
+        !component TYPE REF TO zif_tscreen_component
+      RAISING
+        zcx_tscreen .
+    METHODS get_component
+      IMPORTING
+        !group           TYPE string
+        !id              TYPE string
+      RETURNING
+        VALUE(component) TYPE REF TO zif_tscreen_component
+      RAISING
+        zcx_tscreen .
+    METHODS del_component
+      IMPORTING
+        !group         TYPE string
+        !id            TYPE string
+      RETURNING
+        VALUE(deleted) TYPE abap_bool
+      RAISING
+        zcx_tscreen .
+    METHODS get_components_iterator
+      IMPORTING
+        !group          TYPE string
+      RETURNING
+        VALUE(iterator) TYPE REF TO cl_object_collection_iterator .
 
-  methods ZIF_TSCREEN~EXIT
-    redefinition .
-  methods ZIF_TSCREEN~HANDLE_EVENT
-    redefinition .
-protected section.
+    METHODS zif_tscreen~exit
+        REDEFINITION .
+    METHODS zif_tscreen~handle_event
+        REDEFINITION .
+  PROTECTED SECTION.
 
-  data COMPONENTS type TTY_COMPONENT .
+    DATA components TYPE tty_component .
 
-  methods ADD_COMPONENTS
-  abstract .
-  methods CALL_COMPONENTS_METHOD
-    importing
-      !METHOD type SEOCPDKEY-CPDNAME .
+    METHODS add_components
+        ABSTRACT .
+    METHODS call_components_method
+      IMPORTING
+        !method TYPE seocpdkey-cpdname .
 
-  methods CHANGE_SCREEN_EDITABLE
-    redefinition .
-  methods SET_ELEMENT_ATTR_BY_SETTING
-    redefinition .
-private section.
+    METHODS change_screen_editable
+        REDEFINITION .
+    METHODS set_element_attr_by_setting
+        REDEFINITION .
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -65,6 +71,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
 
   METHOD add_component.
 
+    "没有当前控件所属的控件组，就新增一组控件
     IF NOT line_exists( components[ group = group ] ).   "#EC CI_STDSEQ
       FIELD-SYMBOLS <component> TYPE ty_component.
       APPEND INITIAL LINE TO components ASSIGNING <component>.
@@ -73,8 +80,12 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
       SORT components BY group.
     ENDIF.
 
-    CHECK get_component( group = group id = component->id ) IS NOT BOUND.
+    "不允许重复添加控件
+    IF get_component( group = group id = component->id ) IS BOUND.
+      zcx_tscreen=>raise_text( 'COMPONENT ALREADY ADDED,DO NOT ADD AGAIN.' ).
+    ENDIF.
 
+    "向所属控件组添加控件
     READ TABLE components ASSIGNING <component> WITH KEY group = group BINARY SEARCH.
     ASSERT sy-subrc = 0.
 
@@ -94,7 +105,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
       DATA iterator TYPE REF TO cl_object_collection_iterator.
       iterator = <component>-components->get_iterator( ).
 
-      WHILE iterator->has_next( )."#EC CI_NESTED
+      WHILE iterator->has_next( ).                       "#EC CI_NESTED
         CAST zif_tscreen_component( iterator->get_next( ) )->change_visibility( )->change_editable( display_mode ).
       ENDWHILE.
 
@@ -137,13 +148,13 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
       iterator = get_components_iterator( <component>-group ).
 
       DATA component TYPE REF TO object.
-      WHILE iterator->has_next( )."#EC CI_NESTED
+      WHILE iterator->has_next( ).                       "#EC CI_NESTED
         component = iterator->get_next( ).
         TRY.
             CALL METHOD component->(method).
           CATCH cx_sy_dyn_call_error INTO DATA(error).
             error->get_text( ).
-            RETURN.
+*            RETURN.
         ENDTRY.
       ENDWHILE.
 
@@ -175,7 +186,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
       DATA iterator TYPE REF TO cl_object_collection_iterator.
       iterator = <component>-components->get_iterator( ).
 
-      WHILE iterator->has_next( )."#EC CI_NESTED
+      WHILE iterator->has_next( ).                       "#EC CI_NESTED
         DATA component TYPE REF TO zif_tscreen_component.
         component ?= iterator->get_next( ).
         "有的控件的PBO事件可以在父屏幕的PBO里一起处理，有的不行，比如table control

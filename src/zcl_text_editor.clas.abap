@@ -221,14 +221,12 @@ CLASS ZCL_TEXT_EDITOR IMPLEMENTATION.
 
     ##WARN_OK
     READ TABLE parent->dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = id
-                                                                        name    = screen-name
-                                                                        zmode   = display_mode
+                                                                        zmode   = parent->display_mode
                                                                         BINARY SEARCH.
     IF sy-subrc <> 0.
       "没有设置具体模式，再使用通用模式
       ##WARN_OK
       READ TABLE parent->dynpro_attr_setting ASSIGNING <setting> WITH KEY tc_name = id
-                                                                          name    = screen-name
                                                                           zmode   = '*'
                                                                           BINARY SEARCH.
       IF sy-subrc <> 0.
@@ -238,17 +236,23 @@ CLASS ZCL_TEXT_EDITOR IMPLEMENTATION.
 
     IF sy-subrc = 0.
 
+      change_visibility( zif_tscreen_component=>c_component_visible ).
+
       CASE abap_true.
         WHEN <setting>-xoblg."标志: 必需输入字段 ?
 
+
         WHEN <setting>-xoptn."指示符: 可选字段 ?
+
+          change_editable( zcl_tscreen=>display_mode_modify ).
 
         WHEN <setting>-xnodi."标识: 字段隐藏
 
-          change_visibility( visibility = <setting>-xnodi ).
+          change_visibility( zif_tscreen_component=>c_component_invisible ).
 
         WHEN <setting>-xdisp."标志: 字段仅可显示 ?
 
+          change_editable( zcl_tscreen=>display_mode_show ).
 
       ENDCASE.
 

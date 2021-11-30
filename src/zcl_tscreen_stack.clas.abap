@@ -1,66 +1,66 @@
-class ZCL_TSCREEN_STACK definition
-  public
-  create private
+CLASS zcl_tscreen_stack DEFINITION
+  PUBLIC
+  CREATE PRIVATE
 
-  global friends ZIF_TSCREEN .
+  GLOBAL FRIENDS zif_tscreen .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_TSCREEN_STACK .
+    INTERFACES zif_tscreen_stack .
 
-  aliases IS_EMPTY
-    for ZIF_TSCREEN_STACK~IS_EMPTY .
-  aliases POP
-    for ZIF_TSCREEN_STACK~POP .
-  aliases PUSH
-    for ZIF_TSCREEN_STACK~PUSH .
-  aliases SIZE
-    for ZIF_TSCREEN_STACK~SIZE .
-  aliases TOP
-    for ZIF_TSCREEN_STACK~TOP .
+    ALIASES is_empty
+      FOR zif_tscreen_stack~is_empty .
+    ALIASES pop
+      FOR zif_tscreen_stack~pop .
+    ALIASES push
+      FOR zif_tscreen_stack~push .
+    ALIASES size
+      FOR zif_tscreen_stack~size .
+    ALIASES top
+      FOR zif_tscreen_stack~top .
 
-  types:
-    BEGIN OF ty_view,
+    TYPES:
+      BEGIN OF ty_view,
         program     TYPE sy-cprog, "主程序
         dynnr_super TYPE sy-dynnr, "父屏幕号
         dynnr       TYPE sy-dynnr, "屏幕号
         tscreen     TYPE REF TO zif_tscreen,
       END OF ty_view .
-  types:
-    tty_view TYPE STANDARD TABLE OF ty_view WITH KEY program dynnr .
+    TYPES:
+      tty_view TYPE STANDARD TABLE OF ty_view WITH KEY program dynnr .
 
-  class-methods GET_INSTANCE
-    returning
-      value(INSTANCE) type ref to ZCL_TSCREEN_STACK .
-  methods CLEAR
-    raising
-      ZCX_TSCREEN .
-  methods IS_EXISTS
-    importing
-      !PROGRAM type SY-REPID
-      value(DYNNR_SUPER) type SY-DYNNR optional
-      !DYNNR type SY-DYNNR default SY-DYNNR
-    returning
-      value(IS_EXISTS) type ABAP_BOOL .
-  methods IS_SUPER_EXISTS
-    importing
-      !PROGRAM type SY-REPID
-      !DYNNR_SUPER type SY-DYNNR
-    returning
-      value(IS_EXISTS) type ABAP_BOOL .
-  methods CURRENT
-    importing
-      !DYNNR_SUPER type SY-DYNNR optional
-      !DYNNR type SY-DYNNR default SY-DYNNR
-    returning
-      value(TSCREEN) type ref to ZIF_TSCREEN
-    raising
-      ZCX_TSCREEN .
+    CLASS-METHODS get_instance
+      RETURNING
+        VALUE(instance) TYPE REF TO zcl_tscreen_stack .
+    METHODS clear
+      RAISING
+        zcx_tscreen .
+    METHODS is_exists
+      IMPORTING
+        !program           TYPE sy-repid
+        VALUE(dynnr_super) TYPE sy-dynnr OPTIONAL
+        !dynnr             TYPE sy-dynnr DEFAULT sy-dynnr
+      RETURNING
+        VALUE(is_exists)   TYPE abap_bool .
+    METHODS is_super_exists
+      IMPORTING
+        !program         TYPE sy-repid
+        !dynnr_super     TYPE sy-dynnr
+      RETURNING
+        VALUE(is_exists) TYPE abap_bool .
+    METHODS current
+      IMPORTING
+        !dynnr_super   TYPE sy-dynnr OPTIONAL
+        !dynnr         TYPE sy-dynnr DEFAULT sy-dynnr
+      RETURNING
+        VALUE(tscreen) TYPE REF TO zif_tscreen
+      RAISING
+        zcx_tscreen .
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  class-data STACK type ref to ZCL_TSCREEN_STACK .
-  data TSCREENS type TTY_VIEW .
+    CLASS-DATA stack TYPE REF TO zcl_tscreen_stack .
+    DATA tscreens TYPE tty_view .
 ENDCLASS.
 
 
@@ -88,14 +88,14 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
 
     FIELD-SYMBOLS <view> LIKE LINE OF tscreens.
     READ TABLE tscreens ASSIGNING <view> WITH KEY dynnr_super = dynnr_super
-                                                  dynnr       = dynnr."#EC CI_STDSEQ
+                                                  dynnr       = dynnr. "#EC CI_STDSEQ
     IF sy-subrc = 0.
       tscreen = <view>-tscreen.
     ELSE.
 
       DATA tscreens_copy TYPE tty_view.
       tscreens_copy = tscreens.
-      DELETE tscreens_copy WHERE dynnr_super IS INITIAL OR dynnr <> dynnr."#EC CI_STDSEQ
+      DELETE tscreens_copy WHERE dynnr_super IS INITIAL OR dynnr <> dynnr. "#EC CI_STDSEQ
       READ TABLE tscreens_copy ASSIGNING <view> INDEX lines( tscreens_copy ).
       IF sy-subrc = 0.
         tscreen = <view>-tscreen.
@@ -137,7 +137,7 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
   METHOD is_super_exists.
 
     READ TABLE tscreens TRANSPORTING NO FIELDS WITH KEY program = program
-                                                        dynnr   = dynnr_super."#EC CI_STDSEQ
+                                                        dynnr   = dynnr_super. "#EC CI_STDSEQ
     CHECK sy-subrc = 0.
     is_exists = abap_true.
 

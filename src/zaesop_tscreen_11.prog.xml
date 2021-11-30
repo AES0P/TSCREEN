@@ -1326,6 +1326,19 @@
       </RPY_DYFLOW>
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
+       <LINE>  CHAIN.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>    FIELD ekko-aedat.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>    MODULE pai ON CHAIN-INPUT.&quot;抬头字段检查，通过PAI触发</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>  ENDCHAIN.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW/>
+      <RPY_DYFLOW>
        <LINE>*&amp;SPWIZARD: PAI FLOW LOGIC FOR TABLECONTROL &apos;TC_9000_01&apos;</LINE>
       </RPY_DYFLOW>
       <RPY_DYFLOW>
@@ -1491,12 +1504,6 @@
      </RSMPE_BUT>
     </BUT>
     <PFK>
-     <RSMPE_PFK>
-      <CODE>000001</CODE>
-      <PFNO>00</PFNO>
-      <FUNCODE>/00</FUNCODE>
-      <FUNNO>001</FUNNO>
-     </RSMPE_PFK>
      <RSMPE_PFK>
       <CODE>000001</CODE>
       <PFNO>03</PFNO>

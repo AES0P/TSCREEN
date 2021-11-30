@@ -1,29 +1,29 @@
-interface ZIF_TSCREEN
-  public .
+INTERFACE zif_tscreen
+  PUBLIC .
 
 
-  constants DYNPRO_TYPE_NORMAL type SCRHTYPN value '' ##NO_TEXT.
-  constants DYNPRO_TYPE_SELSCREEN type SCRHTYPN value 'S' ##NO_TEXT.
-  constants DYNPRO_TYPE_SUBSCREEN type SCRHTYPI value 'I' ##NO_TEXT.
-  constants DYNPRO_TYPE_DIALOG type SCRHTYPM value 'M' ##NO_TEXT.
-  data PROGRAM type SYREPID read-only .
-  data DYNNR type SY-DYNNR read-only .
-  data DYNNR_SUPER type SY-DYNNR read-only .
-  data DYNPRO_TYPE type SCRHTYP read-only .
-  data IS_INITIALIZED type ABAP_BOOL read-only .
+  CONSTANTS dynpro_type_normal TYPE scrhtypn VALUE '' ##NO_TEXT.
+  CONSTANTS dynpro_type_selscreen TYPE scrhtypn VALUE 'S' ##NO_TEXT.
+  CONSTANTS dynpro_type_subscreen TYPE scrhtypi VALUE 'I' ##NO_TEXT.
+  CONSTANTS dynpro_type_dialog TYPE scrhtypm VALUE 'M' ##NO_TEXT.
+  DATA program TYPE syrepid READ-ONLY .
+  DATA dynnr TYPE sy-dynnr READ-ONLY .
+  DATA dynnr_super TYPE sy-dynnr READ-ONLY .
+  DATA dynpro_type TYPE scrhtyp READ-ONLY .
+  DATA is_initialized TYPE abap_bool READ-ONLY .
 
-  methods HANDLE_EVENT
-    importing
-      !EVENT type C
-    raising
-      ZCX_TSCREEN .
-  methods PBO .
-  methods PAI
-    importing
-      !UCOMM type SY-UCOMM default SY-UCOMM .
-  methods POH .
-  methods POV .
-  methods EXIT
-    raising
-      ZCX_TSCREEN .
-endinterface.
+  METHODS handle_event
+    IMPORTING
+      !event TYPE c
+    RAISING
+      zcx_tscreen .
+  METHODS pbo .
+  METHODS pai
+    IMPORTING
+      !ucomm TYPE sy-ucomm DEFAULT sy-ucomm .
+  METHODS poh .
+  METHODS pov .
+  METHODS exit
+    RAISING
+      zcx_tscreen .
+ENDINTERFACE.

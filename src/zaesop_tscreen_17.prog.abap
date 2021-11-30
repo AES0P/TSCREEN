@@ -16,6 +16,11 @@ TABLES ekko.
 SELECTION-SCREEN BEGIN OF SCREEN 9900 AS SUBSCREEN.
   PARAMETERS p_ebeln TYPE ekko-ebeln.
   SELECT-OPTIONS s_bukrs FOR ekko-bukrs.
+  SELECTION-SCREEN:
+  BEGIN OF LINE,
+  PUSHBUTTON 1(4)  p_bt1 USER-COMMAND comm1," 查询
+  PUSHBUTTON 7(4)  p_bt2 USER-COMMAND comm2," 置空
+  END OF LINE.
 SELECTION-SCREEN END OF SCREEN 9900.
 
 *&---------------------------------------------------------------------*
@@ -35,10 +40,12 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 
   PUBLIC SECTION.
 
+    CLASS-DATA sub_screen TYPE sy-dynnr VALUE '9900'.
     CLASS-DATA view_cls_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
     CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_17' READ-ONLY.
     CLASS-METHODS push_view.
 
+    METHODS initialize REDEFINITION.
     METHODS check_authority REDEFINITION.
     METHODS show REDEFINITION.
 
@@ -76,6 +83,7 @@ CLASS lcl_tscreen_17_v9900 DEFINITION CREATE PUBLIC
     METHODS constructor.
 
     METHODS pbo REDEFINITION.
+    METHODS pai REDEFINITION.
 
 ENDCLASS.
 
@@ -88,7 +96,8 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
       IMPORTING
         tscreen TYPE REF TO zif_tscreen
       RAISING
-        cx_uuid_error.
+        cx_uuid_error
+        zcx_tscreen.
 
     METHODS get_data.
 
@@ -125,6 +134,11 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD initialize.
+    p_bt1 = '查询'.
+    p_bt2 = '置空'.
+  ENDMETHOD.
+
   METHOD check_authority.
     MESSAGE 'CHECK_AUTHORITY' TYPE 'I'.
 *    MESSAGE 'CHECK_AUTHORITY' TYPE 'S' DISPLAY LIKE 'E'.
@@ -145,7 +159,7 @@ CLASS lcl_tscreen_17_v9000 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( ).
-    display_mode = zcl_tscreen=>display_mode_modify.
+    set_display_mode( zcl_tscreen=>display_mode_modify ).
   ENDMETHOD.
 
   ##NEEDED
@@ -154,10 +168,16 @@ CLASS lcl_tscreen_17_v9000 IMPLEMENTATION.
 
   METHOD pai.
     CASE ucomm.
+      WHEN 'EXPAND'.
+        IF lcl_prog=>sub_screen = '9900'.
+          lcl_prog=>sub_screen = '9002'.
+        ELSE.
+          lcl_prog=>sub_screen = '9900'.
+        ENDIF.
       WHEN 'EXECUTE'.
         TRY.
-            DATA(v9001) = CAST lcl_tscreen_17_v9001(  zcl_tscreen_stack=>get_instance( )->current( dynnr_super = '9000' dynnr = '9001' ) ).
-            CAST lcl_tc_po_items( v9001->get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9001_01' ) )->get_data( ).
+            DATA(v9001) = CAST lcl_tscreen_17_v9001( get_sub_screen( '9001' ) )."拿到子屏幕对象
+            CAST lcl_tc_po_items( v9001->get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9001_01' ) )->get_data( )."访问子屏幕控件的方法
           CATCH zcx_tscreen INTO DATA(lx_tscreen) ##NEEDED.
             MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
         ENDTRY.
@@ -192,6 +212,8 @@ CLASS lcl_tscreen_17_v9001 IMPLEMENTATION.
         NEW lcl_tc_po_items( me ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
     ENDTRY.
 
   ENDMETHOD.
@@ -208,10 +230,29 @@ CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
 
   ##NEEDED
   METHOD pbo.
+    LOOP AT SCREEN.
+      screen-input  = 1.
+      MODIFY SCREEN.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD pai.
+    CASE ucomm.
+      WHEN 'COMM1'.
+        TRY.
+            DATA(v9001) = CAST lcl_tscreen_17_v9001( zcl_tscreen_stack=>get_instance( )->current( dynnr_super = '9000' dynnr = '9001' ) )."拿到子屏幕对象
+            CAST lcl_tc_po_items( v9001->get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9001_01' ) )->get_data( )."访问子屏幕控件的方法
+          CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
+            MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+        ENDTRY.
+      WHEN 'COMM2'.
+        CLEAR p_ebeln.
+        CLEAR s_bukrs[].
+      WHEN OTHERS.
+    ENDCASE.
   ENDMETHOD.
 
 ENDCLASS.
-
 
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
@@ -260,13 +301,24 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
   METHOD pai_tc_line .
 
-    SELECT SINGLE maktx
-      FROM makt
-      INTO po_item-maktx
-     WHERE matnr = po_item-matnr
-       AND spras = sy-langu.                              "#EC CI_SUBRC
+    IF po_item-mwskz IS INITIAL.
+      po_item-mwskz = 'J3'.
+    ENDIF.
 
-    super->pai_tc_line( ).
+    "如果使用了自动带出功能，这里需要判断一下，自动带出时执行修改逻辑，但不修改自动带出的字段值
+    IF sy-ucomm = zcl_tscreen_util=>c_fcode_tc_pov_bring_out.
+      CLEAR sy-ucomm.
+      MODIFY po_items FROM po_item TRANSPORTING mwskz WHERE ebeln = po_item-ebeln AND ebelp = po_item-ebelp. "#EC CI_STDSEQ
+    ELSE.
+
+      SELECT SINGLE maktx
+        FROM makt
+        INTO po_item-maktx
+       WHERE matnr = po_item-matnr
+         AND spras = sy-langu.                            "#EC CI_SUBRC
+
+      super->pai_tc_line( ).
+    ENDIF.
 
   ENDMETHOD.
 
@@ -316,7 +368,14 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
           INTO TABLE @DATA(lt_mara)
          UP TO '100' ROWS.                                "#EC CI_SUBRC
 
-        po_item-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
+        ASSIGN po_items[ get_current_line( ) ] TO FIELD-SYMBOL(<po_item>).
+
+        <po_item>-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
+        TRY.
+            parent->bring_out( EXPORTING source = 'MAKTX' CHANGING target = <po_item>-maktx ).
+          CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
+            MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+        ENDTRY.
 
     ENDCASE.
 
@@ -331,7 +390,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
     DATA(index) = lines( po_items ).
 
     "根据最后一行的行号递增
-    po_items[ index ]-ebeln = ekko-ebeln.
+    po_items[ index ]-ebeln = p_ebeln.
     IF po_items[ index ]-ebelp IS INITIAL.
       IF index = 1.
         po_items[ index ]-ebelp = 10.
