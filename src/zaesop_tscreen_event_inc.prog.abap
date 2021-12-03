@@ -9,7 +9,7 @@
 *&---------------------------------------------------------------------*
 *&  INITIALIZATION
 *&---------------------------------------------------------------------*
-INITIALIZATION.
+INITIALIZATION."仅1000选择屏幕会触发
   lcl_prog=>push_view( ).
   TRY.
       zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'INIT' ).
@@ -21,7 +21,6 @@ INITIALIZATION.
 *&　START-OF-SELECTION
 *&---------------------------------------------------------------------*
 START-OF-SELECTION.
-  lcl_prog=>push_view( ).
   TRY.
       zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'EXE' ).
     CATCH zcx_tscreen INTO gx_tscreen.
@@ -31,7 +30,7 @@ START-OF-SELECTION.
 *&---------------------------------------------------------------------*
 *&  PBO
 *&---------------------------------------------------------------------*
-AT SELECTION-SCREEN OUTPUT.
+AT SELECTION-SCREEN OUTPUT."所有带屏幕元素的选择屏幕会触发
   lcl_prog=>push_view( ).
   TRY.
       zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'PBO' ).
@@ -43,7 +42,6 @@ AT SELECTION-SCREEN OUTPUT.
 *&  PAI
 *&---------------------------------------------------------------------*
 AT SELECTION-SCREEN.
-  lcl_prog=>push_view( ).
   TRY.
       zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'AUTH' ).
     CATCH zcx_tscreen INTO DATA(gx_tscreen).
@@ -55,11 +53,17 @@ AT SELECTION-SCREEN.
       MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
   ENDTRY.
 
+AT SELECTION-SCREEN ON EXIT-COMMAND.
+  TRY.
+      zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'EXIT' ).
+    CATCH zcx_tscreen INTO gx_tscreen.
+      MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+  ENDTRY.
+
 *&---------------------------------------------------------------------*
 *&　　　　END-OF-SELECTION
 *&---------------------------------------------------------------------*
 END-OF-SELECTION.
-  lcl_prog=>push_view( ).
   TRY.
       zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'SHOW' ).
     CATCH zcx_tscreen INTO gx_tscreen.

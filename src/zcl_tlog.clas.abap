@@ -1,148 +1,181 @@
-CLASS zcl_tlog DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PRIVATE .
+class ZCL_TLOG definition
+  public
+  final
+  create private .
 
-  PUBLIC SECTION.
+public section.
 
-    TYPES:
-      BEGIN OF ty_mapping_rule,
-        field TYPE fieldname,
-        mean  TYPE fieldname,
-      END OF ty_mapping_rule .
-    TYPES:
-      BEGIN OF ty_return,
-        type    TYPE char01,
-        message TYPE char255,
-      END OF ty_return .
-    TYPES:
-      tty_mapping_rule TYPE STANDARD TABLE OF ty_mapping_rule WITH EMPTY KEY .
+  interfaces ZIF_TLOG .
 
-    DATA auto_commit TYPE abap_bool VALUE abap_true ##NO_TEXT.
+  aliases ADD_LOG
+    for ZIF_TLOG~ADD_LOG .
+  aliases CLEAR
+    for ZIF_TLOG~CLEAR .
+  aliases SAVE_LOG
+    for ZIF_TLOG~SAVE_LOG .
 
-    CLASS-METHODS get_instance
-      IMPORTING
-        !object             TYPE balobj_d
-        !subobject          TYPE balsubobj
-        !identity           TYPE balnrext
-        !level              TYPE ballevel DEFAULT '9'
-        !del_date           TYPE recadatefrom OPTIONAL
-        !del_not_before     TYPE recabool OPTIONAL
-        !auto_commit        TYPE abap_bool OPTIONAL
-      RETURNING
-        VALUE(log_instance) TYPE REF TO zcl_tlog .
-    METHODS success
-      IMPORTING
-        !content   TYPE string
-      RETURNING
-        VALUE(log) TYPE REF TO zcl_tlog .
-    METHODS info
-      IMPORTING
-        !content   TYPE string
-      RETURNING
-        VALUE(log) TYPE REF TO zcl_tlog .
-    METHODS warning
-      IMPORTING
-        !content   TYPE string
-      RETURNING
-        VALUE(log) TYPE REF TO zcl_tlog .
-    METHODS error
-      IMPORTING
-        !content   TYPE string
-      RETURNING
-        VALUE(log) TYPE REF TO zcl_tlog .
-    METHODS abort
-      IMPORTING
-        !content   TYPE string
-      RETURNING
-        VALUE(log) TYPE REF TO zcl_tlog .
-    METHODS debug
-      IMPORTING
-        VALUE(uname) TYPE sy-uname OPTIONAL
-      RETURNING
-        VALUE(log)   TYPE REF TO zcl_tlog .
-    METHODS add_from_string
-      IMPORTING
-        VALUE(content) TYPE string
-        VALUE(type)    TYPE symsgty .
-    METHODS add_from_symsg
-      IMPORTING
-        !level         TYPE ballevel DEFAULT '9'
-      RETURNING
-        VALUE(message) TYPE recamsg .
-    METHODS add_from_exception
-      IMPORTING
-        !io_exception TYPE REF TO cx_root
-        !if_cumulate  TYPE abap_bool OPTIONAL
-        !id_detlevel  TYPE ballevel DEFAULT '9'
-        !id_probclass TYPE balprobcl OPTIONAL
-        !id_tabname   TYPE tabname OPTIONAL
-        !id_fieldname TYPE fieldname OPTIONAL
-        !id_value     TYPE any OPTIONAL
-        !id_index     TYPE numeric OPTIONAL
-        !id_intreno   TYPE recaintreno OPTIONAL
-        !id_context   TYPE any OPTIONAL .
-    METHODS add_from_bapi
-      IMPORTING
-        !it_bapiret     TYPE bapirettab OPTIONAL
-        !is_bapiret     TYPE bapiret2 OPTIONAL
-        !if_cumulate    TYPE abap_bool OPTIONAL
-      EXPORTING
-        !ef_add_error   TYPE abap_bool
-        !ef_add_warning TYPE abap_bool .
-    METHODS commit
-      EXCEPTIONS
-        error .
-    METHODS display_in_slg1
-      IMPORTING
-        !amodal TYPE abap_bool OPTIONAL .
-    METHODS get_msg_list
-      RETURNING
-        VALUE(msg_list) TYPE re_t_msg .
-    METHODS get_salv
-      CHANGING
-        !table      TYPE STANDARD TABLE
-      RETURNING
-        VALUE(salv) TYPE REF TO cl_salv_table .
-    METHODS display_as_alv_popup
-      IMPORTING
-        !start_column TYPE i DEFAULT 5   ##NUMBER_OK
-        !start_line   TYPE i DEFAULT 5   ##NUMBER_OK
-        !end_column   TYPE i DEFAULT 120   ##NUMBER_OK
-        !end_line     TYPE i DEFAULT 25  ##NUMBER_OK.
-    METHODS free .
-    METHODS get_collector
-      RETURNING
-        VALUE(collector) TYPE REF TO if_reca_message_list .
+  data AUTO_COMMIT type ABAP_BOOL value ABAP_TRUE ##NO_TEXT.
+
+  class-methods GET_INSTANCE
+    importing
+      !OBJECT type BALOBJ_D
+      !SUBOBJECT type BALSUBOBJ
+      !IDENTITY type BALNREXT
+      !LEVEL type BALLEVEL default '9'
+      !DEL_DATE type RECADATEFROM optional
+      !DEL_NOT_BEFORE type RECABOOL optional
+      !AUTO_COMMIT type ABAP_BOOL optional
+    returning
+      value(LOG_INSTANCE) type ref to ZCL_TLOG .
+  methods SUCCESS
+    importing
+      !CONTENT type STRING
+    returning
+      value(LOG) type ref to ZCL_TLOG .
+  methods INFO
+    importing
+      !CONTENT type STRING
+    returning
+      value(LOG) type ref to ZCL_TLOG .
+  methods WARNING
+    importing
+      !CONTENT type STRING
+    returning
+      value(LOG) type ref to ZCL_TLOG .
+  methods ERROR
+    importing
+      !CONTENT type STRING
+    returning
+      value(LOG) type ref to ZCL_TLOG .
+  methods ABORT
+    importing
+      !CONTENT type STRING
+    returning
+      value(LOG) type ref to ZCL_TLOG .
+  methods DEBUG
+    importing
+      value(UNAME) type SY-UNAME optional
+    returning
+      value(LOG) type ref to ZCL_TLOG .
+  methods ADD_FROM_STRING
+    importing
+      value(CONTENT) type STRING
+      value(TYPE) type SYMSGTY .
+  methods ADD_FROM_SYMSG
+    importing
+      !LEVEL type BALLEVEL default '9'
+    returning
+      value(MESSAGE) type RECAMSG .
+  methods ADD_FROM_EXCEPTION
+    importing
+      !IO_EXCEPTION type ref to CX_ROOT
+      !IF_CUMULATE type ABAP_BOOL optional
+      !ID_DETLEVEL type BALLEVEL default '9'
+      !ID_PROBCLASS type BALPROBCL optional
+      !ID_TABNAME type TABNAME optional
+      !ID_FIELDNAME type FIELDNAME optional
+      !ID_VALUE type ANY optional
+      !ID_INDEX type NUMERIC optional
+      !ID_INTRENO type RECAINTRENO optional
+      !ID_CONTEXT type ANY optional .
+  methods ADD_FROM_BAPI
+    importing
+      !IT_BAPIRET type BAPIRETTAB optional
+      !IS_BAPIRET type BAPIRET2 optional
+      !IF_CUMULATE type ABAP_BOOL optional
+    exporting
+      !EF_ADD_ERROR type ABAP_BOOL
+      !EF_ADD_WARNING type ABAP_BOOL .
+  methods COMMIT
+    returning
+      value(TLOG) type ref to ZCL_TLOG
+    exceptions
+      ERROR .
+  methods DISPLAY_IN_SLG1
+    importing
+      !AMODAL type ABAP_BOOL default ABAP_TRUE
+    returning
+      value(TLOG) type ref to ZCL_TLOG .
+  methods GET_MSG_LIST
+    returning
+      value(MSG_LIST) type RE_T_MSG .
+  methods GET_SALV
+    changing
+      !TABLE type STANDARD TABLE
+    returning
+      value(SALV) type ref to CL_SALV_TABLE .
+  methods DISPLAY_AS_ALV_POPUP
+    importing
+      !START_COLUMN type I default 5   ##NUMBER_OK
+      !START_LINE type I default 5   ##NUMBER_OK
+      !END_COLUMN type I default 120   ##NUMBER_OK
+      !END_LINE type I default 25  ##NUMBER_OK.
+  methods FREE .
+  methods GET_COLLECTOR
+    returning
+      value(COLLECTOR) type ref to IF_RECA_MESSAGE_LIST .
+  methods GET_SE91_MESSAGE
+    importing
+      !ID type SY-MSGID
+      !NUM type SY-MSGNO
+      !VAR1 type SY-MSGV1
+      !VAR2 type SY-MSGV2
+      !VAR3 type SY-MSGV3
+      !VAR4 type SY-MSGV4
+    returning
+      value(MESSAGE) type SY-LISEL .
   PROTECTED SECTION.
-  PRIVATE SECTION.
+PRIVATE SECTION.
 
-    CLASS-DATA instance TYPE REF TO zcl_tlog .
-    DATA level TYPE ballevel .
-    DATA object TYPE balobj_d .
-    DATA subobject TYPE balsubobj .
-    DATA identity TYPE balnrext .
-    DATA collector TYPE REF TO if_reca_message_list .
+  TYPES:
+    BEGIN OF ty_kv,
+      key     TYPE string,
+      value1  TYPE string,
+      value2  TYPE string,
+      value3  TYPE string,
+      value4  TYPE string,
+      value5  TYPE string,
+      value6  TYPE string,
+      value7  TYPE string,
+      value8  TYPE string,
+      value9  TYPE string,
+      timstmp TYPE baltimstmp,
+    END OF ty_kv .
+  TYPES:
+    tty_kv TYPE STANDARD TABLE OF ty_kv WITH DEFAULT KEY .
 
-    METHODS constructor
-      IMPORTING
-        !object         TYPE balobj_d
-        !subobject      TYPE balsubobj
-        !identity       TYPE balnrext
-        !level          TYPE ballevel DEFAULT '9'
-        !del_date       TYPE recadatefrom DEFAULT reca0_date-min
-        !del_not_before TYPE recabool OPTIONAL
-        !auto_commit    TYPE abap_bool OPTIONAL .
-    METHODS is_valid_level
-      IMPORTING
-        !level                TYPE recamsg-detlevel
-      RETURNING
-        VALUE(is_valid_level) TYPE abap_bool .
-    METHODS get_level
-      IMPORTING
-        VALUE(type)  TYPE sy-msgty
-      RETURNING
-        VALUE(level) TYPE ballevel .
+  CLASS-DATA instance TYPE REF TO zcl_tlog .
+  DATA level TYPE ballevel .
+  DATA object TYPE balobj_d .
+  DATA subobject TYPE balsubobj .
+  DATA identity TYPE balnrext .
+  DATA collector TYPE REF TO if_reca_message_list .
+  DATA dynpro_info TYPE tty_kv .
+
+  METHODS constructor
+    IMPORTING
+      !object         TYPE balobj_d
+      !subobject      TYPE balsubobj
+      !identity       TYPE balnrext
+      !level          TYPE ballevel DEFAULT '9'
+      !del_date       TYPE recadatefrom DEFAULT reca0_date-min
+      !del_not_before TYPE recabool OPTIONAL
+      !auto_commit    TYPE abap_bool OPTIONAL .
+  METHODS is_valid_level
+    IMPORTING
+      !level                TYPE recamsg-detlevel
+    RETURNING
+      VALUE(is_valid_level) TYPE abap_bool .
+  METHODS get_level
+    IMPORTING
+      VALUE(type)  TYPE sy-msgty
+    RETURNING
+      VALUE(level) TYPE ballevel .
+  METHODS get_symbol
+    IMPORTING
+      !msgty        TYPE sy-msgty
+    RETURNING
+      VALUE(symbol) TYPE icon_d .
 ENDCLASS.
 
 
@@ -232,6 +265,8 @@ CLASS ZCL_TLOG IMPLEMENTATION.
 
     "提交到数据库
     cf_reca_storable=>commit( ).
+
+    tlog = me.
 
   ENDMETHOD.
 
@@ -323,6 +358,9 @@ CLASS ZCL_TLOG IMPLEMENTATION.
           NUMBER sy-msgno
             WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
     ENDIF.
+
+    tlog = me.
+
   ENDMETHOD.
 
 
@@ -459,5 +497,163 @@ CLASS ZCL_TLOG IMPLEMENTATION.
   METHOD warning.
     add_from_string( content = content type = 'W' ).
     log = me.
+  ENDMETHOD.
+
+
+  METHOD get_se91_message.
+
+    CALL FUNCTION 'RPY_MESSAGE_COMPOSE'
+      EXPORTING
+        message_id        = id
+        message_number    = num
+        message_var1      = var1
+        message_var2      = var2
+        message_var3      = var3
+        message_var4      = var4
+      IMPORTING
+        message_text      = message
+      EXCEPTIONS
+        message_not_found = 1
+        OTHERS            = 2."#EC CI_SUBRC
+    IF sy-subrc <> 0.
+*      me->warning( iv_msg_id && iv_msg_num && TEXT-e05 ).
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD zif_tlog~add_log.
+
+    DATA kv TYPE ty_kv.
+    kv-key    = lines( dynpro_info ) + 1.
+    kv-value1 = dynnr.
+    kv-value2 = ucomm.
+    GET TIME STAMP FIELD kv-timstmp.
+    APPEND kv TO dynpro_info.
+
+    CASE to_upper( type ).
+      WHEN 'S'.
+        success( content ).
+      WHEN 'I'.
+        info( content ).
+      WHEN 'W'.
+        warning( content ).
+      WHEN 'E'.
+        error( content ).
+      WHEN 'A'.
+        abort( content ).
+      WHEN 'D'.
+        debug( ).
+      WHEN OTHERS.
+        success( content ).
+    ENDCASE.
+
+    instance = me.
+
+    IF collector->count( ) <> lines( dynpro_info ).
+      DELETE dynpro_info INDEX lines( dynpro_info ).
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD zif_tlog~clear.
+    CLEAR dynpro_info.
+    collector->clear( ).
+    instance = me.
+  ENDMETHOD.
+
+
+  METHOD zif_tlog~save_log.
+
+    instance = me.
+    CHECK if_commit = abap_true.
+
+    DATA logs TYPE STANDARD TABLE OF ztscreen_log.
+    MOVE-CORRESPONDING get_msg_list( ) TO logs.         "#EC CI_CONV_OK
+
+    DATA lv_name_text TYPE ad_namtext.
+    SELECT SINGLE adrp~name_text
+      FROM usr21
+     INNER JOIN adrp
+        ON usr21~persnumber = adrp~persnumber
+      INTO lv_name_text
+     WHERE usr21~bname = sy-uname.                        "#EC CI_SUBRC
+
+    DATA ip TYPE string.
+    ip = cl_gui_frontend_services=>get_ip_address( ).
+
+    FIELD-SYMBOLS <log> LIKE LINE OF logs.
+    FIELD-SYMBOLS <dynpro_info> LIKE LINE OF dynpro_info.
+    LOOP AT logs ASSIGNING <log>.
+
+      <log>-guid      = guid.
+      <log>-line      = sy-tabix.
+      IF symbol IS INITIAL.
+        <log>-symbol = get_symbol( <log>-msgty ).
+      ELSE.
+        <log>-symbol    = symbol.
+      ENDIF.
+      <log>-sid       = sy-sysid.
+      <log>-cprog     = sy-cprog.
+
+      READ TABLE dynpro_info ASSIGNING <dynpro_info> WITH KEY key = sy-tabix. "#EC CI_STDSEQ
+      IF sy-subrc = 0.
+        <log>-dynnr   = <dynpro_info>-value1.
+        <log>-ucomm   = <dynpro_info>-value2.
+      ENDIF.
+
+      <log>-instance  = sy-host.
+      <log>-crnam     = sy-uname.
+      <log>-name_text = lv_name_text.
+      CONVERT TIME STAMP <log>-time_stmp
+               TIME ZONE sy-zonlo
+               INTO DATE <log>-crdat
+                    TIME <log>-crtim.
+      <log>-monat     = <log>-crdat+4(2).
+      <log>-ip        = ip.
+      <log>-tcode     = sy-tcode.
+
+      <log>-message   = get_se91_message( id   = <log>-msgid
+                                          num  = <log>-msgno
+                                          var1 = <log>-msgv1
+                                          var2 = <log>-msgv2
+                                          var3 = <log>-msgv3
+                                          var4 = <log>-msgv4 ).
+
+      IF NOT <log>-message CS 'PAI'.
+        CLEAR <log>-ucomm.
+      ENDIF.
+
+    ENDLOOP.
+
+    INSERT ztscreen_log FROM TABLE logs.
+    IF sy-subrc <> 0.
+      MESSAGE 'ERROR OCCURED WHEN INSERT DATA TO DB' TYPE 'S' DISPLAY LIKE 'E'.
+*      zcx_tscreen=>raise_text( 'ERROR OCCURED WHEN INSERT DATA TO DB' ).
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD get_symbol.
+
+    CASE msgty.
+      WHEN 'S'.
+        symbol = icon_okay.
+      WHEN 'I'.
+        symbol = icon_led_yellow.
+      WHEN 'W'.
+        symbol = icon_message_warning_small.
+      WHEN 'E'.
+        symbol = icon_incomplete.
+      WHEN 'A'.
+        symbol = icon_cancel.
+      WHEN 'D'.
+        symbol = icon_alert.
+      WHEN OTHERS.
+        symbol = icon_message_information_small.
+    ENDCASE.
+
   ENDMETHOD.
 ENDCLASS.

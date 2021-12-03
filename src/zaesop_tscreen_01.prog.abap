@@ -39,6 +39,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
     METHODS pov REDEFINITION.
     METHODS execute REDEFINITION.
     METHODS show REDEFINITION.
+    METHODS exit REDEFINITION.
     METHODS check_authority REDEFINITION.
 
 ENDCLASS.
@@ -59,7 +60,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ##NEEDED
   METHOD initialize.
-*    BREAK-POINT."INITIALIZATION事件里不可显示任何消息,可通过断点验证事件是否触发
+*    BREAK-POINT."INITIALIZATION事件里可通过断点验证事件是否触发
   ENDMETHOD.
 
   METHOD pbo.
@@ -67,11 +68,6 @@ CLASS lcl_prog IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD pai.
-    IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
-      set_display_mode( zcl_tscreen=>display_mode_show ).
-    ELSE.
-      set_display_mode( zcl_tscreen=>display_mode_modify ).
-    ENDIF.
     MESSAGE 'AT SELECTION-SCREEN :' && cursor_filed && cursor_filed_value TYPE 'I'.
   ENDMETHOD.
 
@@ -89,10 +85,19 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD show.
     MESSAGE 'END-OF-SELECTION' TYPE 'I'.
+    TRY.
+        zcx_tscreen=>raise_text( 'error' )."框架抛异常通用形式
+      CATCH zcx_tscreen ##NO_HANDLER.
+    ENDTRY.
   ENDMETHOD.
 
   METHOD check_authority.
     MESSAGE 'CHECK AUTHORITY' TYPE 'I'.
+  ENDMETHOD.
+
+  METHOD exit.
+    MESSAGE 'EXIT' TYPE 'I'.
+    super->exit( )."重写EXIT时，必须调用SUPER->EXIT，否则可能引发出栈异常
   ENDMETHOD.
 
 ENDCLASS.

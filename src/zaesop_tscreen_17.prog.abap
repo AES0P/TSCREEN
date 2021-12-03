@@ -48,6 +48,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
     METHODS initialize REDEFINITION.
     METHODS check_authority REDEFINITION.
     METHODS show REDEFINITION.
+    METHODS exit REDEFINITION.
 
 ENDCLASS.
 
@@ -120,13 +121,13 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD push_view.
 
-    CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '9000' ).
-
     DATA view TYPE REF TO zif_tscreen.
     CASE sy-dynnr.
       WHEN '1000'."选择屏幕编号
+        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid ).
         DATA(class_name) = lcl_prog=>view_cls_prefix.
       WHEN OTHERS.
+        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '9000' ).
         class_name = lcl_prog=>view_view_prefix && '_V' && sy-dynnr.
     ENDCASE.
 
@@ -150,6 +151,11 @@ CLASS lcl_prog IMPLEMENTATION.
     CALL SCREEN 9000.
   ENDMETHOD.
 
+  METHOD exit.
+    super->exit( ).
+    CAST zcl_tlog( tlog )->display_in_slg1( )->commit( )->free( ).
+  ENDMETHOD.
+
 ENDCLASS.
 
 *&---------------------------------------------------------------------*
@@ -160,6 +166,7 @@ CLASS lcl_tscreen_17_v9000 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( ).
     set_display_mode( zcl_tscreen=>display_mode_modify ).
+    tlog->add_log( '9000 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -200,6 +207,7 @@ CLASS lcl_tscreen_17_v9001 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( dynnr_super = '9000' ).
     add_components( ).
+    tlog->add_log( '9001 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -226,6 +234,7 @@ CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = '9000' ).
+    tlog->add_log( '9900 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -239,6 +248,7 @@ CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
   METHOD pai.
     CASE ucomm.
       WHEN 'COMM1'.
+        tlog->add_log( type = 'W' content = 'COMM1' ).
         TRY.
             DATA(v9001) = CAST lcl_tscreen_17_v9001( zcl_tscreen_stack=>get_instance( )->current( dynnr_super = '9000' dynnr = '9001' ) )."拿到子屏幕对象
             CAST lcl_tc_po_items( v9001->get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9001_01' ) )->get_data( )."访问子屏幕控件的方法
@@ -246,6 +256,7 @@ CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
             MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
         ENDTRY.
       WHEN 'COMM2'.
+        tlog->add_log( type = 'A' content = 'COMM2' ).
         CLEAR p_ebeln.
         CLEAR s_bukrs[].
       WHEN OTHERS.
@@ -266,6 +277,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
                         data_wa            = 'PO_ITEM'
                         ref_structure_name = 'ZSEKPO' ).
 
+    parent->tlog->add_log( 'TC_9001_01 initialized' ).
     get_data( ).
   ENDMETHOD.
 
@@ -282,7 +294,11 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
      WHERE ekpo~ebeln = p_ebeln
        AND ekko~bukrs IN s_bukrs
      ORDER BY ebelp.                                      "#EC CI_SUBRC
-
+    IF sy-subrc <> 0.
+      parent->tlog->add_log( type = 'E' content = 'No data found' ).
+    ELSE.
+      parent->tlog->add_log( type = 'I' content = 'success' ).
+    ENDIF.
   ENDMETHOD.
 
   METHOD user_command_extend .

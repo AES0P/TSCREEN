@@ -105,6 +105,11 @@ endif.
 
 
   METHOD raise_text.
+    zcl_tlog=>get_instance( object         = zcl_tscreen_root=>log_object
+                            subobject      = zcl_tscreen_root=>log_sub_object
+                            identity       = CONV balnrext( sy-cprog )
+                            level          = zcl_tscreen_root=>if_log_level
+                            del_not_before = abap_true )->add_log( type = 'A' content = text ).
     RAISE EXCEPTION TYPE zcx_tscreen
       EXPORTING
         error = text.

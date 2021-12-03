@@ -78,7 +78,7 @@ CLASS lcl_gbc_cs_delete IMPLEMENTATION.
     log->add_from_bapi( is_bapiret = lt_bapiret2[ 1 ] ).
 
     "使用标准SLG1展示本次记录
-    log->display_in_slg1( abap_true ).
+    log->display_in_slg1( ).
 
     "使用SALV展示本次记录数据
     log->display_as_alv_popup( ).

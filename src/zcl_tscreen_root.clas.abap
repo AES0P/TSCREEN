@@ -1,88 +1,93 @@
-CLASS zcl_tscreen_root DEFINITION
-  PUBLIC
-  ABSTRACT
-  CREATE PUBLIC .
+class ZCL_TSCREEN_ROOT definition
+  public
+  abstract
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    INTERFACES zif_tscreen
-      ABSTRACT METHODS handle_event
-      pai
-      pbo
-      poh
-      pov .
+  interfaces ZIF_TSCREEN
+      abstract methods HANDLE_EVENT
+                       PAI
+                       PBO
+                       POH
+                       POV .
 
-    ALIASES dynnr
-      FOR zif_tscreen~dynnr .
-    ALIASES dynnr_super
-      FOR zif_tscreen~dynnr_super .
-    ALIASES dynpro_type
-      FOR zif_tscreen~dynpro_type .
-    ALIASES dynpro_type_dialog
-      FOR zif_tscreen~dynpro_type_dialog .
-    ALIASES dynpro_type_normal
-      FOR zif_tscreen~dynpro_type_normal .
-    ALIASES dynpro_type_selscreen
-      FOR zif_tscreen~dynpro_type_selscreen .
-    ALIASES dynpro_type_subscreen
-      FOR zif_tscreen~dynpro_type_subscreen .
-    ALIASES exit
-      FOR zif_tscreen~exit .
-    ALIASES handle_event
-      FOR zif_tscreen~handle_event .
-    ALIASES is_initialized
-      FOR zif_tscreen~is_initialized .
-    ALIASES pai
-      FOR zif_tscreen~pai .
-    ALIASES pbo
-      FOR zif_tscreen~pbo .
-    ALIASES poh
-      FOR zif_tscreen~poh .
-    ALIASES pov
-      FOR zif_tscreen~pov .
-    ALIASES program
-      FOR zif_tscreen~program .
+  aliases DYNNR
+    for ZIF_TSCREEN~DYNNR .
+  aliases DYNNR_SUPER
+    for ZIF_TSCREEN~DYNNR_SUPER .
+  aliases DYNPRO_TYPE
+    for ZIF_TSCREEN~DYNPRO_TYPE .
+  aliases DYNPRO_TYPE_DIALOG
+    for ZIF_TSCREEN~DYNPRO_TYPE_DIALOG .
+  aliases DYNPRO_TYPE_NORMAL
+    for ZIF_TSCREEN~DYNPRO_TYPE_NORMAL .
+  aliases DYNPRO_TYPE_SELSCREEN
+    for ZIF_TSCREEN~DYNPRO_TYPE_SELSCREEN .
+  aliases DYNPRO_TYPE_SUBSCREEN
+    for ZIF_TSCREEN~DYNPRO_TYPE_SUBSCREEN .
+  aliases IS_INITIALIZED
+    for ZIF_TSCREEN~IS_INITIALIZED .
+  aliases PROGRAM
+    for ZIF_TSCREEN~PROGRAM .
+  aliases EXIT
+    for ZIF_TSCREEN~EXIT .
+  aliases HANDLE_EVENT
+    for ZIF_TSCREEN~HANDLE_EVENT .
+  aliases PAI
+    for ZIF_TSCREEN~PAI .
+  aliases PBO
+    for ZIF_TSCREEN~PBO .
+  aliases POH
+    for ZIF_TSCREEN~POH .
+  aliases POV
+    for ZIF_TSCREEN~POV .
 
-    TYPES ty_fcode TYPE fcode .
-    TYPES:
-      tty_fcode TYPE STANDARD TABLE OF ty_fcode WITH DEFAULT KEY .
+  types TY_FCODE type FCODE .
+  types:
+    tty_fcode TYPE STANDARD TABLE OF ty_fcode WITH DEFAULT KEY .
 
-    METHODS constructor
-      IMPORTING
-        !program         TYPE syrepid
-        !dynnr           TYPE sy-dynnr
-        !dynnr_super     TYPE sy-dynnr OPTIONAL
-        !dynpro_type     TYPE scrhtyp OPTIONAL
-        !pfstatus        TYPE sypfkey OPTIONAL
-        !pfstatus_repid  TYPE syrepid OPTIONAL
-        !excluding_fcode TYPE tty_fcode OPTIONAL
-        !titlebar        TYPE gui_title OPTIONAL
-        !titlebar_repid  TYPE syrepid OPTIONAL
-        !titlebar_var1   TYPE string OPTIONAL
-        !titlebar_var2   TYPE string OPTIONAL
-        !titlebar_var3   TYPE string OPTIONAL
-        !titlebar_var4   TYPE string OPTIONAL
-        !titlebar_var5   TYPE string OPTIONAL .
-    METHODS initialize_pbo_by_dynnr
-      IMPORTING
-        VALUE(dynnr)   TYPE sy-dynnr DEFAULT sy-dynnr
-      RETURNING
-        VALUE(tscreen) TYPE REF TO zcl_tscreen_root .
-    METHODS initialize_pbo .
-    METHODS set_pfstatus
-      IMPORTING
-        !pfstatus              TYPE sypfkey
-        !pfstatus_repid        TYPE syrepid OPTIONAL
-        VALUE(excluding_fcode) TYPE tty_fcode OPTIONAL .
-    METHODS set_titlebar
-      IMPORTING
-        !titlebar       TYPE gui_title
-        !titlebar_repid TYPE syrepid OPTIONAL
-        !titlebar_var1  TYPE string OPTIONAL
-        !titlebar_var2  TYPE string OPTIONAL
-        !titlebar_var3  TYPE string OPTIONAL
-        !titlebar_var4  TYPE string OPTIONAL
-        !titlebar_var5  TYPE string OPTIONAL .
+  constants LOG_OBJECT type BALOBJ_D value 'ZGBC' ##NO_TEXT.
+  constants LOG_SUB_OBJECT type BALSUBOBJ value 'ZGBC001' ##NO_TEXT.
+  class-data IF_LOG_RECORD_PAI type ABAP_BOOL value ABAP_TRUE ##NO_TEXT.
+  class-data IF_LOG_LEVEL type BALLEVEL value '1' ##NO_TEXT.
+
+  methods CONSTRUCTOR
+    importing
+      !PROGRAM type SYREPID
+      !DYNNR type SY-DYNNR
+      !DYNNR_SUPER type SY-DYNNR optional
+      !DYNPRO_TYPE type SCRHTYP optional
+      !PFSTATUS type SYPFKEY optional
+      !PFSTATUS_REPID type SYREPID optional
+      !EXCLUDING_FCODE type TTY_FCODE optional
+      !TITLEBAR type GUI_TITLE optional
+      !TITLEBAR_REPID type SYREPID optional
+      !TITLEBAR_VAR1 type STRING optional
+      !TITLEBAR_VAR2 type STRING optional
+      !TITLEBAR_VAR3 type STRING optional
+      !TITLEBAR_VAR4 type STRING optional
+      !TITLEBAR_VAR5 type STRING optional .
+  methods INITIALIZE_PBO_BY_DYNNR
+    importing
+      value(DYNNR) type SY-DYNNR default SY-DYNNR
+    returning
+      value(TSCREEN) type ref to ZCL_TSCREEN_ROOT .
+  methods INITIALIZE_PBO .
+  methods SET_PFSTATUS
+    importing
+      !PFSTATUS type SYPFKEY
+      !PFSTATUS_REPID type SYREPID optional
+      value(EXCLUDING_FCODE) type TTY_FCODE optional .
+  methods SET_TITLEBAR
+    importing
+      !TITLEBAR type GUI_TITLE
+      !TITLEBAR_REPID type SYREPID optional
+      !TITLEBAR_VAR1 type STRING optional
+      !TITLEBAR_VAR2 type STRING optional
+      !TITLEBAR_VAR3 type STRING optional
+      !TITLEBAR_VAR4 type STRING optional
+      !TITLEBAR_VAR5 type STRING optional .
   PROTECTED SECTION.
 
     DATA pfstatus TYPE pfstatus .
@@ -95,6 +100,7 @@ CLASS zcl_tscreen_root DEFINITION
     DATA titlebar_var3 TYPE string .
     DATA titlebar_var4 TYPE string .
     DATA titlebar_var5 TYPE string .
+    DATA tlog TYPE REF TO zif_tlog .
   PRIVATE SECTION.
 ENDCLASS.
 
@@ -123,6 +129,12 @@ CLASS ZCL_TSCREEN_ROOT IMPLEMENTATION.
                   titlebar_var5  = titlebar_var5 ).
 
     zcl_tscreen_stack=>get_instance( )->push( me ).
+
+    tlog = zcl_tlog=>get_instance( object         = zcl_tscreen_root=>log_object
+                                   subobject      = zcl_tscreen_root=>log_sub_object
+                                   identity       = CONV balnrext( program )
+                                   level          = zcl_tscreen_root=>if_log_level
+                                   del_not_before = abap_true ).
 
   ENDMETHOD.
 

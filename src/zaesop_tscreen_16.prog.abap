@@ -53,6 +53,7 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
                 dynnr         TYPE sy-dynnr DEFAULT sy-dynnr
       RETURNING VALUE(parent) LIKE sy-dynnr.
 
+    METHODS constructor .
     METHODS pbo REDEFINITION.
     METHODS check_authority REDEFINITION.
     METHODS show REDEFINITION.
@@ -227,6 +228,11 @@ CLASS lcl_prog IMPLEMENTATION.
   ENDMETHOD.
 
   ##NEEDED
+  METHOD constructor.
+    zcl_tscreen_root=>if_log_record_pai = abap_false.
+    super->constructor( ).
+  ENDMETHOD.
+
   METHOD pbo.
   ENDMETHOD.
 
