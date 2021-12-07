@@ -1,65 +1,65 @@
-class ZCL_TEXT_EDITOR definition
-  public
-  inheriting from ZCL_TCOMPONENT
-  create public .
+CLASS zcl_text_editor DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tcomponent
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_TEXT_EDITOR .
+    INTERFACES zif_text_editor .
 
-  aliases C_COMPONENT_EDITOR
-    for ZIF_TSCREEN_COMPONENT~C_COMPONENT_EDITOR .
-  aliases C_COMPONENT_TC
-    for ZIF_TSCREEN_COMPONENT~C_COMPONENT_TC .
-  aliases TEXT
-    for ZIF_TEXT_EDITOR~TEXT .
-  aliases TITLE
-    for ZIF_TEXT_EDITOR~TITLE .
-  aliases GET_TEXT
-    for ZIF_TEXT_EDITOR~GET_TEXT .
-  aliases INITIALIZE_BY_TSCREEN
-    for ZIF_TSCREEN_COMPONENT~INITIALIZE_BY_TSCREEN .
-  aliases SAVE_TEXT
-    for ZIF_TEXT_EDITOR~SAVE_TEXT .
-  aliases SET_STATUSBAR_MODE
-    for ZIF_TEXT_EDITOR~SET_STATUSBAR_MODE .
-  aliases SET_STATUS_TEXT
-    for ZIF_TEXT_EDITOR~SET_STATUS_TEXT .
-  aliases SET_TEXT
-    for ZIF_TEXT_EDITOR~SET_TEXT .
-  aliases SET_TOOLBAR_MODE
-    for ZIF_TEXT_EDITOR~SET_TOOLBAR_MODE .
+    ALIASES c_component_editor
+      FOR zif_tscreen_component~c_component_editor .
+    ALIASES c_component_tc
+      FOR zif_tscreen_component~c_component_tc .
+    ALIASES text
+      FOR zif_text_editor~text .
+    ALIASES title
+      FOR zif_text_editor~title .
+    ALIASES get_text
+      FOR zif_text_editor~get_text .
+    ALIASES initialize_by_tscreen
+      FOR zif_tscreen_component~initialize_by_tscreen .
+    ALIASES save_text
+      FOR zif_text_editor~save_text .
+    ALIASES set_statusbar_mode
+      FOR zif_text_editor~set_statusbar_mode .
+    ALIASES set_status_text
+      FOR zif_text_editor~set_status_text .
+    ALIASES set_text
+      FOR zif_text_editor~set_text .
+    ALIASES set_toolbar_mode
+      FOR zif_text_editor~set_toolbar_mode .
 
-  methods FREE .
-  methods CONSTRUCTOR
-    importing
-      !PARENT type ref to ZCL_TSCREEN optional
-      !ID type STRING optional
-      !CONTAINER_NAME type C optional
-      !CONTENT type STRING
-      !LENGTH_CONTENT type I optional
-      value(STYLE) type I optional
-      !WORDWRAP_MODE type I optional
-      !LENGTH_LINE type I optional
-      !WORDWRAP_TO_LINEBREAK_MODE type I optional
-      !FILEDROP_MODE type I optional
-      value(LIFETIME) type I optional
-      value(NAME) type STRING optional
-    raising
-      CX_UUID_ERROR
-      ZCX_TSCREEN .
-  methods GET_EDITOR
-    returning
-      value(EDITOR) type ref to CL_GUI_TEXTEDIT .
+    METHODS free .
+    METHODS constructor
+      IMPORTING
+        !parent                     TYPE REF TO zcl_tscreen OPTIONAL
+        !id                         TYPE string OPTIONAL
+        !container_name             TYPE c OPTIONAL
+        !content                    TYPE string
+        !length_content             TYPE i OPTIONAL
+        VALUE(style)                TYPE i OPTIONAL
+        !wordwrap_mode              TYPE i OPTIONAL
+        !length_line                TYPE i OPTIONAL
+        !wordwrap_to_linebreak_mode TYPE i OPTIONAL
+        !filedrop_mode              TYPE i OPTIONAL
+        VALUE(lifetime)             TYPE i OPTIONAL
+        VALUE(name)                 TYPE string OPTIONAL
+      RAISING
+        cx_uuid_error
+        zcx_tscreen .
+    METHODS get_editor
+      RETURNING
+        VALUE(editor) TYPE REF TO cl_gui_textedit .
 
-  methods ZIF_TSCREEN_COMPONENT~CHANGE_EDITABLE
-    redefinition .
-  methods ZIF_TSCREEN_COMPONENT~CHANGE_VISIBILITY
-    redefinition .
-  methods ZIF_TSCREEN_COMPONENT~INITIALIZE_BY_TSCREEN
-    redefinition .
-  methods ZIF_TSCREEN_COMPONENT~SET_COMPONENT_ATTR_BY_SETTING
-    redefinition .
+    METHODS zif_tscreen_component~change_editable
+        REDEFINITION .
+    METHODS zif_tscreen_component~change_visibility
+        REDEFINITION .
+    METHODS zif_tscreen_component~initialize_by_tscreen
+        REDEFINITION .
+    METHODS zif_tscreen_component~set_component_attr_by_setting
+        REDEFINITION .
   PROTECTED SECTION.
 
     DATA container TYPE REF TO cl_gui_container .
@@ -90,7 +90,7 @@ CLASS ZCL_TEXT_EDITOR IMPLEMENTATION.
           lifetime_error              = 4
           lifetime_dynpro_dynpro_link = 5.
       IF sy-subrc NE 0.
-        zcx_tscreen=>raise_text( 'Can not create container' && container_name && ' for editor.' ).
+        ##NO_TEXT        zcx_tscreen=>raise_text( 'Can not create container' && container_name && ' for editor.' ).
       ENDIF.
 
     ELSE.

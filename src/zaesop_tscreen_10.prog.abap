@@ -169,7 +169,8 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
                                data_source        = 'PO_ITEMS'
                                data_wa            = 'PO_ITEM'
 *                               hide_empty_fields  = abap_true
-                               ref_structure_name = 'ZSEKPO' ).
+                               ref_structure_name = 'ZSEKPO'
+                               ddic_tabname       = 'EKPO' ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
       CATCH zcx_tscreen INTO DATA(lx_tscreen).

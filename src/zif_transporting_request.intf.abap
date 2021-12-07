@@ -19,14 +19,14 @@ interface ZIF_TRANSPORTING_REQUEST
   methods ENTRYS
     importing
       !TABLE type TABLE
-      value(DDIC_TYPE) type TROBJ_NAME optional
+      value(DDIC_TYPE) type TROBJ_NAME optional "#EC CI_VALPAR
     returning
       value(TR_TOOL) type ref to ZIF_TRANSPORTING_REQUEST .
   methods ENTRY
     importing
-      value(OBJNAME) type TROBJ_NAME
+      value(OBJNAME) type TROBJ_NAME "#EC CI_VALPAR
       value(OBJFUNC) type OBJFUNC default 'K'
-      value(TABKEY) type TROBJ_NAME
+      value(TABKEY) type TROBJ_NAME "#EC CI_VALPAR
     returning
       value(TR_TOOL) type ref to ZIF_TRANSPORTING_REQUEST .
   methods COMMIT

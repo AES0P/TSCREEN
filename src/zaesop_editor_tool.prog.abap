@@ -7,7 +7,7 @@ REPORT zaesop_editor_tool.
 
 TRY.
 
-    DATA abc TYPE string VALUE 'abc'.
+    ##NEEDED    DATA abc TYPE string VALUE 'abc'.
 
     CALL FUNCTION 'ZFM_GBC_TEXT_EDITOR'
       EXPORTING
@@ -19,8 +19,8 @@ TRY.
 
     WRITE abc.
 
-  CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+  CATCH cx_uuid_error INTO DATA(lx_uuid_error) ##NEEDED.
     MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-  CATCH zcx_tscreen INTO DATA(lx_tscreen).
+  CATCH zcx_tscreen INTO DATA(lx_tscreen) ##NEEDED.
     MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
 ENDTRY.

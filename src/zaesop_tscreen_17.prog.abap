@@ -18,8 +18,8 @@ SELECTION-SCREEN BEGIN OF SCREEN 9900 AS SUBSCREEN.
   SELECT-OPTIONS s_bukrs FOR ekko-bukrs.
   SELECTION-SCREEN:
   BEGIN OF LINE,
-  PUSHBUTTON 1(4)  p_bt1 USER-COMMAND comm1," 查询
-  PUSHBUTTON 7(4)  p_bt2 USER-COMMAND comm2," 置空
+  PUSHBUTTON 1(5)  p_bt1 USER-COMMAND comm1," 查询
+  PUSHBUTTON 7(5)  p_bt2 USER-COMMAND comm2," 置空
   END OF LINE.
 SELECTION-SCREEN END OF SCREEN 9900.
 
@@ -32,6 +32,26 @@ DATA: po_items TYPE STANDARD TABLE OF zsekpo,
       po_item  LIKE LINE OF po_items.
 
 CONTROLS tc_9001_01 TYPE TABLEVIEW USING SCREEN '9001'.
+
+"标题 for 多语言
+DATA: BEGIN OF title,
+        condition TYPE string,
+        result    TYPE string,
+        po_items  TYPE string,
+      END OF title.
+DATA: BEGIN OF title_ekpo,
+        ebeln TYPE string,
+        ebelp TYPE string,
+        matnr TYPE string,
+        maktx TYPE string,
+        menge TYPE string,
+        meins TYPE string,
+        bstme TYPE string,
+        mwskz TYPE string,
+        retpo TYPE string,
+        charg TYPE string,
+        elikz TYPE string,
+      END OF title_ekpo.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
@@ -136,8 +156,16 @@ CLASS lcl_prog IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD initialize.
-    p_bt1 = '查询'.
-    p_bt2 = '置空'.
+
+    p_bt1 = '查询'(001).
+    p_bt2 = '置空'(002).
+
+    title-condition = '查询条件'(t01).
+    title-result    = '查询结果'(t02).
+    title-po_items  = '采购订单行项目'(t03).
+
+    set_title( EXPORTING tabname = 'ZSEKPO' CHANGING title = title_ekpo ).
+
   ENDMETHOD.
 
   METHOD check_authority.
@@ -166,7 +194,7 @@ CLASS lcl_tscreen_17_v9000 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( ).
     set_display_mode( zcl_tscreen=>display_mode_modify ).
-    tlog->add_log( '9000 Started' ).
+    ##NO_TEXT    tlog->add_log( '9000 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -207,7 +235,7 @@ CLASS lcl_tscreen_17_v9001 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( dynnr_super = '9000' ).
     add_components( ).
-    tlog->add_log( '9001 Started' ).
+    ##NO_TEXT    tlog->add_log( '9001 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -234,7 +262,7 @@ CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = '9000' ).
-    tlog->add_log( '9900 Started' ).
+    ##NO_TEXT    tlog->add_log( '9900 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -277,13 +305,21 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
                         data_wa            = 'PO_ITEM'
                         ref_structure_name = 'ZSEKPO' ).
 
-    parent->tlog->add_log( 'TC_9001_01 initialized' ).
+    ##NO_TEXT    parent->tlog->add_log( 'TC_9001_01 initialized' ).
     get_data( ).
   ENDMETHOD.
 
   METHOD get_data.
     ##DB_FEATURE_MODE[TABLE_LEN_MAX1]
-    SELECT * ##TOO_MANY_ITAB_FIELDS
+    SELECT ekpo~ebeln
+           ekpo~ebelp
+           ekpo~matnr
+           makt~maktx
+           ekpo~menge
+           ekpo~mwskz
+           ekpo~meins
+           ekpo~retpo
+           ekpo~elikz
       FROM ekpo
      INNER JOIN ekko
         ON ekko~ebeln = ekpo~ebeln
@@ -291,13 +327,13 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
         ON ekpo~matnr = makt~matnr
        AND makt~spras = sy-langu
       INTO CORRESPONDING FIELDS OF TABLE po_items
-     WHERE ekpo~ebeln = p_ebeln
+     WHERE ekpo~ebeln  = p_ebeln
        AND ekko~bukrs IN s_bukrs
      ORDER BY ebelp.                                      "#EC CI_SUBRC
     IF sy-subrc <> 0.
-      parent->tlog->add_log( type = 'E' content = 'No data found' ).
+      ##NO_TEXT      parent->tlog->add_log( type = 'E' content = 'No data found' ).
     ELSE.
-      parent->tlog->add_log( type = 'I' content = 'success' ).
+      ##NO_TEXT     parent->tlog->add_log( type = 'I' content = 'success' ).
     ENDIF.
   ENDMETHOD.
 
@@ -378,11 +414,12 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
         SELECT mara~matnr, makt~maktx                   "#EC CI_NOORDER
           FROM mara
-         INNER JOIN makt
+          LEFT JOIN makt
             ON makt~matnr = mara~matnr
            AND makt~spras = @sy-langu
           INTO TABLE @DATA(lt_mara)
-         UP TO '100' ROWS.                                "#EC CI_SUBRC
+            UP TO '100' ROWS
+         ORDER BY mara~matnr.                             "#EC CI_SUBRC
 
         ASSIGN po_items[ get_current_line( ) ] TO FIELD-SYMBOL(<po_item>).
 

@@ -1,7 +1,7 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_RUNNING_LOG
 *&---------------------------------------------------------------------*
-*&  此报表可按不同维度，展示使用了TSCREEN框架的程序的运行概况
+*&  此报表按不同维度，展示使用了TSCREEN框架的程序的运行概况
 *&  仅作开发参考，具体维度分类逻辑请自行改造！！！
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_running_log.
@@ -37,17 +37,16 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 
     METHODS initialize REDEFINITION.
     METHODS pbo REDEFINITION.
+    METHODS check_authority REDEFINITION.
     METHODS pai REDEFINITION.
     METHODS execute REDEFINITION.
     METHODS show REDEFINITION.
-    METHODS check_authority REDEFINITION.
 
   PRIVATE SECTION.
 
     DATA data TYPE STANDARD TABLE OF ztscreen_log.
 
 ENDCLASS.
-
 
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
@@ -121,6 +120,11 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  ##NEEDED
+  METHOD check_authority.
+
+  ENDMETHOD.
+
   METHOD pai.
     CASE abap_true.
       WHEN p_detail.
@@ -145,9 +149,8 @@ CLASS lcl_prog IMPLEMENTATION.
        AND cprog IN s_prog
        AND monat IN s_monat.
     IF sy-subrc <> 0.
-      MESSAGE 'NO DATA FOUND' TYPE 'E'.
-    ELSE.
-      SORT data BY guid DESCENDING line ASCENDING.
+      MESSAGE 'NO DATA FOUND' TYPE 'S' DISPLAY LIKE 'E'.
+      LEAVE TO TRANSACTION 'ZTSCREEN02'.
     ENDIF.
 
   ENDMETHOD.
@@ -159,12 +162,62 @@ CLASS lcl_prog IMPLEMENTATION.
     layout-cwidth_opt = 'X' .    " 自动调整ALV列宽
     layout-sel_mode   = 'A' .    " ALV 控制: 选择方式
 
+    DATA: lt_sort TYPE lvc_t_sort,
+          ls_sort LIKE LINE OF lt_sort.
+
+    CASE abap_true.
+      WHEN p_all.
+        ls_sort-spos      = '01'.
+        ls_sort-fieldname = 'GUID'.
+        ls_sort-down      = abap_true.
+        APPEND ls_sort TO lt_sort.
+        ls_sort-spos      = '02'.
+        ls_sort-fieldname = 'CRNAM'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+        ls_sort-spos      = '03'.
+        ls_sort-fieldname = 'CPROG'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+        ls_sort-spos      = '04'.
+        ls_sort-fieldname = 'MONAT'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+        ls_sort-spos      = '05'.
+        ls_sort-fieldname = 'CRDAT'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+      WHEN p_detail.
+        ls_sort-spos      = '01'.
+        ls_sort-fieldname = 'CRNAM'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+      WHEN p_prog.
+        ls_sort-spos      = '01'.
+        ls_sort-fieldname = 'CPROG'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+      WHEN p_day.
+        CLEAR lt_sort.
+        ls_sort-spos      = '01'.
+        ls_sort-fieldname = 'CRDAT'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+      WHEN p_monat.
+        CLEAR lt_sort.
+        ls_sort-spos      = '01'.
+        ls_sort-fieldname = 'MONAT'.
+        ls_sort-up        = abap_true.
+        APPEND ls_sort TO lt_sort.
+      WHEN OTHERS.
+    ENDCASE.
+
     CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY_LVC'
       EXPORTING
         i_callback_program = sy-repid
         is_layout_lvc      = layout
         i_structure_name   = 'ZTSCREEN_LOG'
-*       it_fieldcat_lvc    = fieldcats
+        it_sort_lvc        = lt_sort
       TABLES
         t_outtab           = data
       EXCEPTIONS
@@ -178,10 +231,6 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
-  ##NEEDED
-  METHOD check_authority.
-
-  ENDMETHOD.
 
 ENDCLASS.
 

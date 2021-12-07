@@ -56,30 +56,33 @@
        <TYPE>PUSH</TYPE>
        <NAME>EXPAND</NAME>
        <ICON_NAME>ICON_COLLAPSE_ALL</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <PUSH_FCODE>EXPAND</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F01&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>%#AUTOTEXT001</NAME>
-       <TEXT>查询条件____</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE-CONDITION</NAME>
+       <TEXT>____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
-       <LENGTH>008</LENGTH>
-       <VISLENGTH>008</VISLENGTH>
+       <LENGTH>012</LENGTH>
+       <VISLENGTH>012</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <OUTPUTONLY>X</OUTPUTONLY>
        <REQU_ENTRY>N</REQU_ENTRY>
-       <FIXED_FONT>X</FIXED_FONT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -187,86 +190,91 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_HIDE</NAME>
        <ICON_NAME>ICON_COLLAPSE_ALL</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <PUSH_FCODE>TC_9001_01_HIDE</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F01&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>%#AUTOTEXT001</NAME>
-       <TEXT>查询结果____</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE-RESULT</NAME>
+       <TEXT>_____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
-       <LENGTH>008</LENGTH>
-       <VISLENGTH>008</VISLENGTH>
+       <LENGTH>013</LENGTH>
+       <VISLENGTH>013</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <OUTPUTONLY>X</OUTPUTONLY>
        <REQU_ENTRY>N</REQU_ENTRY>
-       <FIXED_FONT>X</FIXED_FONT>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_DETAIL</NAME>
-       <TEXT>__</TEXT>
        <ICON_NAME>ICON_DETAIL</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>007</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
        <PUSH_FCODE>TC_9001_01_DETAIL</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F02&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_DDIC</NAME>
-       <TEXT>_______________________________________________________________________________________________________________________</TEXT>
+       <TEXT>_</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
-       <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>004</COLUMN>
-       <LENGTH>132</LENGTH>
+       <LENGTH>008</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
        <PUSH_FCODE>TC_9001_01_DDIC</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F03&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_INSERT</NAME>
-       <TEXT>______________________</TEXT>
        <ICON_NAME>ICON_INSERT_ROW</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>009</COLUMN>
-       <LENGTH>027</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MOD</GROUP1>
        <PUSH_FCODE>TC_9001_01_INSR</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F04&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -274,16 +282,18 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_DELETE</NAME>
        <ICON_NAME>ICON_DELETE_ROW</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>013</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MOD</GROUP1>
        <PUSH_FCODE>TC_9001_01_DELE</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F05&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -291,16 +301,18 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_TOP</NAME>
        <ICON_NAME>ICON_FIRST_PAGE</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>019</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>PAG</GROUP1>
        <PUSH_FCODE>TC_9001_01_P--</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F06&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -308,16 +320,18 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_PREVIOUS</NAME>
        <ICON_NAME>ICON_PREVIOUS_PAGE</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>023</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>PAG</GROUP1>
        <PUSH_FCODE>TC_9001_01_P-</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F07&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -325,16 +339,18 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_NEXT</NAME>
        <ICON_NAME>ICON_NEXT_PAGE</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>027</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>PAG</GROUP1>
        <PUSH_FCODE>TC_9001_01_P+</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F08&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -342,16 +358,18 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_BOTTOM</NAME>
        <ICON_NAME>ICON_LAST_PAGE</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>031</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>PAG</GROUP1>
        <PUSH_FCODE>TC_9001_01_P++</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F09&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -359,36 +377,37 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_MARK</NAME>
        <ICON_NAME>ICON_SELECT_ALL</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>037</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
        <PUSH_FCODE>TC_9001_01_MARK</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F10&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_COVT</NAME>
-       <TEXT>____________________________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
-       <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>041</COLUMN>
-       <LENGTH>070</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
        <PUSH_FCODE>TC_9001_01_COVT</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F11&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -396,42 +415,45 @@
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_DEMARK</NAME>
        <ICON_NAME>ICON_DESELECT_ALL</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>045</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
        <PUSH_FCODE>TC_9001_01_DMRK</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F12&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_SORT_DOWN</NAME>
-       <TEXT>降序__________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>051</COLUMN>
-       <LENGTH>089</LENGTH>
+       <LENGTH>006</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
        <PUSH_FCODE>TC_9001_01_SORT_DOWN</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F13&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_SORT_UP</NAME>
-       <TEXT>_</TEXT>
        <ICON_NAME>ICON_SORT_UP</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>054</COLUMN>
@@ -442,14 +464,15 @@
        <PUSH_FCODE>TC_9001_01_SORT_UP</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F14&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9001_01_MASS</NAME>
-       <TEXT>_</TEXT>
        <ICON_NAME>ICON_MASS_CHANGE</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>058</COLUMN>
@@ -459,6 +482,7 @@
        <PUSH_FCODE>TC_9001_01_MASS</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F15&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -467,16 +491,72 @@
        <NAME>TC_9001_01_EMPTY</NAME>
        <TEXT>_</TEXT>
        <ICON_NAME>ICON_EMPTY_HANDLING_UNIT</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>002</LINE>
        <COLUMN>061</COLUMN>
-       <LENGTH>006</LENGTH>
+       <LENGTH>008</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
        <PUSH_FCODE>TC_9001_01_EMPTY</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F16&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>TC_9001_01_IMPORT</NAME>
+       <ICON_NAME>ICON_IMPORT</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>002</LINE>
+       <COLUMN>066</COLUMN>
+       <LENGTH>006</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9001_01_IMPORT</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F17&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>TC_9001_01_EXPORT</NAME>
+       <ICON_NAME>ICON_EXPORT</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>002</LINE>
+       <COLUMN>069</COLUMN>
+       <LENGTH>006</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9001_01_EXPORT</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F18&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>TC_9001_01_TRANS</NAME>
+       <ICON_NAME>ICON_TRANSFER</ICON_NAME>
+       <ICON_QSPEC>X</ICON_QSPEC>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>002</LINE>
+       <COLUMN>074</COLUMN>
+       <LENGTH>006</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9001_01_TRANS</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+       <PROPERTIES>&lt;TooltipText&gt;&amp;&amp;TEXT-F19&amp;&amp;&lt;/TooltipText&gt;</PROPERTIES>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>SCREEN</CONT_TYPE>
@@ -492,179 +572,194 @@
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>ITEMS_TITLE</NAME>
-       <TEXT>采购行项目_____</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE-PO_ITEMS</NAME>
+       <TEXT>____________________________________________________________________________________________________________________________________</TEXT>
        <LINE>001</LINE>
-       <LENGTH>010</LENGTH>
-       <VISLENGTH>166</VISLENGTH>
+       <LENGTH>193</LENGTH>
+       <VISLENGTH>193</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_TITLE>X</TC_TITLE>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-EBELN</NAME>
-       <TEXT>订单号___</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-EBELN</NAME>
+       <TEXT>__________</TEXT>
+       <ROLLING>X</ROLLING>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
-       <LENGTH>006</LENGTH>
+       <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
+       <OUTPUTONLY>X</OUTPUTONLY>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-EBELP</NAME>
-       <TEXT>行项目___</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-EBELP</NAME>
+       <TEXT>_____</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
-       <LENGTH>006</LENGTH>
+       <LENGTH>005</LENGTH>
        <VISLENGTH>005</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-MATNR</NAME>
-       <TEXT>物料号___</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-MATNR</NAME>
+       <TEXT>________________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
-       <LENGTH>006</LENGTH>
+       <LENGTH>040</LENGTH>
        <VISLENGTH>040</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-MAKTX</NAME>
-       <TEXT>物料描述_________________________________</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-MAKTX</NAME>
+       <TEXT>________________________________________</TEXT>
+       <ROLLING>X</ROLLING>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
-       <LENGTH>037</LENGTH>
+       <LENGTH>040</LENGTH>
        <VISLENGTH>040</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-MENGE</NAME>
-       <TEXT>数量__</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-MENGE</NAME>
+       <TEXT>_________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>017</LENGTH>
        <VISLENGTH>017</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-MEINS</NAME>
-       <TEXT>基本单位____</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-MEINS</NAME>
+       <TEXT>___________</TEXT>
        <LINE>001</LINE>
        <COLUMN>006</COLUMN>
-       <LENGTH>008</LENGTH>
+       <LENGTH>011</LENGTH>
        <VISLENGTH>011</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-BSTME</NAME>
-       <TEXT>采购单位____</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-BSTME</NAME>
+       <TEXT>__________</TEXT>
        <LINE>001</LINE>
        <COLUMN>007</COLUMN>
-       <LENGTH>008</LENGTH>
+       <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-MWSKZ</NAME>
-       <TEXT>税码__</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-MWSKZ</NAME>
+       <TEXT>_____</TEXT>
        <LINE>001</LINE>
        <COLUMN>008</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>005</LENGTH>
        <VISLENGTH>005</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-RETPO</NAME>
-       <TEXT>退货项目____</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-RETPO</NAME>
+       <TEXT>_________</TEXT>
        <LINE>001</LINE>
        <COLUMN>009</COLUMN>
-       <LENGTH>008</LENGTH>
+       <LENGTH>009</LENGTH>
        <VISLENGTH>009</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>PO_ITEM-CHARG</NAME>
-       <TEXT>批次__</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-CHARG</NAME>
+       <TEXT>__________</TEXT>
        <LINE>001</LINE>
        <COLUMN>010</COLUMN>
-       <LENGTH>004</LENGTH>
+       <LENGTH>010</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
       <RPY_DYFATC>
        <CONT_TYPE>TABLE_CTRL</CONT_TYPE>
        <CONT_NAME>TC_9001_01</CONT_NAME>
-       <TYPE>TEXT</TYPE>
-       <NAME>*PO_ITEM-ELIKZ</NAME>
-       <TEXT>删除标识____</TEXT>
+       <TYPE>TEMPLATE</TYPE>
+       <NAME>TITLE_EKPO-ELIKZ</NAME>
+       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>011</COLUMN>
        <LENGTH>008</LENGTH>
        <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <OUTPUT_FLD>X</OUTPUT_FLD>
        <REQU_ENTRY>N</REQU_ENTRY>
        <TC_HEADING>X</TC_HEADING>
       </RPY_DYFATC>
@@ -774,6 +869,7 @@
        <VISLENGTH>011</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <CONV_EXIT>CUNIT</CONV_EXIT>
        <INPUT_FLD>X</INPUT_FLD>
        <OUTPUT_FLD>X</OUTPUT_FLD>
       </RPY_DYFATC>
@@ -789,6 +885,7 @@
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <FORMAT>CHAR</FORMAT>
+       <CONV_EXIT>CUNIT</CONV_EXIT>
        <INPUT_FLD>X</INPUT_FLD>
        <OUTPUT_FLD>X</OUTPUT_FLD>
       </RPY_DYFATC>
@@ -1201,6 +1298,150 @@
    </CUA>
    <TPOOL>
     <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <ENTRY>查询</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>002</KEY>
+     <ENTRY>置空</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F01</KEY>
+     <ENTRY>折叠</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F02</KEY>
+     <ENTRY>行详情</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F03</KEY>
+     <ENTRY>字典信息</ENTRY>
+     <LENGTH>16</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F04</KEY>
+     <ENTRY>插入行</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F05</KEY>
+     <ENTRY>删除行</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F06</KEY>
+     <ENTRY>第一页</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F07</KEY>
+     <ENTRY>上一页</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F08</KEY>
+     <ENTRY>下一页</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F09</KEY>
+     <ENTRY>最后一页</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F10</KEY>
+     <ENTRY>全选</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F11</KEY>
+     <ENTRY>反选行</ENTRY>
+     <LENGTH>13</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F12</KEY>
+     <ENTRY>取消全选</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F13</KEY>
+     <ENTRY>按降序排序</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F14</KEY>
+     <ENTRY>按升序排序</ENTRY>
+     <LENGTH>15</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F15</KEY>
+     <ENTRY>执行批量更改</ENTRY>
+     <LENGTH>16</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F16</KEY>
+     <ENTRY>空的</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F17</KEY>
+     <ENTRY>导入</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F18</KEY>
+     <ENTRY>输出</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>F19</KEY>
+     <ENTRY>传输</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>T01</KEY>
+     <ENTRY>查询条件</ENTRY>
+     <LENGTH>16</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>T02</KEY>
+     <ENTRY>查询结果</ENTRY>
+     <LENGTH>14</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>T03</KEY>
+     <ENTRY>采购订单行项目</ENTRY>
+     <LENGTH>17</LENGTH>
+    </item>
+    <item>
      <ID>R</ID>
      <ENTRY>TREPORT &amp; TSCREEN (1:1)</ENTRY>
      <LENGTH>23</LENGTH>
@@ -1216,10 +1457,180 @@
      <ID>S</ID>
      <KEY>S_BUKRS</KEY>
      <ENTRY>.</ENTRY>
-     <LENGTH>9</LENGTH>
+     <LENGTH>12</LENGTH>
      <SPLIT>D</SPLIT>
     </item>
    </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>query</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>clear</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F01</KEY>
+       <ENTRY>hide</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F02</KEY>
+       <ENTRY>detail</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F03</KEY>
+       <ENTRY>ddic detail</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F04</KEY>
+       <ENTRY>insert line</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F05</KEY>
+       <ENTRY>delete line</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F06</KEY>
+       <ENTRY>The first pag</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F07</KEY>
+       <ENTRY>The last pag</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F08</KEY>
+       <ENTRY>The next pag</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F09</KEY>
+       <ENTRY>The end pag</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F10</KEY>
+       <ENTRY>Select all</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F11</KEY>
+       <ENTRY>Convert line</ENTRY>
+       <LENGTH>13</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F12</KEY>
+       <ENTRY>Deselect all</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F13</KEY>
+       <ENTRY>Descending</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F14</KEY>
+       <ENTRY>Ascending</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F15</KEY>
+       <ENTRY>Batch change</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F16</KEY>
+       <ENTRY>Empty</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F17</KEY>
+       <ENTRY>Import</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F18</KEY>
+       <ENTRY>Export</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>F19</KEY>
+       <ENTRY>Transport</ENTRY>
+       <LENGTH>12</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>T01</KEY>
+       <ENTRY>condition</ENTRY>
+       <LENGTH>16</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>T02</KEY>
+       <ENTRY>result</ENTRY>
+       <LENGTH>14</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>T03</KEY>
+       <ENTRY>Order number</ENTRY>
+       <LENGTH>15</LENGTH>
+      </item>
+      <item>
+       <ID>R</ID>
+       <ENTRY>TREPORT &amp; TSCREEN (1:1)</ENTRY>
+       <LENGTH>70</LENGTH>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>P_EBELN</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>12</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+      <item>
+       <ID>S</ID>
+       <KEY>S_BUKRS</KEY>
+       <ENTRY>.</ENTRY>
+       <LENGTH>12</LENGTH>
+       <SPLIT>D</SPLIT>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
   </asx:values>
  </asx:abap>
 </abapGit>

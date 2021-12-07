@@ -100,7 +100,7 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
       IF sy-subrc = 0.
         tscreen = <view>-tscreen.
       ELSE.
-        zcx_tscreen=>raise_text( 'No view found.' ).
+        ##NO_TEXT        zcx_tscreen=>raise_text( 'No view found.' ).
       ENDIF.
 
     ENDIF.
@@ -154,7 +154,7 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
   METHOD zif_tscreen_stack~pop.
     DELETE tscreens INDEX lines( tscreens )."栈顶出栈
     IF sy-subrc <> 0.
-      zcx_tscreen=>raise_text( 'Empty stack.' ).
+      ##NO_TEXT      zcx_tscreen=>raise_text( 'Empty stack.' ).
     ENDIF.
   ENDMETHOD.
 
@@ -194,7 +194,7 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
     IF sy-subrc = 0.
       tscreen = <view>-tscreen.
     ELSE.
-      zcx_tscreen=>raise_text( 'No view found.' ).
+      ##NO_TEXT      zcx_tscreen=>raise_text( 'No view found.' ).
     ENDIF.
 
   ENDMETHOD.

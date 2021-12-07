@@ -42,6 +42,7 @@ AT SELECTION-SCREEN OUTPUT."所有带屏幕元素的选择屏幕会触发
 *&  PAI
 *&---------------------------------------------------------------------*
 AT SELECTION-SCREEN.
+
   TRY.
       zcl_tscreen_stack=>get_instance( )->current( )->handle_event( 'AUTH' ).
     CATCH zcx_tscreen INTO DATA(gx_tscreen).

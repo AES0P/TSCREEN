@@ -139,13 +139,12 @@ CLASS lcl_prog IMPLEMENTATION.
 
 ENDCLASS.
 
-##INCL_OK
-INCLUDE zaesop_tscreen_event_inc."通用EVENT include
-
 *&---------------------------------------------------------------------*
 *&　　　　END-OF-SELECTION
 *&---------------------------------------------------------------------*
 ##DUPL_EVENT
-
-END-OF-SELECTION.
+END-OF-SELECTION."重复事件以先后顺序执行
   CALL SCREEN 9000.
+
+##INCL_OK
+INCLUDE zaesop_tscreen_event_inc."通用EVENT include

@@ -1,247 +1,264 @@
-class ZCL_TABLE_CONTROL definition
-  public
-  inheriting from ZCL_TCOMPONENT
-  create public
+CLASS zcl_table_control DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tcomponent
+  CREATE PUBLIC
 
-  global friends ZIF_TSCREEN .
+  GLOBAL FRIENDS zif_tscreen .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_TABLE_CONTROL .
+    INTERFACES zif_table_control .
 
-  aliases CONVERT_ALL_LINES_MARK
-    for ZIF_TABLE_CONTROL~CONVERT_ALL_LINES_MARK .
-  aliases C_FILTER_OFF
-    for ZIF_TABLE_CONTROL~C_FILTER_OFF .
-  aliases C_FILTER_ON
-    for ZIF_TABLE_CONTROL~C_FILTER_ON .
-  aliases DELETE_LINE
-    for ZIF_TABLE_CONTROL~DELETE_LINE .
-  aliases DEMARK_ALL_COLUMNS
-    for ZIF_TABLE_CONTROL~DEMARK_ALL_COLUMNS .
-  aliases DEMARK_ALL_LINES
-    for ZIF_TABLE_CONTROL~DEMARK_ALL_LINES .
-  aliases DYNNR
-    for ZIF_TABLE_CONTROL~DYNNR .
-  aliases EMPTY_FIELDS
-    for ZIF_TABLE_CONTROL~EMPTY_FIELDS .
-  aliases FILTER
-    for ZIF_TABLE_CONTROL~FILTER .
-  aliases FILTER_COLUMN
-    for ZIF_TABLE_CONTROL~FILTER_COLUMN .
-  aliases HIDE_EMPTY_COLUMNS
-    for ZIF_TABLE_CONTROL~HIDE_EMPTY_COLUMNS .
-  aliases INSERT_LINE
-    for ZIF_TABLE_CONTROL~INSERT_LINE .
-  aliases IN_FILTER_MODE
-    for ZIF_TABLE_CONTROL~IN_FILTER_MODE .
-  aliases MARK_ALL_COLUMNS
-    for ZIF_TABLE_CONTROL~MARK_ALL_COLUMNS .
-  aliases MARK_ALL_LINES
-    for ZIF_TABLE_CONTROL~MARK_ALL_LINES .
-  aliases MASS_COLUMN
-    for ZIF_TABLE_CONTROL~MASS_COLUMN .
-  aliases PAI_TC_LINE
-    for ZIF_TABLE_CONTROL~PAI_TC_LINE .
-  aliases PBO_TC_LINE
-    for ZIF_TABLE_CONTROL~PBO_TC_LINE .
-  aliases POH
-    for ZIF_TABLE_CONTROL~POH .
-  aliases POV
-    for ZIF_TABLE_CONTROL~POV .
-  aliases PREFIX
-    for ZIF_TABLE_CONTROL~PREFIX .
-  aliases PROGRAM
-    for ZIF_TABLE_CONTROL~PROGRAM .
-  aliases REF_STRUCTURE_NAME
-    for ZIF_TABLE_CONTROL~REF_STRUCTURE_NAME .
-  aliases SCREEN_LINES
-    for ZIF_TABLE_CONTROL~SCREEN_LINES .
-  aliases SCROLL
-    for ZIF_TABLE_CONTROL~SCROLL .
-  aliases SELBAR
-    for ZIF_TABLE_CONTROL~SELBAR .
-  aliases SET_VISIBILITY
-    for ZIF_TABLE_CONTROL~SET_VISIBILITY .
-  aliases SHOW_ROW_CONTENT
-    for ZIF_TABLE_CONTROL~SHOW_ROW_CONTENT .
-  aliases SHOW_ROW_DDIC_DETAIL
-    for ZIF_TABLE_CONTROL~SHOW_ROW_DDIC_DETAIL .
-  aliases SORT
-    for ZIF_TABLE_CONTROL~SORT .
-  aliases TC_NAME
-    for ZIF_TABLE_CONTROL~TC_NAME .
-  aliases TTY_DYNPREAD
-    for ZIF_TABLE_CONTROL~TTY_DYNPREAD .
-  aliases TTY_EMPTY_FIELD
-    for ZIF_TABLE_CONTROL~TTY_EMPTY_FIELD .
-  aliases TY_EMPTY_FIELD
-    for ZIF_TABLE_CONTROL~TY_EMPTY_FIELD .
-  aliases UNFILTER
-    for ZIF_TABLE_CONTROL~UNFILTER .
-  aliases USER_COMMAND
-    for ZIF_TABLE_CONTROL~USER_COMMAND .
-  aliases INITIALIZE_BY_TSCREEN
-    for ZIF_TSCREEN_COMPONENT~INITIALIZE_BY_TSCREEN .
+    ALIASES convert_all_lines_mark
+      FOR zif_table_control~convert_all_lines_mark .
+    ALIASES c_component_editor
+      FOR zif_tscreen_component~c_component_editor .
+    ALIASES c_component_tc
+      FOR zif_tscreen_component~c_component_tc .
+    ALIASES c_filter_off
+      FOR zif_table_control~c_filter_off .
+    ALIASES c_filter_on
+      FOR zif_table_control~c_filter_on .
+    ALIASES ddic_tabname
+      FOR zif_table_control~ddic_tabname .
+    ALIASES delete_line
+      FOR zif_table_control~delete_line .
+    ALIASES demark_all_columns
+      FOR zif_table_control~demark_all_columns .
+    ALIASES demark_all_lines
+      FOR zif_table_control~demark_all_lines .
+    ALIASES dynnr
+      FOR zif_table_control~dynnr .
+    ALIASES empty_fields
+      FOR zif_table_control~empty_fields .
+    ALIASES filter
+      FOR zif_table_control~filter .
+    ALIASES filter_column
+      FOR zif_table_control~filter_column .
+    ALIASES hide_empty_columns
+      FOR zif_table_control~hide_empty_columns .
+    ALIASES insert_line
+      FOR zif_table_control~insert_line .
+    ALIASES in_filter_mode
+      FOR zif_table_control~in_filter_mode .
+    ALIASES mark_all_columns
+      FOR zif_table_control~mark_all_columns .
+    ALIASES mark_all_lines
+      FOR zif_table_control~mark_all_lines .
+    ALIASES mass_column
+      FOR zif_table_control~mass_column .
+    ALIASES pai_tc_line
+      FOR zif_table_control~pai_tc_line .
+    ALIASES pbo_tc_line
+      FOR zif_table_control~pbo_tc_line .
+    ALIASES poh
+      FOR zif_table_control~poh .
+    ALIASES pov
+      FOR zif_table_control~pov .
+    ALIASES prefix
+      FOR zif_table_control~prefix .
+    ALIASES program
+      FOR zif_table_control~program .
+    ALIASES ref_structure_name
+      FOR zif_table_control~ref_structure_name .
+    ALIASES screen_lines
+      FOR zif_table_control~screen_lines .
+    ALIASES scroll
+      FOR zif_table_control~scroll .
+    ALIASES selbar
+      FOR zif_table_control~selbar .
+    ALIASES set_visibility
+      FOR zif_table_control~set_visibility .
+    ALIASES show_row_content
+      FOR zif_table_control~show_row_content .
+    ALIASES show_row_ddic_detail
+      FOR zif_table_control~show_row_ddic_detail .
+    ALIASES sort
+      FOR zif_table_control~sort .
+    ALIASES tc_name
+      FOR zif_table_control~tc_name .
+    ALIASES tty_dynpread
+      FOR zif_table_control~tty_dynpread .
+    ALIASES tty_empty_field
+      FOR zif_table_control~tty_empty_field .
+    ALIASES ty_empty_field
+      FOR zif_table_control~ty_empty_field .
+    ALIASES unfilter
+      FOR zif_table_control~unfilter .
+    ALIASES user_command
+      FOR zif_table_control~user_command .
+    ALIASES initialize_by_tscreen
+      FOR zif_tscreen_component~initialize_by_tscreen .
+    ALIASES transport_data
+      FOR zif_table_control~transport_data .
 
-  methods CONSTRUCTOR
-    importing
-      !PARENT type ref to ZCL_TSCREEN
-      !TC_NAME type STRING
-      !REF_STRUCTURE_NAME type C
-      !DATA_SOURCE type STRING
-      !DATA_WA type STRING
-      !PREFIX type C default `TC_`
-      !SELBAR_NAME type C default `SEL`
-      !IN_FILTER_MODE type ABAP_BOOL default ABAP_FALSE
-      !FILTER_COLUMN_NAME type C default `FILTER`
-      !HIDE_EMPTY_FIELDS type ABAP_BOOL default ABAP_FALSE
-    raising
-      CX_UUID_ERROR
-      ZCX_TSCREEN .
-  methods SET_VISIBLE
-    returning
-      value(TABLE_CONTROL) type ref to ZCL_TABLE_CONTROL .
-  methods SET_INVISIBLE
-    returning
-      value(TABLE_CONTROL) type ref to ZCL_TABLE_CONTROL .
-  methods MARK_LINES
-    importing
-      !MODE type ABAP_BOOL .
-  methods MARK_COLUMNS
-    importing
-      !MODE type ABAP_BOOL .
-  methods GET_CELL_VALUE_BY_INDEX
-    importing
-      !FIELDNAME type FELD-NAME
-      !INDEX type INT4
-    returning
-      value(VALUE) type DYNFIELDVALUE .
-  methods GET_CELL_VALUE_BY_CURSOR
-    returning
-      value(VALUE) type DYNFIELDVALUE .
-  methods GET_SELECTED_COLUMNS
-    returning
-      value(SELECTED_COLUMNS) type LVC_T_COL .
-  methods GET_VISIBLE_COLUMNS
-    returning
-      value(COLUMNS) type LVC_T_FCAT .
-  methods GET_FIXED_COLUMN
-    returning
-      value(FIXED_LINES) type I .
-  methods SET_FIXED_COLUMN
-    importing
-      !FIXED_LINES type I
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods GET_CURRENT_LINE
-    returning
-      value(INDEX) type SY-INDEX .
-  methods SET_CURSOR
-    importing
-      !FIELD type C
-      !INDEX type I
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods SET_TOP_LINE
-    importing
-      !INDEX type I
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods SET_SEL_MODE_ROW
-    importing
-      !MODE type INT1
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods SET_SEL_MODE_COLUMN
-    importing
-      !MODE type INT1
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods GET_COLUMN
-    importing
-      !COLUMN_NAME type C
-    returning
-      value(TC_COLUMN) type SCXTAB_COLUMN .
-  methods SET_COLUMN
-    importing
-      !COLUMN_NAME type C
-      !TC_COLUMN type SCXTAB_COLUMN
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods SET_COLUMN_VISIBLE
-    importing
-      !COLUMN_NAME type C
-    returning
-      value(TC_COLUMN) type SCXTAB_COLUMN .
-  methods SET_COLUMN_INVISIBLE
-    importing
-      !COLUMN_NAME type C
-    returning
-      value(TC_COLUMN) type SCXTAB_COLUMN .
-  methods SET_COLUMN_VISIBILITY
-    importing
-      !COLUMN_NAME type C
-      !VISIBILITY type ABAP_BOOL
-    returning
-      value(TC_COLUMN) type SCXTAB_COLUMN .
-  methods SET_COLUMN_VISLENGTH
-    importing
-      !COLUMN_NAME type C
-      !VISLENGTH type ICONLENGTH
-    returning
-      value(TC_COLUMN) type SCXTAB_COLUMN .
-  methods SET_COLUMN_EDITABLE
-    importing
-      !COLUMN_NAME type C
-    returning
-      value(TC_COLUMN) type SCXTAB_COLUMN .
-  methods SET_COLUMN_DISPLAY
-    importing
-      !COLUMN_NAME type C
-    returning
-      value(TC_COLUMN) type SCXTAB_COLUMN .
-  methods SET_CELL_EDITABLE
-    importing
-      !FIELD_NAME type C
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods SET_CELL_DISPLAY
-    importing
-      !FIELD_NAME type C
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods SET_ROW_EDITABLE
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods SET_ROW_DISPLAY
-    returning
-      value(TABLE_CONTROL) type ref to ZIF_TABLE_CONTROL .
-  methods IS_LINE_INSERT
-    returning
-      value(IS_LINE_INSERT) type ABAP_BOOL .
-  methods IS_DELETION_CONFIRMED
-    importing
-      !INDEX like SY-TABIX
-    returning
-      value(IS_CONFIRMED) type ABAP_BOOL .
-  methods BEFORE_FILTER_TABLE_WRITEBACK .
-  methods AFTER_FILTER_TABLE_WRITEBACK .
-  methods GET_FIELD_PREFIX
-    returning
-      value(PREFIX) type TABNAME .
-  methods USER_COMMAND_EXTEND
-    importing
-      !UCOMM type SY-UCOMM .
+    METHODS constructor
+      IMPORTING
+        !parent             TYPE REF TO zcl_tscreen
+        !tc_name            TYPE string
+        !ref_structure_name TYPE c
+        !data_source        TYPE string
+        !data_wa            TYPE string
+        !ddic_tabname       TYPE c OPTIONAL
+        !prefix             TYPE c DEFAULT `TC_`
+        !selbar_name        TYPE c DEFAULT `SEL`
+        !in_filter_mode     TYPE abap_bool DEFAULT abap_false
+        !filter_column_name TYPE c DEFAULT `FILTER`
+        !hide_empty_fields  TYPE abap_bool DEFAULT abap_false
+      RAISING
+        cx_uuid_error
+        zcx_tscreen .
+    METHODS set_visible
+      RETURNING
+        VALUE(table_control) TYPE REF TO zcl_table_control .
+    METHODS set_invisible
+      RETURNING
+        VALUE(table_control) TYPE REF TO zcl_table_control .
+    METHODS mark_lines
+      IMPORTING
+        !mode TYPE abap_bool .
+    METHODS mark_columns
+      IMPORTING
+        !mode TYPE abap_bool .
+    METHODS get_cell_value_by_index
+      IMPORTING
+        !fieldname   TYPE feld-name
+        !index       TYPE int4
+      RETURNING
+        VALUE(value) TYPE dynfieldvalue .
+    METHODS get_cell_value_by_cursor
+      RETURNING
+        VALUE(value) TYPE dynfieldvalue .
+    METHODS get_selected_columns
+      RETURNING
+        VALUE(selected_columns) TYPE lvc_t_col .
+    METHODS get_visible_columns
+      RETURNING
+        VALUE(columns) TYPE lvc_t_fcat .
+    METHODS get_fixed_column
+      RETURNING
+        VALUE(fixed_lines) TYPE i .
+    METHODS set_fixed_column
+      IMPORTING
+        !fixed_lines         TYPE i
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS get_current_line
+      RETURNING
+        VALUE(index) TYPE sy-index .
+    METHODS set_cursor
+      IMPORTING
+        !field               TYPE c
+        !index               TYPE i
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS set_top_line
+      IMPORTING
+        !index               TYPE i
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS set_sel_mode_row
+      IMPORTING
+        !mode                TYPE int1
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS set_sel_mode_column
+      IMPORTING
+        !mode                TYPE int1
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS get_column
+      IMPORTING
+        !column_name     TYPE c
+      RETURNING
+        VALUE(tc_column) TYPE scxtab_column .
+    METHODS set_column
+      IMPORTING
+        !column_name         TYPE c
+        !tc_column           TYPE scxtab_column
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS set_column_visible
+      IMPORTING
+        !column_name     TYPE c
+      RETURNING
+        VALUE(tc_column) TYPE scxtab_column .
+    METHODS set_column_invisible
+      IMPORTING
+        !column_name     TYPE c
+      RETURNING
+        VALUE(tc_column) TYPE scxtab_column .
+    METHODS set_column_visibility
+      IMPORTING
+        !column_name     TYPE c
+        !visibility      TYPE abap_bool
+      RETURNING
+        VALUE(tc_column) TYPE scxtab_column .
+    METHODS set_column_vislength
+      IMPORTING
+        !column_name     TYPE c
+        !vislength       TYPE iconlength
+      RETURNING
+        VALUE(tc_column) TYPE scxtab_column .
+    METHODS set_column_editable
+      IMPORTING
+        !column_name     TYPE c
+      RETURNING
+        VALUE(tc_column) TYPE scxtab_column .
+    METHODS set_column_display
+      IMPORTING
+        !column_name     TYPE c
+      RETURNING
+        VALUE(tc_column) TYPE scxtab_column .
+    METHODS set_cell_editable
+      IMPORTING
+        !field_name          TYPE c
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS set_cell_display
+      IMPORTING
+        !field_name          TYPE c
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS set_row_editable
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS set_row_display
+      RETURNING
+        VALUE(table_control) TYPE REF TO zif_table_control .
+    METHODS is_line_insert
+      RETURNING
+        VALUE(is_line_insert) TYPE abap_bool .
+    METHODS is_deletion_confirmed
+      IMPORTING
+        !index              LIKE sy-tabix
+      RETURNING
+        VALUE(is_confirmed) TYPE abap_bool .
+    METHODS before_filter_table_writeback .
+    METHODS after_filter_table_writeback .
+    METHODS get_field_prefix
+      RETURNING
+        VALUE(prefix) TYPE tabname .
+    METHODS user_command_extend
+      IMPORTING
+        !ucomm TYPE sy-ucomm .
+    METHODS is_line_selected
+      RETURNING
+        VALUE(is_line_selected) TYPE abap_bool .
+    METHODS is_ddic_tabname_valid
+      EXPORTING
+        !contflag                    TYPE contflag
+      RETURNING
+        VALUE(is_ddic_tabname_valid) TYPE abap_bool .
 
-  methods ZIF_TSCREEN_COMPONENT~CHANGE_EDITABLE
-    redefinition .
-  methods ZIF_TSCREEN_COMPONENT~CHANGE_VISIBILITY
-    redefinition .
-  methods ZIF_TSCREEN_COMPONENT~INITIALIZE_BY_TSCREEN
-    redefinition .
-  methods ZIF_TSCREEN_COMPONENT~SET_COMPONENT_ATTR_BY_SETTING
-    redefinition .
+    METHODS zif_tscreen_component~change_editable
+        REDEFINITION .
+    METHODS zif_tscreen_component~change_visibility
+        REDEFINITION .
+    METHODS zif_tscreen_component~initialize_by_tscreen
+        REDEFINITION .
+    METHODS zif_tscreen_component~set_component_attr_by_setting
+        REDEFINITION .
   PROTECTED SECTION.
 
     DATA parent TYPE REF TO zcl_tscreen .
@@ -263,6 +280,11 @@ public section.
       RETURNING
         VALUE(size) TYPE i .
   PRIVATE SECTION.
+
+    ALIASES export_data
+      FOR zif_table_control~export_data .
+    ALIASES import_data
+      FOR zif_table_control~import_data .
 ENDCLASS.
 
 
@@ -1051,6 +1073,18 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
           visibility = zif_tscreen_component=>c_component_visible.
         ENDIF.
 
+      WHEN 'IMPORT'.
+
+        import_data( ).
+
+      WHEN 'EXPORT'.
+
+        export_data( ).
+
+      WHEN 'TRANS'.
+
+        transport_data( ).
+
       WHEN OTHERS.
 
 *        user_command_extend( ucomm ).
@@ -1288,6 +1322,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     me->in_filter_mode      = in_filter_mode.
     me->filter_column       = filter_column_name.
     me->ref_structure_name  = ref_structure_name.
+    me->ddic_tabname        = ddic_tabname.
 
     bound( ).
 
@@ -1385,10 +1420,13 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
       "如果DDIC有，TC没有，最终以TC为准
       ##WARN_OK
-      READ TABLE tc->*-cols TRANSPORTING NO FIELDS WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ). "#EC CI_STDSEQ
+      FIELD-SYMBOLS <tc_column> TYPE scxtab_column.
+      READ TABLE tc->*-cols ASSIGNING <tc_column> WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ). "#EC CI_STDSEQ
       IF sy-subrc <> 0.
         DELETE columns INDEX tabix.
         CONTINUE.
+      ELSE.
+        <column>-col_pos = <tc_column>-index.
       ENDIF.
 
       "如果DDIC有，TC有，但TC列不可见，最终以TC为准
@@ -1402,6 +1440,9 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     "过滤字段不显示
     DELETE columns WHERE fieldname =  filter_column.     "#EC CI_STDSEQ
+
+    "排序-影响批导
+    SORT columns ASCENDING BY col_pos.
 
   ENDMETHOD.
 
@@ -1598,6 +1639,190 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     screen_util = tscreen->get_screen_util( ).
 
     CAST zcl_tscreen_with_components( tscreen )->add_component( group = zif_tscreen_component=>c_component_tc component = me ).
+
+  ENDMETHOD.
+
+
+  METHOD zif_table_control~import_data.
+
+    FIELD-SYMBOLS <data> TYPE STANDARD TABLE.
+    ASSIGN data->* TO <data>.
+    IF <data> IS NOT INITIAL.
+      DATA answer TYPE c.
+      CALL FUNCTION 'POPUP_TO_CONFIRM'
+        EXPORTING
+          titlebar       = '覆盖？'(001)
+          text_question  = '现有数据不为空，是否覆盖已有数据？'(002)
+        IMPORTING
+          answer         = answer
+        EXCEPTIONS
+          text_not_found = 1
+          OTHERS         = 2.
+      IF sy-subrc <> 0 OR answer <> '1'.
+        RETURN.
+      ENDIF.
+    ENDIF.
+
+    DATA filename TYPE rlgrap-filename.
+    CALL FUNCTION 'KD_GET_FILENAME_ON_F4'
+      EXPORTING
+        static        = 'X'
+        mask          = ',*.XLS,*.XLSX '
+      CHANGING
+        file_name     = filename
+      EXCEPTIONS
+        mask_too_long = 1
+        OTHERS        = 2. "#EC CI_SUBRC
+    IF sy-subrc <> 0.
+* Implement suitable error handling here
+    ENDIF.
+
+    DATA tab TYPE REF TO data.
+*&---根据fieldcat生成动态内表
+    cl_alv_table_create=>create_dynamic_table(
+     EXPORTING
+       it_fieldcatalog           = get_visible_columns( )
+     IMPORTING
+       ep_table                  = tab
+     EXCEPTIONS
+       generate_subpool_dir_full = 1
+       OTHERS                    = 2 ).
+    IF sy-subrc <> 0.
+      MESSAGE '当前没有可见行或转换失败，请重试'(004) TYPE 'W'.
+    ENDIF.
+
+    FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
+    ASSIGN tab->* TO <tab>.
+
+    DATA raw_data TYPE truxs_t_text_data.
+    CALL FUNCTION 'TEXT_CONVERT_XLS_TO_SAP'
+      EXPORTING
+        i_line_header        = abap_true
+        i_tab_raw_data       = raw_data
+        i_filename           = filename
+      TABLES
+        i_tab_converted_data = <tab>
+      EXCEPTIONS
+        conversion_failed    = 1
+        OTHERS               = 2.
+    IF sy-subrc <> 0.
+      MESSAGE '数据转换失败，请检查EXCEL文件，确保格式与展示表一致'(003) TYPE 'W'.
+    ELSE.
+      MOVE-CORRESPONDING <tab> TO <data>.
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD is_line_selected.
+
+    FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
+    ASSIGN data->* TO <tab>.
+
+    DATA condition TYPE char72.
+
+    condition = selbar && ' = ABAP_TRUE'.
+
+    LOOP AT <tab> TRANSPORTING NO FIELDS WHERE (condition).
+      EXIT.
+    ENDLOOP.
+    IF sy-subrc = 0.
+      is_line_selected = abap_true.
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD zif_table_control~export_data.
+
+    CALL FUNCTION 'XML_EXPORT_DIALOG'
+      EXPORTING
+        i_xml                      = NEW cl_salv_bs_ex_office2007(
+                                         cl_salv_ex_util=>factory_result_data_table(
+                                           r_data         = data
+                                           t_fieldcatalog = get_visible_columns( ) ) )->transform( )
+        i_default_extension        = 'XLSX'
+        i_initial_directory        = ''
+        i_default_file_name        = 'EXPORT.XLSX'
+        i_mask                     = 'Excel(*.XLSX)|*XLSX'
+        i_application              = ''
+      EXCEPTIONS
+        application_not_executable = 1
+        OTHERS                     = 2. "#EC CI_SUBRC
+    IF sy-subrc <> 0.
+* Implement suitable error handling here
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD is_ddic_tabname_valid.
+
+    SELECT SINGLE contflag
+     FROM dd02l
+     INTO contflag
+    WHERE tabname  = ddic_tabname
+      AND as4local = 'A'
+      AND tabclass = 'TRANSP'.
+    IF sy-subrc <> 0.
+      MESSAGE ddic_tabname && '数据表名不正确，请在实例化时检查传入的表名'(005) TYPE 'S' DISPLAY LIKE 'E'.
+    ELSE.
+      is_ddic_tabname_valid = abap_true.
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD zif_table_control~transport_data.
+
+    IF ddic_tabname+0(1) <> 'Z'.
+      MESSAGE '不允许操作非自建表' TYPE 'W'.
+      RETURN.
+    ENDIF.
+
+    DATA contflag TYPE contflag.
+    CHECK is_ddic_tabname_valid( IMPORTING contflag = contflag ).
+
+    DATA tab TYPE REF TO data.
+    CREATE DATA tab TYPE STANDARD TABLE OF (ddic_tabname).
+    FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
+    ASSIGN tab->* TO <tab>.
+
+    DATA line TYPE REF TO data.
+    CREATE DATA line TYPE (ddic_tabname).
+    FIELD-SYMBOLS <line> TYPE any.
+    ASSIGN line->* TO <line>.
+
+    FIELD-SYMBOLS <data> TYPE STANDARD TABLE.
+    ASSIGN data->* TO <data>.
+    IF is_line_selected( )."选中则只传输选中的数据
+      DATA condition TYPE char72.
+      condition = selbar && ' = ABAP_TRUE'.
+      FIELD-SYMBOLS <data_line> TYPE any.
+      FIELD-SYMBOLS <mandt> TYPE sy-mandt.
+      LOOP AT <data> ASSIGNING <data_line> WHERE (condition).
+        MOVE-CORRESPONDING <data_line> TO <line>.
+        ASSIGN COMPONENT 'MANDT' OF STRUCTURE <line> TO <mandt>.
+        ASSERT sy-subrc = 0.
+        <mandt> = sy-mandt.
+        APPEND <line> TO <tab>.
+      ENDLOOP.
+    ELSE."未选中则不传输
+      MESSAGE '未选择数据' TYPE 'W'.
+      RETURN.
+*      MOVE-CORRESPONDING <data> TO <tab>.
+*      LOOP AT <tab> ASSIGNING <line>.
+*        ASSIGN COMPONENT 'MANDT' OF STRUCTURE <line> TO <mandt>.
+*        ASSERT sy-subrc = 0.
+*        <mandt> = sy-mandt.
+*      ENDLOOP.
+    ENDIF.
+
+    IF contflag = 'A'.
+      NEW zcl_transporting_request( )->associate(  )->entrys( <tab> )->commit( ).
+    ELSEIF contflag = 'C'.
+      zcl_tr_customizing=>get_instance( )->associate( )->entrys( <tab> )->commit( ).
+    ENDIF.
 
   ENDMETHOD.
 ENDCLASS.

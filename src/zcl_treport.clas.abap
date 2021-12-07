@@ -1,42 +1,48 @@
-class ZCL_TREPORT definition
-  public
-  inheriting from ZCL_TSCREEN
-  abstract
-  create public .
+CLASS zcl_treport DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tscreen
+  ABSTRACT
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  class-data GUID type GUID read-only .
+    CLASS-DATA guid TYPE guid READ-ONLY .
 
-  methods CONSTRUCTOR
-    importing
-      !PROGRAM type SYREPID default SY-CPROG
-      !DYNNR type SY-DYNNR default SY-DYNNR
-      !DYNPRO_TYPE type SCRHTYP default ZCL_TSCREEN=>DYNPRO_TYPE_SELSCREEN
-      !DISPLAY_MODE type ABAP_BOOL default ZCL_TSCREEN=>DISPLAY_MODE_MODIFY
-      !PFSTATUS type SYPFKEY optional
-      !PFSTATUS_REPID type SYREPID optional
-      !EXCLUDING_FCODE type TTY_FCODE optional
-      !TITLEBAR type GUI_TITLE optional
-      !TITLEBAR_REPID type SYREPID optional
-      !TITLEBAR_VAR1 type STRING optional
-      !TITLEBAR_VAR2 type STRING optional
-      !TITLEBAR_VAR3 type STRING optional
-      !TITLEBAR_VAR4 type STRING optional
-      !TITLEBAR_VAR5 type STRING optional
-      !READ_DYNPRO_SETTING type ABAP_BOOL default ABAP_TRUE .
-  methods INITIALIZE .
-  methods CHECK_AUTHORITY .
-  methods EXECUTE .
-  methods SHOW .
+    METHODS constructor
+      IMPORTING
+        !program             TYPE syrepid DEFAULT sy-cprog
+        !dynnr               TYPE sy-dynnr DEFAULT sy-dynnr
+        !dynpro_type         TYPE scrhtyp DEFAULT zcl_tscreen=>dynpro_type_selscreen
+        !display_mode        TYPE abap_bool DEFAULT zcl_tscreen=>display_mode_modify
+        !pfstatus            TYPE sypfkey OPTIONAL
+        !pfstatus_repid      TYPE syrepid OPTIONAL
+        !excluding_fcode     TYPE tty_fcode OPTIONAL
+        !titlebar            TYPE gui_title OPTIONAL
+        !titlebar_repid      TYPE syrepid OPTIONAL
+        !titlebar_var1       TYPE string OPTIONAL
+        !titlebar_var2       TYPE string OPTIONAL
+        !titlebar_var3       TYPE string OPTIONAL
+        !titlebar_var4       TYPE string OPTIONAL
+        !titlebar_var5       TYPE string OPTIONAL
+        !read_dynpro_setting TYPE abap_bool DEFAULT abap_true .
+    METHODS initialize .
+    METHODS check_authority .
+    METHODS execute .
+    METHODS show .
+    METHODS set_title
+      IMPORTING
+        !tabname TYPE tabname
+        !langu   TYPE sy-langu DEFAULT sy-langu
+      CHANGING
+        !title   TYPE any .
 
-  methods ZIF_TSCREEN~EXIT
-    redefinition .
-  methods ZIF_TSCREEN~HANDLE_EVENT
-    redefinition .
-  methods ZIF_TSCREEN~PBO
-    redefinition .
-protected section.
+    METHODS zif_tscreen~exit
+        REDEFINITION .
+    METHODS zif_tscreen~handle_event
+        REDEFINITION .
+    METHODS zif_tscreen~pbo
+        REDEFINITION .
+  PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
 
@@ -67,7 +73,7 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
                         read_dynpro_setting = read_dynpro_setting ).
     TRY.
         guid = cl_system_uuid=>if_system_uuid_static~create_uuid_c32( ).
-        tlog->add_log( 'Started' ).
+        ##NO_TEXT        tlog->add_log( 'Started' ).
       CATCH cx_uuid_error.
         MESSAGE 'GUID ERROR' TYPE 'A'.
     ENDTRY.
@@ -88,7 +94,7 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
 
   METHOD zif_tscreen~exit.
-    tlog->add_log( 'Ended' )->save_log( guid = guid ).
+    ##NO_TEXT    tlog->add_log( 'Ended' )->save_log( guid = guid ).
     super->exit( ).
   ENDMETHOD.
 
@@ -116,5 +122,38 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
   METHOD zif_tscreen~pbo ##NEEDED.
 *CALL METHOD SUPER->ZIF_TSCREEN~PBO
 *    .
+  ENDMETHOD.
+
+
+  METHOD set_title.
+
+    DATA components TYPE cl_abap_structdescr=>component_table.
+    components = CAST cl_abap_structdescr( cl_abap_structdescr=>describe_by_data( title ) )->get_components( ).
+
+    DATA dd03t TYPE STANDARD TABLE OF dd03t.
+    SELECT fieldname,scrtext_s AS ddtext
+      FROM dd03m
+      INTO CORRESPONDING FIELDS OF TABLE @dd03t
+     WHERE tabname    = @tabname
+       AND ddlanguage = @langu
+       AND fldstat    = 'A'.
+    IF sy-subrc = 0.
+
+      FIELD-SYMBOLS <component> LIKE LINE OF components.
+      FIELD-SYMBOLS <field> TYPE any.
+      LOOP AT components ASSIGNING <component>.
+
+        ASSIGN COMPONENT <component>-name OF STRUCTURE title TO <field>.
+        ASSERT sy-subrc = 0.
+
+        TRY.
+            <field> = dd03t[ fieldname = <component>-name ]-ddtext. "#EC CI_STDSEQ
+          ##NO_HANDLER  CATCH cx_sy_itab_line_not_found.
+        ENDTRY.
+
+      ENDLOOP.
+
+    ENDIF.
+
   ENDMETHOD.
 ENDCLASS.

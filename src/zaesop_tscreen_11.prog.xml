@@ -646,14 +646,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9000_01_DDIC</NAME>
-       <TEXT>_______________________________________________</TEXT>
+       <TEXT>_________________________________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SELECT_DETAIL</ICON_NAME>
        <ICON_QINFO>数据字典信息</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>017</LINE>
        <COLUMN>027</COLUMN>
-       <LENGTH>060</LENGTH>
+       <LENGTH>102</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -786,14 +786,14 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9000_01_COVT</NAME>
-       <TEXT>_____________________</TEXT>
+       <TEXT>__________________________________________</TEXT>
        <ICON_NAME>ICON_INVERT_LINE</ICON_NAME>
        <ICON_QINFO>反选行</ICON_QINFO>
        <ICON_QSPEC>X</ICON_QSPEC>
        <WITH_ICON>X</WITH_ICON>
        <LINE>017</LINE>
        <COLUMN>064</COLUMN>
-       <LENGTH>031</LENGTH>
+       <LENGTH>052</LENGTH>
        <VISLENGTH>003</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP1>MAR</GROUP1>
@@ -823,12 +823,12 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
        <NAME>TC_9000_01_SORT_DOWN</NAME>
-       <TEXT>降序________________________________________________________</TEXT>
+       <TEXT>降序______________________________________________________________________</TEXT>
        <ICON_NAME>ICON_SORT_DOWN</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>017</LINE>
        <COLUMN>074</COLUMN>
-       <LENGTH>063</LENGTH>
+       <LENGTH>077</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>
        <GROUP4>TCB</GROUP4>
@@ -893,11 +893,60 @@
        <CONT_TYPE>SCREEN</CONT_TYPE>
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>PUSH</TYPE>
+       <NAME>TC_9000_01_IMPORT</NAME>
+       <TEXT>__</TEXT>
+       <ICON_NAME>ICON_IMPORT</ICON_NAME>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>017</LINE>
+       <COLUMN>088</COLUMN>
+       <LENGTH>007</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9000_01_IMPORT</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>TC_9000_01_EXPORT</NAME>
+       <ICON_NAME>ICON_EXPORT</ICON_NAME>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>017</LINE>
+       <COLUMN>091</COLUMN>
+       <LENGTH>004</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9000_01_EXPORT</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
+       <NAME>TC_9000_01_TRANS</NAME>
+       <ICON_NAME>ICON_TRANSFER</ICON_NAME>
+       <WITH_ICON>X</WITH_ICON>
+       <LINE>017</LINE>
+       <COLUMN>096</COLUMN>
+       <LENGTH>004</LENGTH>
+       <VISLENGTH>002</VISLENGTH>
+       <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_9000_01_TRANS</PUSH_FCODE>
+       <FORMAT>CHAR</FORMAT>
+       <REQU_ENTRY>N</REQU_ENTRY>
+      </RPY_DYFATC>
+      <RPY_DYFATC>
+       <CONT_TYPE>SCREEN</CONT_TYPE>
+       <CONT_NAME>SCREEN</CONT_NAME>
+       <TYPE>PUSH</TYPE>
        <NAME>TC_9000_01_TEST</NAME>
        <ICON_NAME>ICON_TEST</ICON_NAME>
        <WITH_ICON>X</WITH_ICON>
        <LINE>017</LINE>
-       <COLUMN>089</COLUMN>
+       <COLUMN>101</COLUMN>
        <LENGTH>004</LENGTH>
        <VISLENGTH>002</VISLENGTH>
        <HEIGHT>001</HEIGHT>

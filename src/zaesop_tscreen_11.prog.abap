@@ -223,7 +223,8 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
                         data_source        = 'PO_ITEMS'
                         data_wa            = 'PO_ITEM'
                         hide_empty_fields  = abap_true
-                        ref_structure_name = 'ZSEKPO' ).
+                        ref_structure_name = 'ZSEKPO'
+                        ddic_tabname       = 'EKPO' ).
     get_data( p_ebeln ).
   ENDMETHOD.
 

@@ -12,6 +12,80 @@
     <UNICODE>X</UNICODE>
     <RSTAT>K</RSTAT>
    </VSEOCLASS>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>001</KEY>
+     <ENTRY>覆盖？</ENTRY>
+     <LENGTH>20</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>002</KEY>
+     <ENTRY>现有数据不为空，是否覆盖已有数据？</ENTRY>
+     <LENGTH>130</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>003</KEY>
+     <ENTRY>数据转换失败，请检查EXCEL文件，确保格式与展示表一致</ENTRY>
+     <LENGTH>132</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>004</KEY>
+     <ENTRY>当前没有可见行或转换失败，请重试</ENTRY>
+     <LENGTH>132</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>005</KEY>
+     <ENTRY>数据表名不正确，请在实例化时检查传入的表名</ENTRY>
+     <LENGTH>132</LENGTH>
+    </item>
+   </TPOOL>
+   <I18N_TPOOL>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+     <TEXTPOOL>
+      <item>
+       <ID>I</ID>
+       <KEY>001</KEY>
+       <ENTRY>Overwrite？</ENTRY>
+       <LENGTH>20</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>002</KEY>
+       <ENTRY>The internal table is not initial,are you sure to overwrite them？</ENTRY>
+       <LENGTH>130</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>003</KEY>
+       <ENTRY>convert data failed,please check excel data ,make sure that format are mapping to the internal table!</ENTRY>
+       <LENGTH>132</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>004</KEY>
+       <ENTRY>There is nothing to show or can not convert to a internal table</ENTRY>
+       <LENGTH>132</LENGTH>
+      </item>
+      <item>
+       <ID>I</ID>
+       <KEY>005</KEY>
+       <ENTRY> ddic tabname is not a correct tabname,please check when create instance.</ENTRY>
+       <LENGTH>132</LENGTH>
+      </item>
+     </TEXTPOOL>
+    </item>
+   </I18N_TPOOL>
+   <I18N_LINES>
+    <item>
+     <LANGUAGE>E</LANGUAGE>
+    </item>
+   </I18N_LINES>
    <DESCRIPTIONS>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_TABLE_CONTROL</CLSNAME>
@@ -117,6 +191,12 @@
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_TABLE_CONTROL</CLSNAME>
+     <CMPNAME>IS_DDIC_TABNAME_VALID</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>数据库表名合法</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TABLE_CONTROL</CLSNAME>
      <CMPNAME>IS_DELETION_CONFIRMED</CMPNAME>
      <LANGU>1</LANGU>
      <DESCRIPT>删除行前确认操作(Should be redefine by customer)</DESCRIPT>
@@ -126,6 +206,12 @@
      <CMPNAME>IS_LINE_INSERT</CMPNAME>
      <LANGU>1</LANGU>
      <DESCRIPT>新增行(Should be redefine by customer)</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_TABLE_CONTROL</CLSNAME>
+     <CMPNAME>IS_LINE_SELECTED</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>是否选择行</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_TABLE_CONTROL</CLSNAME>

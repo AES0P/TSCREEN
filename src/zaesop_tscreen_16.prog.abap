@@ -227,12 +227,12 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
-  ##NEEDED
   METHOD constructor.
     zcl_tscreen_root=>if_log_record_pai = abap_false.
     super->constructor( ).
   ENDMETHOD.
 
+  ##NEEDED
   METHOD pbo.
   ENDMETHOD.
 

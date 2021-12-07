@@ -1,44 +1,44 @@
-class ZCL_TRANSPORTING_REQUEST definition
-  public
-  create public .
+CLASS zcl_transporting_request DEFINITION
+  PUBLIC
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_TRANSPORTING_REQUEST .
+    INTERFACES zif_transporting_request .
 
-  aliases ASSOCIATE
-    for ZIF_TRANSPORTING_REQUEST~ASSOCIATE .
-  aliases COMMIT
-    for ZIF_TRANSPORTING_REQUEST~COMMIT .
-  aliases ENTRY
-    for ZIF_TRANSPORTING_REQUEST~ENTRY .
-  aliases ENTRYS
-    for ZIF_TRANSPORTING_REQUEST~ENTRYS .
-  aliases TTY_E071
-    for ZIF_TRANSPORTING_REQUEST~TTY_E071 .
-  aliases TTY_E071K
-    for ZIF_TRANSPORTING_REQUEST~TTY_E071K .
-  aliases TY_E071
-    for ZIF_TRANSPORTING_REQUEST~TY_E071 .
-  aliases TY_E071K
-    for ZIF_TRANSPORTING_REQUEST~TY_E071K .
+    ALIASES associate
+      FOR zif_transporting_request~associate .
+    ALIASES commit
+      FOR zif_transporting_request~commit .
+    ALIASES entry
+      FOR zif_transporting_request~entry .
+    ALIASES entrys
+      FOR zif_transporting_request~entrys .
+    ALIASES tty_e071
+      FOR zif_transporting_request~tty_e071 .
+    ALIASES tty_e071k
+      FOR zif_transporting_request~tty_e071k .
+    ALIASES ty_e071
+      FOR zif_transporting_request~ty_e071 .
+    ALIASES ty_e071k
+      FOR zif_transporting_request~ty_e071k .
 
-  methods CLEAR .
-  class-methods GET_FUNC_EXCEPTION_TEXT
-    importing
-      !FNAME type RS38L_FNAM default 'TR_APPEND_TO_COMM_OBJS_KEYS'
-      value(INDEX) type SY-SUBRC
-    returning
-      value(STEXT) type STRING .
+    METHODS clear .
+    CLASS-METHODS get_func_exception_text
+      IMPORTING
+        !fname       TYPE rs38l_fnam DEFAULT 'TR_APPEND_TO_COMM_OBJS_KEYS'
+        VALUE(index) TYPE sy-subrc
+      RETURNING
+        VALUE(stext) TYPE string .
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  data E071 type TTY_E071 .
-  data E071K type TTY_E071K .
-  data ORDER type E071-TRKORR .
-  data TASK type E071-TRKORR .
-  data PGMID type PGMID value 'R3TR' ##NO_TEXT.
-  data OBJECT type TROBJTYPE value 'TABU' ##NO_TEXT.
+    DATA e071 TYPE tty_e071 .
+    DATA e071k TYPE tty_e071k .
+    DATA order TYPE e071-trkorr .
+    DATA task TYPE e071-trkorr .
+    DATA pgmid TYPE pgmid VALUE 'R3TR' ##NO_TEXT.
+    DATA object TYPE trobjtype VALUE 'TABU' ##NO_TEXT.
 ENDCLASS.
 
 
@@ -75,7 +75,7 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
         object_append_error    = 3
         recursive_call         = 4
         wrong_order_type       = 5
-        OTHERS                 = 6.
+        OTHERS                 = 6. "#EC CI_SUBRC
     IF sy-subrc = 0.
     ENDIF.
 
@@ -182,7 +182,7 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
 
   METHOD zif_transporting_request~entry.
 
-    IF NOT line_exists( e071[ obj_name = objname ]  ).
+    IF NOT line_exists( e071[ obj_name = objname ]  ).   "#EC CI_STDSEQ
       INSERT VALUE #(
                        pgmid       = pgmid
                        object      = object
@@ -192,7 +192,7 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
     ENDIF.
 
 
-    IF NOT line_exists( e071k[ tabkey = tabkey ]  ).
+    IF NOT line_exists( e071k[ tabkey = tabkey ]  ).     "#EC CI_STDSEQ
       INSERT VALUE #(
                        pgmid      = pgmid
                        object     = object
@@ -240,7 +240,7 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
 
       CLEAR tabkey.
       CLEAR last_length.
-      LOOP AT lt_fields INTO DATA(key_field).
+      LOOP AT lt_fields INTO DATA(key_field). "#EC CI_NESTED "#EC CI_LOOP_INTO_WA
         ASSIGN COMPONENT key_field-fieldname OF STRUCTURE <table_line> TO FIELD-SYMBOL(<field_value>).
         ASSERT sy-subrc = 0.
 
