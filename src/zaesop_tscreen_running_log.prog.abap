@@ -42,6 +42,9 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
     METHODS execute REDEFINITION.
     METHODS show REDEFINITION.
 
+  PROTECTED SECTION.
+    METHODS on_countdown_finished REDEFINITION.
+
   PRIVATE SECTION.
 
     DATA data TYPE STANDARD TABLE OF ztscreen_log.
@@ -67,14 +70,9 @@ CLASS lcl_prog IMPLEMENTATION.
     DATA datum LIKE LINE OF s_datum.
     datum-option = 'EQ'.
     datum-sign   = 'I'.
-    datum-low    = sy-datum.
+    datum-low    = sy-datum - 15.
+    datum-high   = sy-datum.
     APPEND datum TO s_datum[].
-
-    DATA prog LIKE LINE OF s_prog.
-    prog-option = 'NP'.
-    prog-sign   = 'I'.
-    prog-low    = 'ZAESOP*LOG*'.
-    APPEND prog TO s_prog[].
 
     DATA monat LIKE LINE OF s_monat.
     monat-option = 'EQ'.
@@ -83,11 +81,19 @@ CLASS lcl_prog IMPLEMENTATION.
     monat-high   = sy-datum+4(2).
     APPEND monat TO s_monat[].
 
+    countdown_begin( '10' )."10S自动刷新
+
   ENDMETHOD.
 
   METHOD pbo.
 
     LOOP AT SCREEN.
+
+      IF screen-name CS 'OPTI_PUSH'.
+        screen-input = 0.
+        CONTINUE.
+      ENDIF.
+
       CASE abap_true.
         WHEN p_detail.
           IF screen-name CS 'S_PROG' OR screen-name CS 'S_DATUM' OR screen-name CS 'S_MONAT'.
@@ -114,6 +120,7 @@ CLASS lcl_prog IMPLEMENTATION.
             screen-active   = 1.
           ENDIF.
         WHEN OTHERS.
+          screen-active   = 1.
       ENDCASE.
       MODIFY SCREEN.
     ENDLOOP.
@@ -147,10 +154,13 @@ CLASS lcl_prog IMPLEMENTATION.
      WHERE crdat IN s_datum
        AND crnam IN s_person
        AND cprog IN s_prog
-       AND monat IN s_monat.
+       AND monat IN s_monat
+       AND cprog <> 'ZAESOP_TSCREEN_RUNNING_LOG'.
     IF sy-subrc <> 0.
       MESSAGE 'NO DATA FOUND' TYPE 'S' DISPLAY LIKE 'E'.
       LEAVE TO TRANSACTION 'ZTSCREEN02'.
+    ELSE.
+      MESSAGE CONV string( lines( data ) ) TYPE 'S'.
     ENDIF.
 
   ENDMETHOD.
@@ -231,6 +241,19 @@ CLASS lcl_prog IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD on_countdown_finished.
+
+    timer->run( )."循环倒计时事件
+
+    DATA grid TYPE REF TO cl_gui_alv_grid.
+    CALL FUNCTION 'GET_GLOBALS_FROM_SLVC_FULLSCR'
+      IMPORTING
+        e_grid = grid.
+    CHECK grid IS BOUND.
+    execute( ).
+    grid->refresh_table_display( is_stable = VALUE #( row = abap_true col = abap_true ) ).
+
+  ENDMETHOD.
 
 ENDCLASS.
 

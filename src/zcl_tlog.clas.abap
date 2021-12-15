@@ -550,6 +550,7 @@ CLASS ZCL_TLOG IMPLEMENTATION.
 
     instance = me.
 
+    "SAP标准日志增加时，如果点击频率过快，会导致新增不了，这个时候无法保证自增表和SAP条目一致
     IF collector->count( ) <> lines( dynpro_info ).
       DELETE dynpro_info INDEX lines( dynpro_info ).
     ENDIF.
@@ -583,6 +584,12 @@ CLASS ZCL_TLOG IMPLEMENTATION.
     DATA ip TYPE string.
     ip = cl_gui_frontend_services=>get_ip_address( ).
 
+    DATA opcode(1) TYPE x VALUE 5.
+    DATA terminal TYPE ztscreen_log-terminal.
+    "#EC CI_CCALL
+    CALL 'ThUsrInfo' ID 'OPCODE'   FIELD opcode
+                     ID 'TERMINAL' FIELD terminal.
+
     FIELD-SYMBOLS <log> LIKE LINE OF logs.
     FIELD-SYMBOLS <dynpro_info> LIKE LINE OF dynpro_info.
     LOOP AT logs ASSIGNING <log>.
@@ -590,9 +597,9 @@ CLASS ZCL_TLOG IMPLEMENTATION.
       <log>-guid      = guid.
       <log>-line      = sy-tabix.
       IF symbol IS INITIAL.
-        <log>-symbol = get_symbol( <log>-msgty ).
+        <log>-symbol  = get_symbol( <log>-msgty ).
       ELSE.
-        <log>-symbol    = symbol.
+        <log>-symbol  = symbol.
       ENDIF.
       <log>-sid       = sy-sysid.
       <log>-cprog     = sy-cprog.
@@ -612,6 +619,7 @@ CLASS ZCL_TLOG IMPLEMENTATION.
                     TIME <log>-crtim.
       <log>-monat     = <log>-crdat+4(2).
       <log>-ip        = ip.
+      <log>-terminal  = terminal.
       <log>-tcode     = sy-tcode.
 
       <log>-message   = get_se91_message( id   = <log>-msgid

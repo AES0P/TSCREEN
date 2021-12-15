@@ -30,8 +30,8 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
   PUBLIC SECTION.
 
     CLASS-DATA parent_dynnr TYPE sy-dynnr VALUE '9000'.
-    CLASS-DATA view_cls_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
-    CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_06' READ-ONLY.
+    CLASS-DATA view_prog_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
+    CLASS-DATA view_prefix(24) VALUE 'LCL_TSCREEN_06' READ-ONLY.
     CLASS-METHODS push_view.
 
     METHODS pbo REDEFINITION.
@@ -94,10 +94,10 @@ CLASS lcl_prog IMPLEMENTATION.
     CASE sy-dynnr.
       WHEN '1000'."选择屏幕编号
         CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '' dynnr = sy-dynnr )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
-        DATA(class_name) = lcl_prog=>view_cls_prefix.
+        DATA(class_name) = lcl_prog=>view_prog_prefix.
       WHEN OTHERS.
         CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = lcl_prog=>parent_dynnr dynnr = sy-dynnr )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
-        class_name = lcl_prog=>view_view_prefix && '_V' && sy-dynnr.
+        class_name = lcl_prog=>view_prefix && '_V' && sy-dynnr.
     ENDCASE.
 
     CREATE OBJECT view TYPE (class_name).

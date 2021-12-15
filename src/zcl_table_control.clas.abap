@@ -638,6 +638,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
 
   METHOD zif_table_control~pov.
+*    screen_util->execute_fcode( zcl_tscreen_util=>c_fcode_tc_pov_bring_out && ':' && parent->cursor_filed ).
     screen_util->execute_fcode( zcl_tscreen_util=>c_fcode_tc_pov_bring_out ).
   ENDMETHOD.
 
@@ -1338,7 +1339,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
   METHOD get_cell_value_by_cursor.
     value = get_cell_value_by_index( fieldname = screen_util->get_field_name_by_cursor( )
-                                     index     = get_current_line( ) ).
+                                     index     = screen_util->get_cursor_line( ) ).
   ENDMETHOD.
 
 

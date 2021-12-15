@@ -32,8 +32,8 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 
   PUBLIC SECTION.
 
-    CLASS-DATA view_cls_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
-    CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_07' READ-ONLY.
+    CLASS-DATA view_prog_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
+    CLASS-DATA view_prefix(24) VALUE 'LCL_TSCREEN_07' READ-ONLY.
     CLASS-METHODS push_view.
     CLASS-METHODS get_parent_screen
       IMPORTING
@@ -111,9 +111,9 @@ CLASS lcl_prog IMPLEMENTATION.
     DATA view TYPE REF TO zif_tscreen.
     CASE sy-dynnr.
       WHEN '1000'."选择屏幕编号
-        DATA(class_name) = lcl_prog=>view_cls_prefix.
+        DATA(class_name) = lcl_prog=>view_prog_prefix.
       WHEN OTHERS.
-        class_name = lcl_prog=>view_view_prefix && '_V' && sy-dynnr.
+        class_name = lcl_prog=>view_prefix && '_V' && sy-dynnr.
     ENDCASE.
 
     CREATE OBJECT view TYPE (class_name).

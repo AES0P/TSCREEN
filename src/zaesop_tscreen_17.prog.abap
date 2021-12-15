@@ -61,8 +61,8 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
   PUBLIC SECTION.
 
     CLASS-DATA sub_screen TYPE sy-dynnr VALUE '9900'.
-    CLASS-DATA view_cls_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
-    CLASS-DATA view_view_prefix(24) VALUE 'LCL_TSCREEN_17' READ-ONLY.
+    CLASS-DATA view_prog_prefix(24) VALUE 'LCL_PROG' READ-ONLY.
+    CLASS-DATA view_prefix(24) VALUE 'LCL_TSCREEN_17' READ-ONLY.
     CLASS-METHODS push_view.
 
     METHODS initialize REDEFINITION.
@@ -133,7 +133,19 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
     METHODS is_deletion_confirmed REDEFINITION.
 
 ENDCLASS.
+"搜索帮助回调
+CLASS lcl_f4_callback_handler DEFINITION CREATE PUBLIC FINAL.
 
+  PUBLIC SECTION.
+    INTERFACES if_f4callback_value_request.
+
+    METHODS constructor
+      IMPORTING
+        method TYPE string.
+
+  PRIVATE SECTION.
+    DATA method TYPE string.
+ENDCLASS.
 *&---------------------------------------------------------------------*
 *&　　　　CLASS IMPLEMENTATION
 *&---------------------------------------------------------------------*
@@ -145,10 +157,10 @@ CLASS lcl_prog IMPLEMENTATION.
     CASE sy-dynnr.
       WHEN '1000'."选择屏幕编号
         CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid ).
-        DATA(class_name) = lcl_prog=>view_cls_prefix.
+        DATA(class_name) = lcl_prog=>view_prog_prefix.
       WHEN OTHERS.
         CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '9000' ).
-        class_name = lcl_prog=>view_view_prefix && '_V' && sy-dynnr.
+        class_name = lcl_prog=>view_prefix && '_V' && sy-dynnr.
     ENDCASE.
 
     CREATE OBJECT view TYPE (class_name).
@@ -331,7 +343,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
        AND ekko~bukrs IN s_bukrs
      ORDER BY ebelp.                                      "#EC CI_SUBRC
     IF sy-subrc <> 0.
-      ##NO_TEXT      parent->tlog->add_log( type = 'E' content = 'No data found' ).
+      ##NO_TEXT      parent->tlog->add_log( type = 'W' content = 'No data found' ).
     ELSE.
       ##NO_TEXT     parent->tlog->add_log( type = 'I' content = 'success' ).
     ENDIF.
@@ -405,6 +417,8 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
 
   METHOD pov .
 
+    ASSIGN po_items[ get_current_line( ) ] TO FIELD-SYMBOL(<po_item>).
+
     CASE parent->cursor_filed.
 
 *&---------------------------------------------------------------------*
@@ -419,16 +433,36 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
            AND makt~spras = @sy-langu
           INTO TABLE @DATA(lt_mara)
             UP TO '100' ROWS
-         ORDER BY mara~matnr.                             "#EC CI_SUBRC
+         ORDER BY mara~matnr.
+        IF sy-subrc = 0.
+*        DATA(matnr) = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara callback_form = 'FRM_F4_CALLBACK_ITEM_MATNR' )."和下边效果是一样的，但下边的方式更优
+          DATA(matnr) = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara callback_handler = NEW lcl_f4_callback_handler( CONV string( parent->cursor_filed ) ) ).
+          CHECK matnr IS NOT INITIAL.
+          <po_item>-matnr = matnr.
+          TRY.
+              parent->bring_out( EXPORTING source = 'MAKTX' CHANGING target = <po_item>-maktx ).
+            CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
+              MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+          ENDTRY.
+        ENDIF.
 
-        ASSIGN po_items[ get_current_line( ) ] TO FIELD-SYMBOL(<po_item>).
+      WHEN 'PO_ITEM-MWSKZ'.
 
-        <po_item>-matnr = parent->f4_event( key_field = 'MATNR' value_tab = lt_mara ).
-        TRY.
-            parent->bring_out( EXPORTING source = 'MAKTX' CHANGING target = <po_item>-maktx ).
-          CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
-            MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
-        ENDTRY.
+        SELECT DISTINCT t007s~kalsm, t007s~mwskz, t007s~text1
+          FROM t007a
+         INNER JOIN t007s
+            ON t007s~kalsm = t007a~kalsm
+           AND t007s~mwskz = t007a~mwskz
+           AND t007s~spras = @sy-langu
+          BYPASSING BUFFER
+          INTO TABLE @DATA(lt_mwskz)
+*            UP TO '100' ROWS
+          ORDER BY t007s~kalsm, t007s~mwskz.
+        IF sy-subrc = 0.
+          DATA(mwskz) = parent->f4_event( key_field = 'MWSKZ' value_tab = lt_mwskz callback_handler = NEW lcl_f4_callback_handler( CONV string( parent->cursor_filed ) ) ).
+          CHECK mwskz IS NOT INITIAL.
+          <po_item>-mwskz = mwskz.
+        ENDIF.
 
     ENDCASE.
 
@@ -472,5 +506,49 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+
+"回调处理
+**&---------------------------------------------------------------------*
+**&　　　　FRM_F4_ITEM_MATNR_CALLBACK
+**&---------------------------------------------------------------------*
+*FORM frm_f4_callback_item_matnr TABLES record_tab  STRUCTURE seahlpres
+*                              CHANGING shlp_top    TYPE shlp_descr
+*                                       callcontrol TYPE ddshf4ctrl.
+*
+*  APPEND VALUE #(  shlpfield = 'F0001'
+*                   sign      = 'I'
+*                   option    = 'EQ'
+*                   low       = '1*'
+*                   high      = '' ) TO shlp_top-selopt.
+*
+*  callcontrol-multisel = abap_true."允许选择多条数据，并且返回一个按选择排序的值表
+*
+*ENDFORM.
+
+CLASS lcl_f4_callback_handler IMPLEMENTATION.
+
+  METHOD constructor.
+    me->method = method.
+  ENDMETHOD.
+
+  METHOD if_f4callback_value_request~f4_call_callback.
+    CASE to_upper( method ).
+      WHEN 'PO_ITEM-MATNR'.
+        APPEND VALUE #(  shlpfield = 'F0001'
+                          sign      = 'I'
+                          option    = 'EQ'
+                          low       = '1*'
+                          high      = '' ) TO cs_shlp-selopt."设定默认筛选条件值
+
+        cs_callcontrol-multisel = abap_true."允许选择多条数据，并且返回一个按选择排序的值表
+      WHEN 'PO_ITEM-MWSKZ'.
+        MESSAGE '请按需自行添加回调处理' TYPE 'I'.
+*        cs_callcontrol-multisel = abap_true."允许选择多条数据，并且返回一个按选择排序的值表
+      WHEN OTHERS.
+    ENDCASE.
+  ENDMETHOD.
+
+ENDCLASS.
+
 ##INCL_OK
 INCLUDE zaesop_tscreen_event_inc."通用EVENT include

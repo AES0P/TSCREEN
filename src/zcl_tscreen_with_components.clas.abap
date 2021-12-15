@@ -47,20 +47,20 @@ CLASS zcl_tscreen_with_components DEFINITION
         REDEFINITION .
     METHODS zif_tscreen~handle_event
         REDEFINITION .
-  PROTECTED SECTION.
+protected section.
 
-    DATA components TYPE tty_component .
+  data COMPONENTS type TTY_COMPONENT .
 
-    METHODS add_components
-        ABSTRACT .
-    METHODS call_components_method
-      IMPORTING
-        !method TYPE seocpdkey-cpdname .
+  methods ADD_COMPONENTS
+  abstract .
+  methods CALL_COMPONENTS_METHOD
+    importing
+      !METHOD type SEOCPDKEY-CPDNAME .
 
-    METHODS change_screen_editable
-        REDEFINITION .
-    METHODS set_element_attr_by_setting
-        REDEFINITION .
+  methods CHANGE_SCREEN_EDITABLE
+    redefinition .
+  methods SET_ELEMENT_ATTR_BY_SETTING
+    redefinition .
   PRIVATE SECTION.
 ENDCLASS.
 
@@ -218,7 +218,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
 
     "主屏幕执行完事件后，会再执行控件的事件
     "如果主屏幕和控件具有相同的事件名，则两者的事件都会执行
-    "如果控件具有和主屏幕不同的事件，则只执行控件的事件，反之亦然
+    "如果控件具有主屏幕没有的事件，则只执行控件的事件，反之亦然
     call_components_method( event ).
 
   ENDMETHOD.

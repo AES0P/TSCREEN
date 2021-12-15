@@ -164,7 +164,7 @@
        <LINE>003</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>193</LENGTH>
-       <HEIGHT>036</HEIGHT>
+       <HEIGHT>038</HEIGHT>
        <C_RESIZE_V>X</C_RESIZE_V>
        <C_RESIZE_H>X</C_RESIZE_H>
        <C_LINE_MIN>005</C_LINE_MIN>
@@ -1075,6 +1075,9 @@
       <RPY_DYFLOW/>
       <RPY_DYFLOW>
        <LINE>  FIELD po_item-matnr MODULE pov.</LINE>
+      </RPY_DYFLOW>
+      <RPY_DYFLOW>
+       <LINE>  FIELD po_item-mwskz MODULE pov.</LINE>
       </RPY_DYFLOW>
      </FLOW_LOGIC>
     </item>

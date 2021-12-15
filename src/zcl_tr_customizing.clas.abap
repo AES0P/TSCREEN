@@ -1,17 +1,17 @@
-CLASS zcl_tr_customizing DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_transporting_request
-  FINAL
-  CREATE PRIVATE .
+class ZCL_TR_CUSTOMIZING definition
+  public
+  inheriting from ZCL_TRANSPORTING_REQUEST
+  final
+  create private .
 
-  PUBLIC SECTION.
+public section.
 
-    CLASS-METHODS get_instance
-      RETURNING
-        VALUE(tool) TYPE REF TO zif_transporting_request .
+  class-methods GET_INSTANCE
+    returning
+      value(TOOL) type ref to ZIF_TRANSPORTING_REQUEST .
 
-    METHODS zif_transporting_request~associate
-        REDEFINITION .
+  methods ZIF_TRANSPORTING_REQUEST~ASSOCIATE
+    redefinition .
   PROTECTED SECTION.
   PRIVATE SECTION.
 
