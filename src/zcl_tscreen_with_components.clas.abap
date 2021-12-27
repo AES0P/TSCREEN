@@ -15,6 +15,9 @@ CLASS zcl_tscreen_with_components DEFINITION
     TYPES:
       tty_component TYPE STANDARD TABLE OF ty_component WITH DEFAULT KEY .
 
+    CONSTANTS capture_from_outer_to_inner TYPE i VALUE 1 ##NO_TEXT.
+    CONSTANTS capture_from_inner_to_outer TYPE i VALUE 2 ##NO_TEXT.
+
     METHODS add_component
       IMPORTING
         !group     TYPE string
@@ -47,20 +50,21 @@ CLASS zcl_tscreen_with_components DEFINITION
         REDEFINITION .
     METHODS zif_tscreen~handle_event
         REDEFINITION .
-protected section.
+  PROTECTED SECTION.
 
-  data COMPONENTS type TTY_COMPONENT .
+    DATA capture TYPE i VALUE zcl_tscreen_with_components=>capture_from_outer_to_inner ##NO_TEXT.
+    DATA components TYPE tty_component .
 
-  methods ADD_COMPONENTS
-  abstract .
-  methods CALL_COMPONENTS_METHOD
-    importing
-      !METHOD type SEOCPDKEY-CPDNAME .
+    METHODS add_components
+        ABSTRACT .
+    METHODS call_components_method
+      IMPORTING
+        !method TYPE seocpdkey-cpdname .
 
-  methods CHANGE_SCREEN_EDITABLE
-    redefinition .
-  methods SET_ELEMENT_ATTR_BY_SETTING
-    redefinition .
+    METHODS change_screen_editable
+        REDEFINITION .
+    METHODS set_element_attr_by_setting
+        REDEFINITION .
   PRIVATE SECTION.
 ENDCLASS.
 
@@ -214,12 +218,19 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
 
   METHOD zif_tscreen~handle_event.
 
-    super->handle_event( event ).
-
-    "主屏幕执行完事件后，会再执行控件的事件
     "如果主屏幕和控件具有相同的事件名，则两者的事件都会执行
     "如果控件具有主屏幕没有的事件，则只执行控件的事件，反之亦然
-    call_components_method( event ).
+    CASE capture.
+      WHEN zcl_tscreen_with_components=>capture_from_outer_to_inner."捕获
+        "主屏幕执行完事件后，再执行控件的事件
+        super->handle_event( event ).
+        call_components_method( event ).
+      WHEN zcl_tscreen_with_components=>capture_from_inner_to_outer."冒泡
+        "控件事件执行完后，再执行主屏幕的事件
+        get_current_info( ).
+        call_components_method( event ).
+        super->handle_event( event ).
+    ENDCASE.
 
   ENDMETHOD.
 ENDCLASS.

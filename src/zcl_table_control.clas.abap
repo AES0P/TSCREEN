@@ -991,7 +991,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     DATA ucomm TYPE sy-ucomm.
     IF ok_code->* = 'PICK'.
-      ucomm = parent->cursor_filed.
+      ucomm = screen_util->get_field_name_by_cursor( ).
       parent->cursor_filed_value = get_cell_value_by_cursor( ).
     ELSE.
       DATA: offset TYPE i.

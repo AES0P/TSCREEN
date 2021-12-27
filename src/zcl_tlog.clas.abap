@@ -581,12 +581,20 @@ CLASS ZCL_TLOG IMPLEMENTATION.
       INTO lv_name_text
      WHERE usr21~bname = sy-uname.                        "#EC CI_SUBRC
 
-    DATA ip TYPE string.
-    ip = cl_gui_frontend_services=>get_ip_address( ).
+    DATA is_webgui TYPE c.
+    CALL FUNCTION 'GUI_GET_DESKTOP_INFO'
+      EXPORTING
+        type   = 5
+      CHANGING
+        return = is_webgui.
+    "后台和非SAP GUI都不记录IP
+    IF is_webgui IS NOT INITIAL AND sy-batch = abap_false.
+      DATA ip TYPE string.
+      ip = cl_gui_frontend_services=>get_ip_address( ).
+    ENDIF.
 
     DATA opcode(1) TYPE x VALUE 5.
     DATA terminal TYPE ztscreen_log-terminal.
-    "#EC CI_CCALL
     CALL 'ThUsrInfo' ID 'OPCODE'   FIELD opcode
                      ID 'TERMINAL' FIELD terminal.
 

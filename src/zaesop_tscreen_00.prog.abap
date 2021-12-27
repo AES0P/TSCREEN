@@ -38,14 +38,16 @@ REPORT zaesop_tscreen_00.
 *       1、TSCREEN对报表程序事件的控制，参考DEMO ZAESOP_TSCREEN_01。引入TSCREEN
 *       的步骤：
 *       ①程序中有且仅有1个继承于zcl_treport的本地类lcl_prog作为报表控制类
-*      （DEMO 02是特例，但不推荐，因为混淆了职责)。
-*       ②lcl_prog中必须存在类方法push_view，以实现视图自动入栈机制
+*      （DEMO 02是特例，但不推荐，因为混淆了职责)
+*       ②lcl_prog中必须存在类方法push_view，以实现视图自动入栈机制（方法无需自己实现，
+*       直接从DEMO程序中copy即可）
 *       ③引入通用头文件：zaesop_tscreen_event_inc，以实现视图自动出栈机制和事件响应机制
 *       ④按需实现继承于ZCL_TSCREEN和ZCL_TSCREEN_WITH_COMPONENTS的视图逻辑（参考DEMO03-17)
 *       其子类命名建议使用统一的前缀，参考DEMO03中LCL_PROG的类变量view_prefix的使用
 *
 *       2、实施时，报表程序自身，和每一个自建屏幕，都应被视为一个个独立的对象去处理。
-*       每个对象不应跨越自身的职责去处理不相干的业务逻辑，以保证高内聚和低耦合。
+*       每个对象不应跨越自身的职责去处理不相干的业务逻辑，以保证高内聚和低耦合。如果需要
+*       从一个屏幕访问另一个屏幕的方法，请通过视图栈进行操作（DEMO17 line 226)
 *
 *       3、每一个内建控件都实现了ZIF_TSCREEN_COMPONENT接口，即如果有新的控件想要
 *       加入到TSCREEN中，先实现该接口，再参考内建控件的 构造函数 代码去实现，即可
@@ -62,7 +64,7 @@ REPORT zaesop_tscreen_00.
 *
 *       5.TABLE CONTROL控件的名称必须形如 TC_9000_01（代表9000屏幕第一个TC，若只存在
 *       一个TC，可以其它形式命名，但不推荐），其相关按钮的功能码，都必须带上TABLE CONTROL
-*       控件的名称，如TC_9000_01_DELE，否则无法被TC控件识别。
+*       控件的名称，如TC_9000_01_DELE，否则无法被对应的TC控件识别。
 *
 *       6、TC若要响应双击事件，请将GUI状态的F2点击事件功能码设为"PICK"，这样双击之后就能
 *       获取到对应的字段名。

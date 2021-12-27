@@ -70,7 +70,7 @@ CLASS lcl_prog IMPLEMENTATION.
     DATA datum LIKE LINE OF s_datum.
     datum-option = 'EQ'.
     datum-sign   = 'I'.
-    datum-low    = sy-datum - 15.
+    datum-low    = sy-datum - 0.
     datum-high   = sy-datum.
     APPEND datum TO s_datum[].
 
@@ -88,11 +88,6 @@ CLASS lcl_prog IMPLEMENTATION.
   METHOD pbo.
 
     LOOP AT SCREEN.
-
-      IF screen-name CS 'OPTI_PUSH'.
-        screen-input = 0.
-        CONTINUE.
-      ENDIF.
 
       CASE abap_true.
         WHEN p_detail.
@@ -177,25 +172,30 @@ CLASS lcl_prog IMPLEMENTATION.
 
     CASE abap_true.
       WHEN p_all.
+        CLEAR ls_sort.
         ls_sort-spos      = '01'.
         ls_sort-fieldname = 'GUID'.
         ls_sort-down      = abap_true.
         APPEND ls_sort TO lt_sort.
+        CLEAR ls_sort.
         ls_sort-spos      = '02'.
         ls_sort-fieldname = 'CRNAM'.
         ls_sort-up        = abap_true.
         APPEND ls_sort TO lt_sort.
+        CLEAR ls_sort.
         ls_sort-spos      = '03'.
         ls_sort-fieldname = 'CPROG'.
         ls_sort-up        = abap_true.
         APPEND ls_sort TO lt_sort.
+        CLEAR ls_sort.
         ls_sort-spos      = '04'.
         ls_sort-fieldname = 'MONAT'.
         ls_sort-up        = abap_true.
         APPEND ls_sort TO lt_sort.
+        CLEAR ls_sort.
         ls_sort-spos      = '05'.
         ls_sort-fieldname = 'CRDAT'.
-        ls_sort-up        = abap_true.
+        ls_sort-down      = abap_true.
         APPEND ls_sort TO lt_sort.
       WHEN p_detail.
         ls_sort-spos      = '01'.

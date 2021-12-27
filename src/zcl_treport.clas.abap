@@ -130,10 +130,9 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
     DATA components TYPE cl_abap_structdescr=>component_table.
     components = CAST cl_abap_structdescr( cl_abap_structdescr=>describe_by_data( title ) )->get_components( ).
 
-    DATA dd03t TYPE STANDARD TABLE OF dd03t.
     SELECT fieldname,scrtext_s AS ddtext
       FROM dd03m
-      INTO CORRESPONDING FIELDS OF TABLE @dd03t
+      INTO TABLE @DATA(dd03t)
      WHERE tabname    = @tabname
        AND ddlanguage = @langu
        AND fldstat    = 'A'.

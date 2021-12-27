@@ -248,6 +248,7 @@ CLASS lcl_tscreen_17_v9001 IMPLEMENTATION.
     super->constructor( dynnr_super = '9000' ).
     add_components( ).
     ##NO_TEXT    tlog->add_log( '9001 Started' ).
+    capture = zcl_tscreen_with_components=>capture_from_inner_to_outer."事件冒泡
   ENDMETHOD.
 
   ##NEEDED
@@ -445,7 +446,6 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
               MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
           ENDTRY.
         ENDIF.
-
       WHEN 'PO_ITEM-MWSKZ'.
 
         SELECT DISTINCT t007s~kalsm, t007s~mwskz, t007s~text1
