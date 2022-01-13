@@ -162,9 +162,10 @@ CLASS ZCL_TSCREEN_STACK IMPLEMENTATION.
   METHOD zif_tscreen_stack~push.
 
     IF tscreen->dynpro_type = zif_tscreen=>dynpro_type_subscreen.
-      "添加子屏幕时，如果父屏幕不存在，则不允许添加
+      "添加子屏幕时，如果父屏幕不存在，则不允许运行
       IF NOT is_super_exists( program = tscreen->program dynnr_super = tscreen->dynnr_super ).
-        RETURN.
+*        zcx_tscreen=>raise_text( 'The parent screen does not exist in the stack' ).
+        ASSERT 1 = 2.
       ENDIF.
     ENDIF.
 

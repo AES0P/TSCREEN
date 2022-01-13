@@ -106,21 +106,13 @@ ENDCLASS.
 *&  POH
 *&---------------------------------------------------------------------*
 AT SELECTION-SCREEN ON HELP-REQUEST FOR p_ebeln.
-  TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'POH' ).
-    CATCH zcx_tscreen INTO DATA(lx_tscreen).
-      MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
-  ENDTRY.
+  lcl_prog=>handle_poh( ).
 
 *&---------------------------------------------------------------------*
 *&  POV
 *&---------------------------------------------------------------------*
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_bukrs.
-  TRY.
-      zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'POV' ).
-    CATCH zcx_tscreen INTO DATA(lx_tscreen).
-      MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
-  ENDTRY.
+  lcl_prog=>handle_pov( ).
 
   ##INCL_OK
   INCLUDE zaesop_tscreen_event_inc."通用EVENT include

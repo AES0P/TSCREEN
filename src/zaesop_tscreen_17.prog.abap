@@ -206,7 +206,8 @@ CLASS lcl_tscreen_17_v9000 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( ).
     set_display_mode( zcl_tscreen=>display_mode_modify ).
-    ##NO_TEXT    tlog->add_log( '9000 Started' ).
+    ##NO_TEXT
+    tlog->add_log( '9000 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -229,11 +230,7 @@ CLASS lcl_tscreen_17_v9000 IMPLEMENTATION.
             MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
         ENDTRY.
       WHEN 'DIS_MODE'.
-        IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
-          set_display_mode( zcl_tscreen=>display_mode_show ).
-        ELSE.
-          set_display_mode( zcl_tscreen=>display_mode_modify ).
-        ENDIF.
+        change_display_mode( ).
     ENDCASE.
     CLEAR sy-ucomm.
   ENDMETHOD.
@@ -247,7 +244,8 @@ CLASS lcl_tscreen_17_v9001 IMPLEMENTATION.
   METHOD constructor.
     super->constructor( dynnr_super = '9000' ).
     add_components( ).
-    ##NO_TEXT    tlog->add_log( '9001 Started' ).
+    ##NO_TEXT
+    tlog->add_log( '9001 Started' ).
     capture = zcl_tscreen_with_components=>capture_from_inner_to_outer."事件冒泡
   ENDMETHOD.
 
@@ -275,7 +273,8 @@ CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
 
   METHOD constructor.
     super->constructor( dynnr_super = '9000' ).
-    ##NO_TEXT    tlog->add_log( '9900 Started' ).
+    ##NO_TEXT
+    tlog->add_log( '9900 Started' ).
   ENDMETHOD.
 
   ##NEEDED
@@ -318,7 +317,8 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
                         data_wa            = 'PO_ITEM'
                         ref_structure_name = 'ZSEKPO' ).
 
-    ##NO_TEXT    parent->tlog->add_log( 'TC_9001_01 initialized' ).
+    ##NO_TEXT
+    tlog->add_log( 'TC_9001_01 initialized' ).
     get_data( ).
   ENDMETHOD.
 
@@ -344,9 +344,11 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
        AND ekko~bukrs IN s_bukrs
      ORDER BY ebelp.                                      "#EC CI_SUBRC
     IF sy-subrc <> 0.
-      ##NO_TEXT      parent->tlog->add_log( type = 'W' content = 'No data found' ).
+      ##NO_TEXT
+      tlog->add_log( type = 'W' content = 'No data found' ).
     ELSE.
-      ##NO_TEXT     parent->tlog->add_log( type = 'I' content = 'success' ).
+      ##NO_TEXT
+      tlog->add_log( type = 'I' content = 'success' ).
     ENDIF.
   ENDMETHOD.
 
@@ -361,6 +363,8 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
         MESSAGE '点击了删除标识' TYPE 'S'.
       WHEN OTHERS.
     ENDCASE.
+
+    CAST zcl_tscreen_with_components( parent )->stop_propagation( ).
 
   ENDMETHOD.
 

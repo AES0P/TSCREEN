@@ -9,9 +9,9 @@ REPORT zaesop_tr_tool.
 SELECT *
   FROM ztdynpro_attr
   INTO TABLE @DATA(lt_ztdynpro_attr).
-
-NEW zcl_transporting_request( )->associate(  )->entrys( lt_ztdynpro_attr )->commit( ).
-
+IF sy-subrc = 0.
+  NEW zcl_transporting_request( )->associate(  )->entrys( lt_ztdynpro_attr )->commit( ).
+ENDIF.
 
 "定制表 C    .
 *SELECT *

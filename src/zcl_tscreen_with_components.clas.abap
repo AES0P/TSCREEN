@@ -1,71 +1,75 @@
-CLASS zcl_tscreen_with_components DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_tscreen
-  ABSTRACT
-  CREATE PUBLIC .
+class ZCL_TSCREEN_WITH_COMPONENTS definition
+  public
+  inheriting from ZCL_TSCREEN
+  abstract
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    TYPES:
-      BEGIN OF ty_component,
+  types:
+    BEGIN OF ty_component,
         group      TYPE string,
         counts     TYPE i,
         components TYPE REF TO cl_object_collection,
       END OF ty_component .
-    TYPES:
-      tty_component TYPE STANDARD TABLE OF ty_component WITH DEFAULT KEY .
+  types:
+    tty_component TYPE STANDARD TABLE OF ty_component WITH DEFAULT KEY .
 
-    CONSTANTS capture_from_outer_to_inner TYPE i VALUE 1 ##NO_TEXT.
-    CONSTANTS capture_from_inner_to_outer TYPE i VALUE 2 ##NO_TEXT.
+  constants CAPTURE_FROM_OUTER_TO_INNER type I value 1 ##NO_TEXT.
+  constants CAPTURE_FROM_INNER_TO_OUTER type I value 2 ##NO_TEXT.
 
-    METHODS add_component
-      IMPORTING
-        !group     TYPE string
-        !component TYPE REF TO zif_tscreen_component
-      RAISING
-        zcx_tscreen .
-    METHODS get_component
-      IMPORTING
-        !group           TYPE string
-        !id              TYPE string
-      RETURNING
-        VALUE(component) TYPE REF TO zif_tscreen_component
-      RAISING
-        zcx_tscreen .
-    METHODS del_component
-      IMPORTING
-        !group         TYPE string
-        !id            TYPE string
-      RETURNING
-        VALUE(deleted) TYPE abap_bool
-      RAISING
-        zcx_tscreen .
-    METHODS get_components_iterator
-      IMPORTING
-        !group          TYPE string
-      RETURNING
-        VALUE(iterator) TYPE REF TO cl_object_collection_iterator .
+  methods ADD_COMPONENT
+    importing
+      !GROUP type STRING
+      !COMPONENT type ref to ZIF_TSCREEN_COMPONENT
+    raising
+      ZCX_TSCREEN .
+  methods GET_COMPONENT
+    importing
+      !GROUP type STRING
+      !ID type STRING
+    returning
+      value(COMPONENT) type ref to ZIF_TSCREEN_COMPONENT
+    raising
+      ZCX_TSCREEN .
+  methods DEL_COMPONENT
+    importing
+      !GROUP type STRING
+      !ID type STRING
+    returning
+      value(DELETED) type ABAP_BOOL
+    raising
+      ZCX_TSCREEN .
+  methods GET_COMPONENTS_ITERATOR
+    importing
+      !GROUP type STRING
+    returning
+      value(ITERATOR) type ref to CL_OBJECT_COLLECTION_ITERATOR .
+  methods STOP_PROPAGATION
+    importing
+      !STOP type ABAP_BOOL default ABAP_TRUE .
 
-    METHODS zif_tscreen~exit
-        REDEFINITION .
-    METHODS zif_tscreen~handle_event
-        REDEFINITION .
-  PROTECTED SECTION.
+  methods ZIF_TSCREEN~EXIT
+    redefinition .
+  methods ZIF_TSCREEN~HANDLE_EVENT
+    redefinition .
+protected section.
 
-    DATA capture TYPE i VALUE zcl_tscreen_with_components=>capture_from_outer_to_inner ##NO_TEXT.
-    DATA components TYPE tty_component .
+  data CAPTURE type I value ZCL_TSCREEN_WITH_COMPONENTS=>CAPTURE_FROM_OUTER_TO_INNER ##NO_TEXT.
+  data PROPAGATION_STOP type ABAP_BOOL value ABAP_FALSE ##NO_TEXT.
+  data COMPONENTS type TTY_COMPONENT .
 
-    METHODS add_components
-        ABSTRACT .
-    METHODS call_components_method
-      IMPORTING
-        !method TYPE seocpdkey-cpdname .
+  methods ADD_COMPONENTS
+  abstract .
+  methods CALL_COMPONENTS_METHOD
+    importing
+      !METHOD type SEOCPDKEY-CPDNAME .
 
-    METHODS change_screen_editable
-        REDEFINITION .
-    METHODS set_element_attr_by_setting
-        REDEFINITION .
-  PRIVATE SECTION.
+  methods CHANGE_SCREEN_EDITABLE
+    redefinition .
+  methods SET_ELEMENT_ATTR_BY_SETTING
+    redefinition .
+private section.
 ENDCLASS.
 
 
@@ -195,7 +199,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
         component ?= iterator->get_next( ).
         "有的控件的PBO事件可以在父屏幕的PBO里一起处理，有的不行，比如table control
         "如果控件非要和父屏幕的PBO一起处理，则
-        "1、控件本身新增PBO方法即可，无需修改其它地方代码，框架会在调用完父屏幕的PBO后自动调用控件的PBO
+        "1、控件本身新增PBO方法即可，无需修改其它地方代码，框架会按事件规则（冒泡或捕获）自动调用父类和控件的PBO事件
         "2、控件的call_attr_method_by_parent 属性设为 abap_true
         CHECK component->call_attr_method_by_parent = abap_true.
         component->set_component_attr_by_setting( ).
@@ -222,15 +226,22 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
     "如果控件具有主屏幕没有的事件，则只执行控件的事件，反之亦然
     CASE capture.
       WHEN zcl_tscreen_with_components=>capture_from_outer_to_inner."捕获
-        "主屏幕执行完事件后，再执行控件的事件
+        "父屏幕执行完事件后，再执行控件的事件
         super->handle_event( event ).
         call_components_method( event ).
       WHEN zcl_tscreen_with_components=>capture_from_inner_to_outer."冒泡
-        "控件事件执行完后，再执行主屏幕的事件
+        "控件事件执行完后，再执行父亲屏幕的事件
         get_current_info( ).
+        stop_propagation( abap_false ).
         call_components_method( event ).
+        CHECK propagation_stop = abap_false."如果阻止冒泡则不执行父屏幕事件
         super->handle_event( event ).
     ENDCASE.
 
+  ENDMETHOD.
+
+
+  METHOD stop_propagation.
+    propagation_stop = stop.
   ENDMETHOD.
 ENDCLASS.

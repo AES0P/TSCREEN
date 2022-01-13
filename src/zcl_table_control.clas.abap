@@ -270,7 +270,6 @@ CLASS zcl_table_control DEFINITION
     DATA ok_code TYPE REF TO sy-ucomm .
     DATA screen_util TYPE REF TO zcl_tscreen_util .
 
-    METHODS bound .
     METHODS set_tc_screen_line
       IMPORTING
         !line            TYPE i
@@ -279,12 +278,25 @@ CLASS zcl_table_control DEFINITION
     METHODS get_data_size
       RETURNING
         VALUE(size) TYPE i .
+    METHODS change_editable_exception
+      IMPORTING
+        !name           TYPE feld-name
+        !input          TYPE xoptn_sfap
+      RETURNING
+        VALUE(editable) TYPE abap_bool .
   PRIVATE SECTION.
 
     ALIASES export_data
       FOR zif_table_control~export_data .
     ALIASES import_data
       FOR zif_table_control~import_data .
+
+    METHODS bound .
+    METHODS bound_single
+      IMPORTING
+        !name TYPE any
+      CHANGING
+        !data TYPE any .
 ENDCLASS.
 
 
@@ -373,6 +385,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS: <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     FIELD-SYMBOLS: <line>  TYPE any,
                    <field> TYPE any.
@@ -418,6 +431,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     CALL FUNCTION 'LVC_FILTER'
       EXPORTING
@@ -469,6 +483,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
     IF <tab> IS INITIAL."数据为空时，隐藏空列会把整个TC隐藏
       RETURN.
     ENDIF.
@@ -565,6 +580,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     "取行号
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
     IF copy_from_top = abap_true.
       FIELD-SYMBOLS: <line> TYPE any.
       READ TABLE <tab> ASSIGNING <line> INDEX 1.
@@ -712,6 +728,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     FIELD-SYMBOLS: <line> TYPE any.
     READ TABLE <tab> ASSIGNING <line> INDEX index.
@@ -808,6 +825,8 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
+
     READ TABLE <tab> INDEX row ASSIGNING <tab_line>.
     CHECK sy-subrc = 0.
 
@@ -964,6 +983,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     LOOP AT <tab> ASSIGNING <line>.
 
@@ -1106,6 +1126,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     me->display_mode = display_mode."控件的可编辑性只取决于屏幕可编辑性,否则请重写此方法
 
+    "功能码转换
     DATA mode TYPE i.
     CASE display_mode.
       WHEN zcl_tscreen=>display_mode_show.
@@ -1126,28 +1147,11 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
       <tc_column>-screen-input = mode.
     ENDLOOP.
 
-    "覆盖TC相关的功能按钮的可编辑性
+    "可编辑性例外处理
     LOOP AT SCREEN.
-
       CHECK screen-name CS tc_name."限制只让TC相关元素受影响
-
-      "过滤功能的按钮需要互斥显示，一个可点另一个就不可点
-      IF screen-name = tc_name && '_FILTER'.
-        IF in_filter_mode = zif_table_control=>c_filter_on.
-          screen-input  = 0.
-        ELSE.
-          screen-input  = 1.
-        ENDIF.
-        MODIFY SCREEN.
-      ELSEIF screen-name = tc_name && '_UNFILTER'.
-        IF in_filter_mode = zif_table_control=>c_filter_on.
-          screen-input  = 1.
-        ELSE.
-          screen-input  = 0.
-        ENDIF.
-        MODIFY SCREEN.
-      ENDIF.
-
+      screen-input = change_editable_exception( name = screen-name input = screen-input ).
+      MODIFY SCREEN.
     ENDLOOP.
 
     component = get_component( ).
@@ -1276,35 +1280,14 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
   METHOD bound.
 
-    DATA var TYPE string.
-
-    "tc
-    var = to_upper( '(' && program && ')' && tc_name ).
-    FIELD-SYMBOLS <tc> TYPE scxtab_control.
-    ASSIGN (var) TO <tc>.
-    ASSERT sy-subrc = 0.
-    GET REFERENCE OF <tc> INTO tc.
-
-    "data source
-    var = to_upper( '(' && program && ')' && data_name ).
-    FIELD-SYMBOLS <data> TYPE STANDARD TABLE.
-    ASSIGN (var) TO <data>.
-    ASSERT sy-subrc = 0.
-    GET REFERENCE OF <data> INTO data.
-
-    "data_wa
-    var = to_upper( '(' && program && ')' && data_wa_name ).
-    FIELD-SYMBOLS <data_wa> TYPE any.
-    ASSIGN (var) TO <data_wa>.
-    ASSERT sy-subrc = 0.
-    GET REFERENCE OF <data_wa> INTO data_wa.
-
+    "TC
+    bound_single( EXPORTING name = tc_name CHANGING data = tc ).
+    "DATA SOURCE
+    bound_single( EXPORTING name = data_name CHANGING data = data ).
+    "DATA_WA
+    bound_single( EXPORTING name = data_wa_name CHANGING data = data_wa ).
     "OK_CODE
-    var = to_upper( '(' && program && ')' && 'OK_CODE' ).
-    FIELD-SYMBOLS <ok_code> TYPE sy-ucomm.
-    ASSIGN (var) TO <ok_code>.
-    ASSERT sy-subrc = 0.
-    GET REFERENCE OF <ok_code> INTO ok_code.
+    bound_single( EXPORTING name = 'OK_CODE' CHANGING data = ok_code ).
 
   ENDMETHOD.
 
@@ -1405,6 +1388,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     DATA: tc_column TYPE scxtab_column.
     READ TABLE tc->*-cols INTO tc_column INDEX 1.
+    ASSERT sy-subrc = 0.
 
     DATA: offset TYPE i.
     offset = screen_util->get_prefix_offset( tc_column-screen-name ) + 1.
@@ -1457,6 +1441,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     "to be redefine
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     APPEND INITIAL LINE TO <tab>.
     is_line_insert = abap_true.
@@ -1477,6 +1462,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     FIELD-SYMBOLS <line> TYPE any.
     LOOP AT <tab> ASSIGNING <line>.
@@ -1638,6 +1624,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     program     = tscreen->program.
     dynnr       = tscreen->dynnr.
     screen_util = tscreen->get_screen_util( ).
+    tlog        = tscreen->tlog.
 
     CAST zcl_tscreen_with_components( tscreen )->add_component( group = zif_tscreen_component=>c_component_tc component = me ).
 
@@ -1648,6 +1635,8 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <data> TYPE STANDARD TABLE.
     ASSIGN data->* TO <data>.
+    ASSERT sy-subrc = 0.
+
     IF <data> IS NOT INITIAL.
       DATA answer TYPE c.
       CALL FUNCTION 'POPUP_TO_CONFIRM'
@@ -1681,19 +1670,21 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     DATA tab TYPE REF TO data.
 *&---根据fieldcat生成动态内表
     cl_alv_table_create=>create_dynamic_table(
-     EXPORTING
-       it_fieldcatalog           = get_visible_columns( )
-     IMPORTING
-       ep_table                  = tab
-     EXCEPTIONS
-       generate_subpool_dir_full = 1
-       OTHERS                    = 2 ).
+      EXPORTING
+        it_fieldcatalog           = get_visible_columns( )
+      IMPORTING
+        ep_table                  = tab
+      EXCEPTIONS
+        generate_subpool_dir_full = 1
+        OTHERS                    = 2 ).
     IF sy-subrc <> 0.
       MESSAGE '当前没有可见行或转换失败，请重试'(004) TYPE 'W'.
+      RETURN.
     ENDIF.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN tab->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     DATA raw_data TYPE truxs_t_text_data.
     CALL FUNCTION 'TEXT_CONVERT_XLS_TO_SAP'
@@ -1719,9 +1710,9 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN data->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     DATA condition TYPE char72.
-
     condition = selbar && ' = ABAP_TRUE'.
 
     LOOP AT <tab> TRANSPORTING NO FIELDS WHERE (condition).
@@ -1760,11 +1751,11 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
   METHOD is_ddic_tabname_valid.
 
     SELECT SINGLE contflag
-     FROM dd02l
-     INTO contflag
-    WHERE tabname  = ddic_tabname
-      AND as4local = 'A'
-      AND tabclass = 'TRANSP'.
+      FROM dd02l
+      INTO contflag
+     WHERE tabname  = ddic_tabname
+       AND as4local = 'A'
+       AND tabclass = 'TRANSP'.
     IF sy-subrc <> 0.
       MESSAGE ddic_tabname && '数据表名不正确，请在实例化时检查传入的表名'(005) TYPE 'S' DISPLAY LIKE 'E'.
     ELSE.
@@ -1788,15 +1779,19 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     CREATE DATA tab TYPE STANDARD TABLE OF (ddic_tabname).
     FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
     ASSIGN tab->* TO <tab>.
+    ASSERT sy-subrc = 0.
 
     DATA line TYPE REF TO data.
     CREATE DATA line TYPE (ddic_tabname).
     FIELD-SYMBOLS <line> TYPE any.
     ASSIGN line->* TO <line>.
+    ASSERT sy-subrc = 0.
 
     FIELD-SYMBOLS <data> TYPE STANDARD TABLE.
     ASSIGN data->* TO <data>.
-    IF is_line_selected( )."选中则只传输选中的数据
+    ASSERT sy-subrc = 0.
+
+    IF is_line_selected( )."只传输选中的数据
       DATA condition TYPE char72.
       condition = selbar && ' = ABAP_TRUE'.
       FIELD-SYMBOLS <data_line> TYPE any.
@@ -1824,6 +1819,58 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     ELSEIF contflag = 'C'.
       zcl_tr_customizing=>get_instance( )->associate( )->entrys( <tab> )->commit( ).
     ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD change_editable_exception.
+
+    DATA strlen TYPE i.
+    strlen = strlen( tc_name ) + 1.
+
+    "过滤功能的按钮需要互斥显示，一个可点另一个就不可点
+    IF name+strlen = 'FILTER'.
+      IF in_filter_mode = zif_table_control=>c_filter_on.
+        editable  = 0.
+      ELSE.
+        editable  = 1.
+      ENDIF.
+    ELSEIF name+strlen = 'UNFILTER'.
+      IF in_filter_mode = zif_table_control=>c_filter_on.
+        editable  = 1.
+      ELSE.
+        editable  = 0.
+      ENDIF.
+      "有些按钮在显示状态下也应该可以使用
+    ELSEIF name+strlen = 'TOP'
+        OR name+strlen = 'PREVIOUS'
+        OR name+strlen = 'NEXT'
+        OR name+strlen = 'BOTTOM'
+        OR name+strlen = 'EXPORT'
+        OR name+strlen = 'SORT_DOWN'
+        OR name+strlen = 'SORT_UP'
+        OR name+strlen = 'DETAIL'
+        OR name+strlen = 'EMPTY'
+        OR name+strlen = 'DDIC'.
+      editable  = 1.
+    ELSE.
+      "不需要处理的保持原来的属性
+      editable = input.
+    ENDIF.
+
+  ENDMETHOD.
+
+
+  METHOD bound_single.
+
+    DATA var TYPE string.
+    var = to_upper( '(' && program && ')' && name ).
+
+    FIELD-SYMBOLS <target> TYPE any.
+    ASSIGN (var) TO <target>.
+    ASSERT sy-subrc = 0.
+
+    GET REFERENCE OF <target> INTO data.
 
   ENDMETHOD.
 ENDCLASS.

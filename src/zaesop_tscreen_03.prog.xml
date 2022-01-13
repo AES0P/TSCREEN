@@ -698,6 +698,15 @@
       <ICON_ID>@HL@</ICON_ID>
       <FUN_TEXT>显示/修改</FUN_TEXT>
      </RSMPE_FUNT>
+     <RSMPE_FUNT>
+      <CODE>PICK</CODE>
+      <TEXTNO>001</TEXTNO>
+      <TEXT_TYPE>S</TEXT_TYPE>
+      <TEXT_NAME>ICON_SELECT_DETAIL</TEXT_NAME>
+      <ICON_ID>@16@</ICON_ID>
+      <FUN_TEXT>选择</FUN_TEXT>
+      <PATH>S</PATH>
+     </RSMPE_FUNT>
     </FUN>
     <BUT>
      <RSMPE_BUT>
@@ -712,6 +721,12 @@
       <CODE>000001</CODE>
       <PFNO>00</PFNO>
       <FUNCODE>/00</FUNCODE>
+      <FUNNO>001</FUNNO>
+     </RSMPE_PFK>
+     <RSMPE_PFK>
+      <CODE>000001</CODE>
+      <PFNO>02</PFNO>
+      <FUNCODE>PICK</FUNCODE>
       <FUNNO>001</FUNNO>
      </RSMPE_PFK>
      <RSMPE_PFK>
@@ -751,6 +766,10 @@
      <RSMPE_STAF>
       <STATUS>9000</STATUS>
       <FUNCTION>DIS_MODE</FUNCTION>
+     </RSMPE_STAF>
+     <RSMPE_STAF>
+      <STATUS>9000</STATUS>
+      <FUNCTION>PICK</FUNCTION>
      </RSMPE_STAF>
     </SET>
     <DOC>

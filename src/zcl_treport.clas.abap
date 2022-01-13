@@ -1,49 +1,51 @@
-CLASS zcl_treport DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_tscreen
-  ABSTRACT
-  CREATE PUBLIC .
+class ZCL_TREPORT definition
+  public
+  inheriting from ZCL_TSCREEN
+  abstract
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    CLASS-DATA guid TYPE guid READ-ONLY .
+  class-data GUID type GUID read-only .
 
-    METHODS constructor
-      IMPORTING
-        !program             TYPE syrepid DEFAULT sy-cprog
-        !dynnr               TYPE sy-dynnr DEFAULT sy-dynnr
-        !dynpro_type         TYPE scrhtyp DEFAULT zcl_tscreen=>dynpro_type_selscreen
-        !display_mode        TYPE abap_bool DEFAULT zcl_tscreen=>display_mode_modify
-        !pfstatus            TYPE sypfkey OPTIONAL
-        !pfstatus_repid      TYPE syrepid OPTIONAL
-        !excluding_fcode     TYPE tty_fcode OPTIONAL
-        !titlebar            TYPE gui_title OPTIONAL
-        !titlebar_repid      TYPE syrepid OPTIONAL
-        !titlebar_var1       TYPE string OPTIONAL
-        !titlebar_var2       TYPE string OPTIONAL
-        !titlebar_var3       TYPE string OPTIONAL
-        !titlebar_var4       TYPE string OPTIONAL
-        !titlebar_var5       TYPE string OPTIONAL
-        !read_dynpro_setting TYPE abap_bool DEFAULT abap_true .
-    METHODS initialize .
-    METHODS check_authority .
-    METHODS execute .
-    METHODS show .
-    METHODS set_title
-      IMPORTING
-        !tabname TYPE tabname
-        !langu   TYPE sy-langu DEFAULT sy-langu
-      CHANGING
-        !title   TYPE any .
+  methods CONSTRUCTOR
+    importing
+      !PROGRAM type SYREPID default SY-CPROG
+      !DYNNR type SY-DYNNR default SY-DYNNR
+      !DYNPRO_TYPE type SCRHTYP default ZCL_TSCREEN=>DYNPRO_TYPE_SELSCREEN
+      !DISPLAY_MODE type ABAP_BOOL default ZCL_TSCREEN=>DISPLAY_MODE_MODIFY
+      !PFSTATUS type SYPFKEY optional
+      !PFSTATUS_REPID type SYREPID optional
+      !EXCLUDING_FCODE type TTY_FCODE optional
+      !TITLEBAR type GUI_TITLE optional
+      !TITLEBAR_REPID type SYREPID optional
+      !TITLEBAR_VAR1 type STRING optional
+      !TITLEBAR_VAR2 type STRING optional
+      !TITLEBAR_VAR3 type STRING optional
+      !TITLEBAR_VAR4 type STRING optional
+      !TITLEBAR_VAR5 type STRING optional
+      !READ_DYNPRO_SETTING type ABAP_BOOL default ABAP_TRUE .
+  methods INITIALIZE .
+  methods CHECK_AUTHORITY .
+  methods EXECUTE .
+  methods SHOW .
+  methods SET_TITLE
+    importing
+      !TABNAME type TABNAME
+      !LANGU type SY-LANGU default SY-LANGU
+    changing
+      !TITLE type ANY .
+  class-methods HANDLE_POH .
+  class-methods HANDLE_POV .
 
-    METHODS zif_tscreen~exit
-        REDEFINITION .
-    METHODS zif_tscreen~handle_event
-        REDEFINITION .
-    METHODS zif_tscreen~pbo
-        REDEFINITION .
+  methods ZIF_TSCREEN~EXIT
+    redefinition .
+  methods ZIF_TSCREEN~HANDLE_EVENT
+    redefinition .
+  methods ZIF_TSCREEN~PBO
+    redefinition .
   PROTECTED SECTION.
-  PRIVATE SECTION.
+private section.
 ENDCLASS.
 
 
@@ -154,5 +156,23 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
     ENDIF.
 
+  ENDMETHOD.
+
+
+  METHOD handle_poh.
+    TRY.
+        zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'POH' ).
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+    ENDTRY.
+  ENDMETHOD.
+
+
+  METHOD handle_pov.
+    TRY.
+        zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'POV' ).
+      CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+    ENDTRY.
   ENDMETHOD.
 ENDCLASS.

@@ -278,6 +278,7 @@ CLASS ZCL_TEXT_EDITOR IMPLEMENTATION.
     CHECK tscreen IS BOUND.
 
     me->parent  = tscreen.
+    tlog        = tscreen->tlog.
     CAST zcl_tscreen_with_components( tscreen )->add_component( group = zif_tscreen_component=>c_component_editor component = me ).
 
     change_editable( tscreen->display_mode ).

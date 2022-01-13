@@ -152,11 +152,7 @@ CLASS lcl_tscreen_11_v9000 IMPLEMENTATION.
 
     CASE ucomm.
       WHEN 'DIS_MODE'.
-        IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
-          set_display_mode( zcl_tscreen=>display_mode_show ).
-        ELSE.
-          set_display_mode( zcl_tscreen=>display_mode_modify ).
-        ENDIF.
+        change_display_mode( ).
     ENDCASE.
     CLEAR sy-ucomm.
   ENDMETHOD.
@@ -257,12 +253,13 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
       po_item-mwskz = 'J3'.
     ENDIF.
 
-    "如果使用了自动带出功能，这里需要判断一下，自动带出时执行修改逻辑，但不修改自动带出的字段值
+    "如果使用了搜索帮助自动带出功能，这里需要判断一下：
+    "自动带出时执行修改逻辑，但不修改自动带出的字段值
     IF sy-ucomm = zcl_tscreen_util=>c_fcode_tc_pov_bring_out.
       CLEAR sy-ucomm.
       MODIFY po_items FROM po_item TRANSPORTING mwskz WHERE ebeln = po_item-ebeln AND ebelp = po_item-ebelp. "#EC CI_STDSEQ
     ELSE.
-
+      "手动修改物料号时带出物料描述
       SELECT SINGLE maktx
         FROM makt
         INTO po_item-maktx

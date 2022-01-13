@@ -81,7 +81,7 @@ CLASS lcl_prog IMPLEMENTATION.
     monat-high   = sy-datum+4(2).
     APPEND monat TO s_monat[].
 
-    countdown_begin( '10' )."10S自动刷新
+    countdown_begin( '60' )."60S自动刷新
 
   ENDMETHOD.
 
