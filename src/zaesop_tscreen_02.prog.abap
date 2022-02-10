@@ -1,35 +1,46 @@
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_02
 *&---------------------------------------------------------------------*
-*&  将自建屏幕的各事件流抽象，并按照模板方法执行
+*&  将报表程序执行事件等效为选择屏幕的事件流，通过处理每一个事件流方法，响应每一个报表事件
 *&---------------------------------------------------------------------*
 REPORT zaesop_tscreen_02.
 
 *&---------------------------------------------------------------------*
-*&　　　　TABLES
+*&　　　　PARAMETERS
+*&---------------------------------------------------------------------*
+PARAMETERS: p_ebeln TYPE ekko-ebeln ##NEEDED ,
+            ##NEEDED p_bukrs TYPE ekko-bukrs DEFAULT '0000',
+            ##NEEDED p_bstyp TYPE ekko-bstyp,
+            ##NEEDED p_bsart TYPE ekko-bsart,
+            ##NEEDED p_loekz TYPE ekko-loekz.
+
+SELECTION-SCREEN SKIP 1.
+*&---------------------------------------------------------------------*
+*&　　　　SELECTION-SCREEN
 *&---------------------------------------------------------------------*
 TABLES ekko.
-
-*&---------------------------------------------------------------------*
-*&　　　　DATA define
-*&---------------------------------------------------------------------*
-DATA ok_code TYPE sy-ucomm.
+##NEEDED SELECT-OPTIONS: s_ernam FOR ekko-ernam.
+##NEEDED SELECT-OPTIONS: s_aedat FOR ekko-aedat.
 
 *&---------------------------------------------------------------------*
 *&　　　　CLASS DEFINITION
 *&---------------------------------------------------------------------*
 CLASS lcl_prog DEFINITION CREATE PUBLIC
-  INHERITING FROM zcl_tscreen FINAL.
+  INHERITING FROM zcl_treport FINAL.
 
   PUBLIC SECTION.
 
     CLASS-METHODS push_view.
 
-    METHODS constructor.
+    METHODS initialize REDEFINITION.
     METHODS pbo REDEFINITION.
     METHODS pai REDEFINITION.
     METHODS poh REDEFINITION.
     METHODS pov REDEFINITION.
+    METHODS execute REDEFINITION.
+    METHODS show REDEFINITION.
+    METHODS exit REDEFINITION.
+    METHODS check_authority REDEFINITION.
 
 ENDCLASS.
 
@@ -40,115 +51,68 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD push_view.
 
-    CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid ).
+    CHECK NOT is_screen_exists( program = sy-repid ).
 
     DATA view TYPE REF TO zif_tscreen.
     CREATE OBJECT view TYPE lcl_prog.
 
   ENDMETHOD.
 
-  METHOD constructor.
-    super->constructor( refresh_interval = '5' ).
-    ##WARN_OK
-    SELECT SINGLE *                           "#EC CI_ALL_FIELDS_NEEDED
-      FROM ekko
-      INTO CORRESPONDING FIELDS OF ekko.                  "#EC CI_SUBRC
+  ##NEEDED
+  METHOD initialize.
+*    BREAK-POINT."INITIALIZATION事件里可通过断点验证事件是否触发
   ENDMETHOD.
 
-  ##NEEDED
   METHOD pbo.
+    MESSAGE 'AT SELECTION-SCREEN OUTPUT' TYPE 'S'."PBO事件里消息不可使用弹窗形式
   ENDMETHOD.
 
   METHOD pai.
-    CASE ucomm.
-      WHEN 'DIS_MODE'.
-        IF get_display_mode( ) = zcl_tscreen=>display_mode_modify.
-          set_display_mode( zcl_tscreen=>display_mode_show ).
-        ELSE.
-          set_display_mode( zcl_tscreen=>display_mode_modify ).
-        ENDIF.
-    ENDCASE.
-    CLEAR sy-ucomm.
+    MESSAGE 'AT SELECTION-SCREEN :' && cursor_filed && cursor_filed_value TYPE 'I'.
   ENDMETHOD.
 
   METHOD poh.
-    CASE cursor_filed.
-
-*&---------------------------------------------------------------------*
-*&        F1_EBELN
-*&---------------------------------------------------------------------*
-      WHEN 'EKKO-EBELN'.
-
-        screen_util->call_transaction( tcode = 'ME23N' value = cursor_filed_value )."跳转平台
-
-    ENDCASE.
+    MESSAGE 'AT SELECTION-SCREEN ON HELP-REQUEST :' && cursor_filed_value TYPE 'I'.
   ENDMETHOD.
 
   METHOD pov.
-    CASE cursor_filed.
+    MESSAGE 'AT SELECTION-SCREEN ON VALUE-REQUEST :' && cursor_filed_value TYPE 'I'.
+  ENDMETHOD.
 
-*&---------------------------------------------------------------------*
-*&        F4_BUKRS
-*&---------------------------------------------------------------------*
-      WHEN 'EKKO-BUKRS'.
+  METHOD execute.
+    MESSAGE 'START-OF-SELECTION' TYPE 'I'.
+  ENDMETHOD.
 
-        MESSAGE cursor_filed && ':' && cursor_filed_value TYPE 'I'."显示当前字段和值
+  METHOD show.
+    MESSAGE 'END-OF-SELECTION' TYPE 'I'.
+    TRY.
+        zcx_tscreen=>raise_text( 'error' )."框架抛异常通用形式
+      CATCH zcx_tscreen ##NO_HANDLER.
+    ENDTRY.
+  ENDMETHOD.
 
-*&---------------------------------------------------------------------*
-*&        F4_WAERS
-*&---------------------------------------------------------------------*
-      WHEN 'EKKO-WAERS'.
+  METHOD check_authority.
+    MESSAGE 'CHECK AUTHORITY' TYPE 'I'.
+  ENDMETHOD.
 
-        MESSAGE filedname TYPE 'I'."显示无前缀的字段名
-
-*&---------------------------------------------------------------------*
-*&        F4_ERNAM
-*&---------------------------------------------------------------------*
-      WHEN 'EKKO-ERNAM'.
-
-        SELECT usr21~bname,adrp~name_text,adrp~persnumber
-          FROM adrp
-         INNER JOIN usr21
-            ON adrp~persnumber = usr21~persnumber
-          INTO TABLE @DATA(lt_users)
-          ##NUMBER_OK
-         UP TO 500 ROWS
-         ORDER BY bname.                                  "#EC CI_SUBRC
-
-        "获取选中值
-        DATA(ernam) = f4_event( key_field = 'BNAME' value_tab = lt_users ).
-        CHECK ernam IS NOT INITIAL.
-
-        ekko-ernam = ernam.
-
-        "带出
-        TRY.
-            bring_out( EXPORTING source = 'NAME_TEXT'  CHANGING target = ekko-desp ).
-            bring_out( EXPORTING source = 'PERSNUMBER' CHANGING target = ekko-unsez ).
-          CATCH zcx_tscreen INTO DATA(lcx_tscreen).
-            MESSAGE lcx_tscreen->get_text( ) TYPE 'A'.
-        ENDTRY.
-
-        "联动
-        ##USER_OK
-        IF ekko-ernam = sy-uname.
-          ekko-zterm = '1'.
-        ELSE.
-          ekko-zterm = '0'.
-        ENDIF.
-
-    ENDCASE.
+  METHOD exit.
+    MESSAGE 'EXIT' TYPE 'I'.
+    super->exit( )."重写EXIT时，必须调用SUPER->EXIT，否则可能引发出栈异常
   ENDMETHOD.
 
 ENDCLASS.
 
 *&---------------------------------------------------------------------*
-*&　　　　END-OF-SELECTION
+*&  POH
 *&---------------------------------------------------------------------*
-##DUPL_EVENT
+AT SELECTION-SCREEN ON HELP-REQUEST FOR p_ebeln.
+  lcl_prog=>event( 'POH' ).
 
-END-OF-SELECTION."重复事件以先后顺序执行
-  CALL SCREEN 9000.
+*&---------------------------------------------------------------------*
+*&  POV
+*&---------------------------------------------------------------------*
+AT SELECTION-SCREEN ON VALUE-REQUEST FOR p_bukrs.
+  lcl_prog=>event( 'POV' ).
 
   ##INCL_OK
   INCLUDE zaesop_tscreen_event_inc."通用EVENT include

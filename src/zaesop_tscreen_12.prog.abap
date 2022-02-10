@@ -92,7 +92,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD push_view.
 
-    CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( sy-repid )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
+    CHECK NOT is_screen_exists( sy-repid )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
 
     "此处创建屏幕对象
     DATA view TYPE REF TO zif_tscreen.

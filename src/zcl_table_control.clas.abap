@@ -261,7 +261,6 @@ CLASS zcl_table_control DEFINITION
         REDEFINITION .
   PROTECTED SECTION.
 
-    DATA parent TYPE REF TO zcl_tscreen .
     DATA tc TYPE REF TO scxtab_control .
     DATA data_name TYPE string .
     DATA data TYPE REF TO data .
@@ -1012,7 +1011,6 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
     DATA ucomm TYPE sy-ucomm.
     IF ok_code->* = 'PICK'.
       ucomm = screen_util->get_field_name_by_cursor( ).
-      parent->cursor_filed_value = get_cell_value_by_cursor( ).
     ELSE.
       DATA: offset TYPE i.
       offset = strlen( tc_name ) + 1.
@@ -1619,12 +1617,11 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
   METHOD zif_tscreen_component~initialize_by_tscreen.
 
-    me->parent  = tscreen.
+    super->zif_tscreen_component~initialize_by_tscreen( tscreen ).
 
     program     = tscreen->program.
     dynnr       = tscreen->dynnr.
     screen_util = tscreen->get_screen_util( ).
-    tlog        = tscreen->tlog.
 
     CAST zcl_tscreen_with_components( tscreen )->add_component( group = zif_tscreen_component=>c_component_tc component = me ).
 
@@ -1755,7 +1752,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
       INTO contflag
      WHERE tabname  = ddic_tabname
        AND as4local = 'A'
-       AND tabclass = 'TRANSP'.
+       AND tabclass = 'TRANSP'.                         "#EC CI_NOORDER
     IF sy-subrc <> 0.
       MESSAGE ddic_tabname && '数据表名不正确，请在实例化时检查传入的表名'(005) TYPE 'S' DISPLAY LIKE 'E'.
     ELSE.

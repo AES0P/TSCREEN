@@ -1,51 +1,67 @@
-class ZCL_TREPORT definition
-  public
-  inheriting from ZCL_TSCREEN
-  abstract
-  create public .
+CLASS zcl_treport DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tscreen
+  ABSTRACT
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  class-data GUID type GUID read-only .
+    CLASS-DATA guid TYPE guid READ-ONLY .
 
-  methods CONSTRUCTOR
-    importing
-      !PROGRAM type SYREPID default SY-CPROG
-      !DYNNR type SY-DYNNR default SY-DYNNR
-      !DYNPRO_TYPE type SCRHTYP default ZCL_TSCREEN=>DYNPRO_TYPE_SELSCREEN
-      !DISPLAY_MODE type ABAP_BOOL default ZCL_TSCREEN=>DISPLAY_MODE_MODIFY
-      !PFSTATUS type SYPFKEY optional
-      !PFSTATUS_REPID type SYREPID optional
-      !EXCLUDING_FCODE type TTY_FCODE optional
-      !TITLEBAR type GUI_TITLE optional
-      !TITLEBAR_REPID type SYREPID optional
-      !TITLEBAR_VAR1 type STRING optional
-      !TITLEBAR_VAR2 type STRING optional
-      !TITLEBAR_VAR3 type STRING optional
-      !TITLEBAR_VAR4 type STRING optional
-      !TITLEBAR_VAR5 type STRING optional
-      !READ_DYNPRO_SETTING type ABAP_BOOL default ABAP_TRUE .
-  methods INITIALIZE .
-  methods CHECK_AUTHORITY .
-  methods EXECUTE .
-  methods SHOW .
-  methods SET_TITLE
-    importing
-      !TABNAME type TABNAME
-      !LANGU type SY-LANGU default SY-LANGU
-    changing
-      !TITLE type ANY .
-  class-methods HANDLE_POH .
-  class-methods HANDLE_POV .
+    METHODS constructor
+      IMPORTING
+        !program             TYPE syrepid DEFAULT sy-cprog
+        !dynnr               TYPE sy-dynnr DEFAULT sy-dynnr
+        !dynpro_type         TYPE scrhtyp DEFAULT zcl_tscreen=>dynpro_type_selscreen
+        !display_mode        TYPE abap_bool DEFAULT zcl_tscreen=>display_mode_modify
+        !pfstatus            TYPE sypfkey OPTIONAL
+        !pfstatus_repid      TYPE syrepid OPTIONAL
+        !excluding_fcode     TYPE tty_fcode OPTIONAL
+        !titlebar            TYPE gui_title OPTIONAL
+        !titlebar_repid      TYPE syrepid OPTIONAL
+        !titlebar_var1       TYPE string OPTIONAL
+        !titlebar_var2       TYPE string OPTIONAL
+        !titlebar_var3       TYPE string OPTIONAL
+        !titlebar_var4       TYPE string OPTIONAL
+        !titlebar_var5       TYPE string OPTIONAL
+        !read_dynpro_setting TYPE abap_bool DEFAULT abap_true .
+    CLASS-METHODS event
+      IMPORTING
+        !event TYPE c .
+    METHODS initialize .
+    METHODS check_authority .
+    METHODS execute .
+    METHODS show .
+    METHODS set_title
+      IMPORTING
+        !tabname TYPE tabname
+        !langu   TYPE sy-langu DEFAULT sy-langu
+      CHANGING
+        !title   TYPE any .
+    CLASS-METHODS is_screen_exists
+      IMPORTING
+        !program           TYPE sy-repid
+        VALUE(dynnr_super) TYPE sy-dynnr OPTIONAL
+        !dynnr             TYPE sy-dynnr DEFAULT sy-dynnr
+      RETURNING
+        VALUE(is_exists)   TYPE abap_bool .
+    CLASS-METHODS get_screen
+      IMPORTING
+        !dynnr_super   TYPE sy-dynnr OPTIONAL
+        !dynnr         TYPE sy-dynnr DEFAULT sy-dynnr
+      RETURNING
+        VALUE(tscreen) TYPE REF TO zif_tscreen
+      RAISING
+        zcx_tscreen .
 
-  methods ZIF_TSCREEN~EXIT
-    redefinition .
-  methods ZIF_TSCREEN~HANDLE_EVENT
-    redefinition .
-  methods ZIF_TSCREEN~PBO
-    redefinition .
+    METHODS zif_tscreen~exit
+        REDEFINITION .
+    METHODS zif_tscreen~handle_event
+        REDEFINITION .
+    METHODS zif_tscreen~pbo
+        REDEFINITION .
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -75,7 +91,8 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
                         read_dynpro_setting = read_dynpro_setting ).
     TRY.
         guid = cl_system_uuid=>if_system_uuid_static~create_uuid_c32( ).
-        ##NO_TEXT        tlog->add_log( 'Started' ).
+        ##NO_TEXT
+        tlog->add_log( 'Started' ).
       CATCH cx_uuid_error.
         MESSAGE 'GUID ERROR' TYPE 'A'.
     ENDTRY.
@@ -96,7 +113,8 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
 
   METHOD zif_tscreen~exit.
-    ##NO_TEXT    tlog->add_log( 'Ended' )->save_log( guid = guid ).
+    ##NO_TEXT
+    tlog->add_log( 'Ended' )->save_log( guid = guid ).
     super->exit( ).
   ENDMETHOD.
 
@@ -159,20 +177,23 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD handle_poh.
-    TRY.
-        zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'POH' ).
-      CATCH zcx_tscreen INTO DATA(lx_tscreen).
-        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
-    ENDTRY.
+  METHOD get_screen.
+    tscreen = zcl_tscreen_stack=>get_instance( )->current( dynnr_super = dynnr_super dynnr = dynnr ).
   ENDMETHOD.
 
 
-  METHOD handle_pov.
+  METHOD event.
+
     TRY.
-        zcl_tscreen_stack=>get_instance( )->top( )->handle_event( 'POV' ).
-      CATCH zcx_tscreen INTO DATA(lx_tscreen).
-        MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
+        get_screen( )->handle_event( event ).
+      CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
+        MESSAGE gx_tscreen->get_text( ) TYPE 'A'.
     ENDTRY.
+
+  ENDMETHOD.
+
+
+  METHOD is_screen_exists.
+    is_exists = zcl_tscreen_stack=>get_instance( )->is_exists( program = program dynnr_super = dynnr_super dynnr = dynnr ).
   ENDMETHOD.
 ENDCLASS.

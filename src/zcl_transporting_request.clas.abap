@@ -240,12 +240,12 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
 
       CLEAR tabkey.
       CLEAR last_length.
-      LOOP AT lt_fields INTO DATA(key_field). "#EC CI_NESTED "#EC CI_LOOP_INTO_WA
-        ASSIGN COMPONENT key_field-fieldname OF STRUCTURE <table_line> TO FIELD-SYMBOL(<field_value>).
+      LOOP AT lt_fields ASSIGNING FIELD-SYMBOL(<key_field>). "#EC CI_NESTED "#EC CI_LOOP_INTO_WA
+        ASSIGN COMPONENT <key_field>-fieldname OF STRUCTURE <table_line> TO FIELD-SYMBOL(<field_value>).
         ASSERT sy-subrc = 0.
 
         tabkey+last_length = <field_value>.
-        last_length        = last_length + key_field-leng.
+        last_length        = last_length + <key_field>-leng.
 
       ENDLOOP.
 
@@ -278,7 +278,7 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
        WHERE funcname  = fname
          AND parameter = <except>-parameter
          AND kind      = 'X'
-         AND spras     = sy-langu.
+         AND spras     = sy-langu. "#EC CI_NOORDER
       IF sy-subrc = 0.
         MESSAGE lv_text TYPE 'I'.
         RETURN.

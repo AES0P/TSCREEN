@@ -8,7 +8,6 @@ public section.
   interfaces ZIF_TSCREEN_COMPONENT
       abstract methods CHANGE_EDITABLE
                        CHANGE_VISIBILITY
-                       INITIALIZE_BY_TSCREEN
                        SET_COMPONENT_ATTR_BY_SETTING
       data values CALL_ATTR_METHOD_BY_PARENT = ABAP_TRUE
                   VISIBILITY = ZIF_TSCREEN_COMPONENT=>C_COMPONENT_VISIBLE .
@@ -45,6 +44,7 @@ public section.
       CX_UUID_ERROR .
 protected section.
 
+  data PARENT type ref to ZCL_TSCREEN .
   data TLOG type ref to ZIF_TLOG .
   PRIVATE SECTION.
 ENDCLASS.
@@ -65,5 +65,17 @@ CLASS ZCL_TCOMPONENT IMPLEMENTATION.
 
   METHOD zif_tscreen_component~get_component.
     component = me.
+  ENDMETHOD.
+
+
+  METHOD zif_tscreen_component~initialize_by_tscreen.
+
+    IF tscreen IS NOT BOUND.
+      zcx_tscreen=>raise_text( 'Parent is not bound' ).
+    ENDIF.
+
+    me->parent  = tscreen.
+    tlog        = tscreen->tlog.
+
   ENDMETHOD.
 ENDCLASS.

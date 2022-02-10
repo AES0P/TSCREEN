@@ -99,7 +99,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD push_view.
 
-    CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( sy-repid )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
+    CHECK NOT IS_SCREEN_EXISTS( sy-repid )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
 
     "此处创建屏幕对象
     DATA view TYPE REF TO zif_tscreen.
@@ -253,13 +253,12 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
       po_item-mwskz = 'J3'.
     ENDIF.
 
-    "如果使用了搜索帮助自动带出功能，这里需要判断一下：
-    "自动带出时执行修改逻辑，但不修改自动带出的字段值
+    "如果使用了自动带出功能，这里需要判断一下，自动带出时执行修改逻辑，但不修改自动带出的字段值
     IF sy-ucomm = zcl_tscreen_util=>c_fcode_tc_pov_bring_out.
       CLEAR sy-ucomm.
       MODIFY po_items FROM po_item TRANSPORTING mwskz WHERE ebeln = po_item-ebeln AND ebelp = po_item-ebelp. "#EC CI_STDSEQ
     ELSE.
-      "手动修改物料号时带出物料描述
+
       SELECT SINGLE maktx
         FROM makt
         INTO po_item-maktx

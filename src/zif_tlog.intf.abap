@@ -20,4 +20,12 @@ interface ZIF_TLOG
       !IF_COMMIT type ABAP_BOOL default ABAP_TRUE
     returning
       value(INSTANCE) type ref to ZIF_TLOG .
+  methods SHOW_LOG
+    importing
+      !STYLE type C default '1'
+    returning
+      value(INSTANCE) type ref to ZIF_TLOG .
+  methods COMMIT
+    returning
+      value(INSTANCE) type ref to ZIF_TLOG .
 endinterface.

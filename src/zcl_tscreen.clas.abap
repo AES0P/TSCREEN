@@ -241,6 +241,7 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
   METHOD f4_event.
 
     CHECK value_tab IS NOT INITIAL.
+    CLEAR return_table.
 
     value = screen_util->f4_event(
                            EXPORTING
@@ -489,9 +490,9 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
     DATA sub_screen_collection TYPE REF TO  cl_object_collection.
     CREATE OBJECT sub_screen_collection.
 
-    DATA tscreen TYPE zcl_tscreen_stack=>ty_view.
-    LOOP AT zcl_tscreen_stack=>get_instance( )->tscreens INTO tscreen WHERE dynnr_super = me->dynnr. "#EC CI_STDSEQ "#EC CI_LOOP_INTO_WA
-      sub_screen_collection->add( tscreen-tscreen ).
+    FIELD-SYMBOLS <tscreen> TYPE zcl_tscreen_stack=>ty_view.
+    LOOP AT zcl_tscreen_stack=>get_instance( )->tscreens ASSIGNING <tscreen> WHERE dynnr_super = me->dynnr. "#EC CI_STDSEQ "#EC CI_LOOP_INTO_WA
+      sub_screen_collection->add( <tscreen>-tscreen ).
     ENDLOOP.
 
     sub_screen_iterator = sub_screen_collection->get_iterator( ).

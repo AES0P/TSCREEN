@@ -156,10 +156,10 @@ CLASS lcl_prog IMPLEMENTATION.
     DATA view TYPE REF TO zif_tscreen.
     CASE sy-dynnr.
       WHEN '1000'."选择屏幕编号
-        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid ).
+        CHECK NOT is_screen_exists( program = sy-repid ).
         DATA(class_name) = lcl_prog=>view_prog_prefix.
       WHEN OTHERS.
-        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '9000' ).
+        CHECK NOT is_screen_exists( program = sy-repid dynnr_super = '9000' ).
         class_name = lcl_prog=>view_prefix && '_V' && sy-dynnr.
     ENDCASE.
 
@@ -193,7 +193,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD exit.
     super->exit( ).
-    CAST zcl_tlog( tlog )->display_in_slg1( )->commit( )->free( ).
+    tlog->show_log( )->commit( )->clear( ).
   ENDMETHOD.
 
 ENDCLASS.
@@ -290,7 +290,8 @@ CLASS lcl_tscreen_17_v9900 IMPLEMENTATION.
       WHEN 'COMM1'.
         tlog->add_log( type = 'W' content = 'COMM1' ).
         TRY.
-            DATA(v9001) = CAST lcl_tscreen_17_v9001( zcl_tscreen_stack=>get_instance( )->current( dynnr_super = '9000' dynnr = '9001' ) )."拿到子屏幕对象
+
+            DATA(v9001) = CAST lcl_tscreen_17_v9001( lcl_prog=>get_screen( dynnr_super = '9000' dynnr = '9001' ) )."拿到子屏幕对象
             CAST lcl_tc_po_items( v9001->get_component( group = zif_tscreen_component=>c_component_tc id = 'TC_9001_01' ) )->get_data( )."访问子屏幕控件的方法
           CATCH zcx_tscreen INTO DATA(gx_tscreen) ##NEEDED.
             MESSAGE gx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
@@ -357,7 +358,7 @@ CLASS lcl_tc_po_items IMPLEMENTATION.
     CASE ucomm.
       WHEN 'PO_ITEM-MATNR'."双击事件
 
-        screen_util->call_transaction( tcode = 'MM03' value = parent->cursor_filed_value ).
+        screen_util->call_transaction( tcode = 'MM03' value = get_cell_value_by_cursor( ) ).
 
       WHEN 'ELIKZ'.
         MESSAGE '点击了删除标识' TYPE 'S'.

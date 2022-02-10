@@ -1,35 +1,35 @@
-INTERFACE zif_text_editor
-  PUBLIC .
+interface ZIF_TEXT_EDITOR
+  public .
 
 
-  DATA text TYPE string READ-ONLY .
-  DATA title TYPE string READ-ONLY .
+  data TEXT type STRING read-only .
+  data TITLE type STRING read-only .
 
-  METHODS set_status_text
-    IMPORTING
-      !text         TYPE c
-      !title        TYPE c OPTIONAL
-    RETURNING
-      VALUE(editor) TYPE REF TO zif_text_editor .
-  METHODS set_toolbar_mode
-    IMPORTING
-      !mode         TYPE i
-    RETURNING
-      VALUE(editor) TYPE REF TO zif_text_editor .
-  METHODS set_statusbar_mode
-    IMPORTING
-      !mode         TYPE i
-    RETURNING
-      VALUE(editor) TYPE REF TO zif_text_editor .
-  METHODS set_text
-    IMPORTING
-      !text         TYPE any
-    RETURNING
-      VALUE(editor) TYPE REF TO zif_text_editor .
-  METHODS save_text
-    RETURNING
-      VALUE(editor) TYPE REF TO zif_text_editor .
-  METHODS get_text
-    RETURNING
-      VALUE(text) TYPE string .
-ENDINTERFACE.
+  methods SET_STATUS_TEXT
+    importing
+      !TEXT type C
+      !TITLE type C optional
+    returning
+      value(EDITOR) type ref to ZIF_TEXT_EDITOR .
+  methods SET_TOOLBAR_MODE
+    importing
+      !MODE type I
+    returning
+      value(EDITOR) type ref to ZIF_TEXT_EDITOR .
+  methods SET_STATUSBAR_MODE
+    importing
+      !MODE type I
+    returning
+      value(EDITOR) type ref to ZIF_TEXT_EDITOR .
+  methods SET_TEXT
+    importing
+      !TEXT type ANY
+    returning
+      value(EDITOR) type ref to ZIF_TEXT_EDITOR .
+  methods SAVE_TEXT
+    returning
+      value(EDITOR) type ref to ZIF_TEXT_EDITOR .
+  methods GET_TEXT
+    returning
+      value(TEXT) type STRING .
+endinterface.

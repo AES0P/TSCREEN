@@ -83,10 +83,10 @@ CLASS lcl_prog IMPLEMENTATION.
     DATA view TYPE REF TO zif_tscreen.
     CASE sy-dynnr.
       WHEN '1000'."选择屏幕编号
-        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid ).
+        CHECK NOT is_screen_exists( program = sy-repid ).
         DATA(class_name) = lcl_prog=>view_prog_prefix.
       WHEN OTHERS.
-        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '9000' ).
+        CHECK NOT is_screen_exists( program = sy-repid dynnr_super = '9000' ).
         class_name = lcl_prog=>view_prefix && '_V' && sy-dynnr.
     ENDCASE.
 
@@ -125,7 +125,7 @@ CLASS lcl_tscreen_09_v9000 IMPLEMENTATION.
     CASE ucomm.
       WHEN 'EXECUTE'.
         TRY.
-            CAST lcl_tscreen_09_v9001(  zcl_tscreen_stack=>get_instance( )->current( dynnr_super = '9000' dynnr = '9001' ) )->get_data( ).
+            CAST lcl_tscreen_09_v9001( lcl_prog=>get_screen( dynnr_super = '9000' dynnr = '9001' ) )->get_data( ).
           CATCH zcx_tscreen INTO DATA(lx_tscreen) ##NEEDED.
             MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'A'.
         ENDTRY.

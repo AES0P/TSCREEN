@@ -582,7 +582,7 @@ CLASS ZCL_TLOG IMPLEMENTATION.
      WHERE usr21~bname = sy-uname.                        "#EC CI_SUBRC
 
     DATA is_webgui TYPE c.
-    CALL FUNCTION 'GUI_GET_DESKTOP_INFO'
+    CALL FUNCTION 'GUI_GET_DESKTOP_INFO' ##FM_OLDED
       EXPORTING
         type   = 5
       CHANGING
@@ -596,7 +596,7 @@ CLASS ZCL_TLOG IMPLEMENTATION.
     DATA opcode(1) TYPE x VALUE 5.
     DATA terminal TYPE ztscreen_log-terminal.
     CALL 'ThUsrInfo' ID 'OPCODE'   FIELD opcode
-                     ID 'TERMINAL' FIELD terminal.
+                     ID 'TERMINAL' FIELD terminal."#EC CI_CCALL
 
     FIELD-SYMBOLS <log> LIKE LINE OF logs.
     FIELD-SYMBOLS <dynpro_info> LIKE LINE OF dynpro_info.
@@ -671,5 +671,22 @@ CLASS ZCL_TLOG IMPLEMENTATION.
         symbol = icon_message_information_small.
     ENDCASE.
 
+  ENDMETHOD.
+
+
+  METHOD zif_tlog~commit.
+    commit( ).
+    instance = me.
+  ENDMETHOD.
+
+
+  METHOD zif_tlog~show_log.
+    CASE style.
+      WHEN '2'.
+        display_as_alv_popup( ).
+      WHEN OTHERS.
+        display_in_slg1( ).
+    ENDCASE.
+    instance = me.
   ENDMETHOD.
 ENDCLASS.

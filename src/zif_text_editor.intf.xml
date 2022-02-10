@@ -47,6 +47,18 @@
      <LANGU>1</LANGU>
      <DESCRIPT>set toolbar visibility of TextEdit control</DESCRIPT>
     </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_TEXT_EDITOR</CLSNAME>
+     <CMPNAME>TEXT</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>TEXT</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_TEXT_EDITOR</CLSNAME>
+     <CMPNAME>TITLE</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>TITLE</DESCRIPT>
+    </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
  </asx:abap>

@@ -13,57 +13,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>TREPORT</ENTRY>
-     <LENGTH>7</LENGTH>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>P_BSART</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>14</LENGTH>
-     <SPLIT>D</SPLIT>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>P_BSTYP</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>14</LENGTH>
-     <SPLIT>D</SPLIT>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>P_BUKRS</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>12</LENGTH>
-     <SPLIT>D</SPLIT>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>P_EBELN</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>12</LENGTH>
-     <SPLIT>D</SPLIT>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>P_LOEKZ</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>12</LENGTH>
-     <SPLIT>D</SPLIT>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>S_AEDAT</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>9</LENGTH>
-     <SPLIT>D</SPLIT>
-    </item>
-    <item>
-     <ID>S</ID>
-     <KEY>S_ERNAM</KEY>
-     <ENTRY>.</ENTRY>
-     <LENGTH>11</LENGTH>
-     <SPLIT>D</SPLIT>
+     <ENTRY>TSCREEN框架使用说明及规约</ENTRY>
+     <LENGTH>43</LENGTH>
     </item>
    </TPOOL>
   </asx:values>

@@ -1,61 +1,61 @@
-CLASS zcl_tscreen_stack DEFINITION
-  PUBLIC
-  CREATE PRIVATE
+class ZCL_TSCREEN_STACK definition
+  public
+  create private
 
-  GLOBAL FRIENDS zif_tscreen .
+  global friends ZIF_TSCREEN .
 
-  PUBLIC SECTION.
+public section.
 
-    INTERFACES zif_tscreen_stack .
+  interfaces ZIF_TSCREEN_STACK .
 
-    ALIASES is_empty
-      FOR zif_tscreen_stack~is_empty .
-    ALIASES pop
-      FOR zif_tscreen_stack~pop .
-    ALIASES push
-      FOR zif_tscreen_stack~push .
-    ALIASES size
-      FOR zif_tscreen_stack~size .
-    ALIASES top
-      FOR zif_tscreen_stack~top .
+  aliases IS_EMPTY
+    for ZIF_TSCREEN_STACK~IS_EMPTY .
+  aliases POP
+    for ZIF_TSCREEN_STACK~POP .
+  aliases PUSH
+    for ZIF_TSCREEN_STACK~PUSH .
+  aliases SIZE
+    for ZIF_TSCREEN_STACK~SIZE .
+  aliases TOP
+    for ZIF_TSCREEN_STACK~TOP .
 
-    TYPES:
-      BEGIN OF ty_view,
+  types:
+    BEGIN OF ty_view,
         program     TYPE sy-cprog, "主程序
         dynnr_super TYPE sy-dynnr, "父屏幕号
         dynnr       TYPE sy-dynnr, "屏幕号
         tscreen     TYPE REF TO zif_tscreen,
       END OF ty_view .
-    TYPES:
-      tty_view TYPE STANDARD TABLE OF ty_view WITH KEY program dynnr .
+  types:
+    tty_view TYPE STANDARD TABLE OF ty_view WITH KEY program dynnr .
 
-    CLASS-METHODS get_instance
-      RETURNING
-        VALUE(instance) TYPE REF TO zcl_tscreen_stack .
-    METHODS clear
-      RAISING
-        zcx_tscreen .
-    METHODS is_exists
-      IMPORTING
-        !program           TYPE sy-repid
-        VALUE(dynnr_super) TYPE sy-dynnr OPTIONAL
-        !dynnr             TYPE sy-dynnr DEFAULT sy-dynnr
-      RETURNING
-        VALUE(is_exists)   TYPE abap_bool .
-    METHODS is_super_exists
-      IMPORTING
-        !program         TYPE sy-repid
-        !dynnr_super     TYPE sy-dynnr
-      RETURNING
-        VALUE(is_exists) TYPE abap_bool .
-    METHODS current
-      IMPORTING
-        !dynnr_super   TYPE sy-dynnr OPTIONAL
-        !dynnr         TYPE sy-dynnr DEFAULT sy-dynnr
-      RETURNING
-        VALUE(tscreen) TYPE REF TO zif_tscreen
-      RAISING
-        zcx_tscreen .
+  class-methods GET_INSTANCE
+    returning
+      value(INSTANCE) type ref to ZCL_TSCREEN_STACK .
+  methods CLEAR
+    raising
+      ZCX_TSCREEN .
+  methods IS_EXISTS
+    importing
+      !PROGRAM type SY-REPID
+      value(DYNNR_SUPER) type SY-DYNNR optional
+      !DYNNR type SY-DYNNR default SY-DYNNR
+    returning
+      value(IS_EXISTS) type ABAP_BOOL .
+  methods IS_SUPER_EXISTS
+    importing
+      !PROGRAM type SY-REPID
+      !DYNNR_SUPER type SY-DYNNR
+    returning
+      value(IS_EXISTS) type ABAP_BOOL .
+  methods CURRENT
+    importing
+      !DYNNR_SUPER type SY-DYNNR optional
+      !DYNNR type SY-DYNNR default SY-DYNNR
+    returning
+      value(TSCREEN) type ref to ZIF_TSCREEN
+    raising
+      ZCX_TSCREEN .
   PROTECTED SECTION.
   PRIVATE SECTION.
 

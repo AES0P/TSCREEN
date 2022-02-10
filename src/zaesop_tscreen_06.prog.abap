@@ -93,10 +93,10 @@ CLASS lcl_prog IMPLEMENTATION.
     DATA view TYPE REF TO zif_tscreen.
     CASE sy-dynnr.
       WHEN '1000'."选择屏幕编号
-        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = '' dynnr = sy-dynnr )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
+        CHECK NOT is_screen_exists( program = sy-repid dynnr_super = '' dynnr = sy-dynnr )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
         DATA(class_name) = lcl_prog=>view_prog_prefix.
       WHEN OTHERS.
-        CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid dynnr_super = lcl_prog=>parent_dynnr dynnr = sy-dynnr )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
+        CHECK NOT is_screen_exists( program = sy-repid dynnr_super = lcl_prog=>parent_dynnr dynnr = sy-dynnr )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
         class_name = lcl_prog=>view_prefix && '_V' && sy-dynnr.
     ENDCASE.
 

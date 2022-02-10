@@ -71,7 +71,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD push_view.
 
-    CHECK NOT zcl_tscreen_stack=>get_instance( )->is_exists( program = sy-repid ).
+    CHECK NOT is_screen_exists( program = sy-repid ).
 
     DATA view TYPE REF TO zif_tscreen.
     CASE sy-dynnr.
