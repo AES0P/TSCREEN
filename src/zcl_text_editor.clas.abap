@@ -60,10 +60,10 @@ CLASS zcl_text_editor DEFINITION
         REDEFINITION .
     METHODS zif_tscreen_component~set_component_attr_by_setting
         REDEFINITION .
-protected section.
+  PROTECTED SECTION.
 
-  data CONTAINER type ref to CL_GUI_CONTAINER .
-  data EDITOR type ref to CL_GUI_TEXTEDIT .
+    DATA container TYPE REF TO cl_gui_container .
+    DATA editor TYPE REF TO cl_gui_textedit .
   PRIVATE SECTION.
 ENDCLASS.
 
@@ -278,7 +278,7 @@ CLASS ZCL_TEXT_EDITOR IMPLEMENTATION.
         super->zif_tscreen_component~initialize_by_tscreen( tscreen ).
         CAST zcl_tscreen_with_components( tscreen )->add_component( group = zif_tscreen_component=>c_component_editor component = me ).
         change_editable( tscreen->display_mode ).
-      CATCH zcx_tscreen.
+      CATCH zcx_tscreen ##NO_HANDLER.
     ENDTRY.
 
   ENDMETHOD.

@@ -1,83 +1,83 @@
-class ZCL_TSCREEN definition
-  public
-  inheriting from ZCL_TSCREEN_ROOT
-  abstract
-  create public
+CLASS zcl_tscreen DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tscreen_root
+  ABSTRACT
+  CREATE PUBLIC
 
-  global friends ZIF_TSCREEN_COMPONENT .
+  GLOBAL FRIENDS zif_tscreen_component .
 
-public section.
+  PUBLIC SECTION.
 
-  types TY_ATTR_SETTING type ZTDYNPRO_ATTR .
-  types:
-    tty_attr_setting TYPE STANDARD TABLE OF ty_attr_setting WITH DEFAULT KEY .
+    TYPES ty_attr_setting TYPE ztdynpro_attr .
+    TYPES:
+      tty_attr_setting TYPE STANDARD TABLE OF ty_attr_setting WITH DEFAULT KEY .
 
-  constants DISPLAY_MODE_SHOW type ABAP_BOOL value ABAP_TRUE ##NO_TEXT.
-  constants DISPLAY_MODE_MODIFY type ABAP_BOOL value ABAP_FALSE ##NO_TEXT.
+    CONSTANTS display_mode_show TYPE abap_bool VALUE abap_true ##NO_TEXT.
+    CONSTANTS display_mode_modify TYPE abap_bool VALUE abap_false ##NO_TEXT.
 
-  methods CONSTRUCTOR
-    importing
-      !PROGRAM type SYREPID default SY-CPROG
-      !DYNNR type SY-DYNNR default SY-DYNNR
-      !DYNNR_SUPER type SY-DYNNR optional
-      !DYNPRO_TYPE type SCRHTYP default ZCL_TSCREEN=>DYNPRO_TYPE_NORMAL
-      !DISPLAY_MODE type ABAP_BOOL default ZCL_TSCREEN=>DISPLAY_MODE_SHOW
-      !PFSTATUS type SYPFKEY optional
-      !PFSTATUS_REPID type SYREPID optional
-      !EXCLUDING_FCODE type TTY_FCODE optional
-      !TITLEBAR type GUI_TITLE optional
-      !TITLEBAR_REPID type SYREPID optional
-      !TITLEBAR_VAR1 type STRING optional
-      !TITLEBAR_VAR2 type STRING optional
-      !TITLEBAR_VAR3 type STRING optional
-      !TITLEBAR_VAR4 type STRING optional
-      !TITLEBAR_VAR5 type STRING optional
-      !READ_DYNPRO_SETTING type ABAP_BOOL default ABAP_TRUE
-      !REFRESH_INTERVAL type I default 0 .
-  methods GET_DISPLAY_MODE
-    returning
-      value(DISPLAY_MODE) type SYUCOMM .
-  methods SET_DISPLAY_MODE
-    importing
-      !DISPLAY_MODE type ABAP_BOOL .
-  methods CHANGE_DISPLAY_MODE .
-  methods F4_EVENT
-    importing
-      value(KEY_FIELD) type DFIES-FIELDNAME
-      !VALUE_TAB type STANDARD TABLE
-      value(CALLBACK_FORM) type SY-XFORM optional
-      !CALLBACK_HANDLER type ref to IF_F4CALLBACK_VALUE_REQUEST optional
-    exporting
-      !RETURN_TABLE type ZCL_TSCREEN_UTIL=>F4_RETURN_TAB
-    returning
-      value(VALUE) type SHVALUE_D .
-  methods BRING_OUT
-    importing
-      !SOURCE type ANY
-    changing
-      !TARGET type ANY
-    raising
-      ZCX_TSCREEN .
-  methods GET_SCREEN_UTIL
-    returning
-      value(SCREEN_UTIL) type ref to ZCL_TSCREEN_UTIL .
-  methods COUNTDOWN_BEGIN
-    importing
-      !REFRESH_INTERVAL type I .
-  methods COUNTDOWN_STOP .
+    METHODS constructor
+      IMPORTING
+        !program             TYPE syrepid DEFAULT sy-cprog
+        !dynnr               TYPE sy-dynnr DEFAULT sy-dynnr
+        !dynnr_super         TYPE sy-dynnr OPTIONAL
+        !dynpro_type         TYPE scrhtyp DEFAULT zcl_tscreen=>dynpro_type_normal
+        !display_mode        TYPE abap_bool DEFAULT zcl_tscreen=>display_mode_show
+        !pfstatus            TYPE sypfkey OPTIONAL
+        !pfstatus_repid      TYPE syrepid OPTIONAL
+        !excluding_fcode     TYPE tty_fcode OPTIONAL
+        !titlebar            TYPE gui_title OPTIONAL
+        !titlebar_repid      TYPE syrepid OPTIONAL
+        !titlebar_var1       TYPE string OPTIONAL
+        !titlebar_var2       TYPE string OPTIONAL
+        !titlebar_var3       TYPE string OPTIONAL
+        !titlebar_var4       TYPE string OPTIONAL
+        !titlebar_var5       TYPE string OPTIONAL
+        !read_dynpro_setting TYPE abap_bool DEFAULT abap_true
+        !refresh_interval    TYPE i DEFAULT 0 .
+    METHODS get_display_mode
+      RETURNING
+        VALUE(display_mode) TYPE syucomm .
+    METHODS set_display_mode
+      IMPORTING
+        !display_mode TYPE abap_bool .
+    METHODS change_display_mode .
+    METHODS f4_event
+      IMPORTING
+        VALUE(key_field)     TYPE dfies-fieldname
+        !value_tab           TYPE STANDARD TABLE
+        VALUE(callback_form) TYPE sy-xform OPTIONAL
+        !callback_handler    TYPE REF TO if_f4callback_value_request OPTIONAL
+      EXPORTING
+        !return_table        TYPE zcl_tscreen_util=>f4_return_tab
+      RETURNING
+        VALUE(value)         TYPE shvalue_d .
+    METHODS bring_out
+      IMPORTING
+        !source TYPE any
+      CHANGING
+        !target TYPE any
+      RAISING
+        zcx_tscreen .
+    METHODS get_screen_util
+      RETURNING
+        VALUE(screen_util) TYPE REF TO zcl_tscreen_util .
+    METHODS countdown_begin
+      IMPORTING
+        !refresh_interval TYPE i .
+    METHODS countdown_stop .
 
-  methods SET_PFSTATUS
-    redefinition .
-  methods ZIF_TSCREEN~EXIT
-    redefinition .
-  methods ZIF_TSCREEN~HANDLE_EVENT
-    redefinition .
-  methods ZIF_TSCREEN~PAI
-    redefinition .
-  methods ZIF_TSCREEN~POH
-    redefinition .
-  methods ZIF_TSCREEN~POV
-    redefinition .
+    METHODS set_pfstatus
+        REDEFINITION .
+    METHODS zif_tscreen~exit
+        REDEFINITION .
+    METHODS zif_tscreen~handle_event
+        REDEFINITION .
+    METHODS zif_tscreen~pai
+        REDEFINITION .
+    METHODS zif_tscreen~poh
+        REDEFINITION .
+    METHODS zif_tscreen~pov
+        REDEFINITION .
   PROTECTED SECTION.
 
     DATA display_mode TYPE abap_bool .
@@ -196,7 +196,7 @@ CLASS ZCL_TSCREEN IMPLEMENTATION.
         pbo( ).
       WHEN 'PAI'.
         IF if_log_record_pai = abap_true.
-          tlog->add_log( type = 'I' content = 'PAI' ).
+          tlog->add_log( type = 'I' content = 'PAI:' && sy-ucomm ).
         ENDIF.
         pai( ).
       WHEN 'POH'.

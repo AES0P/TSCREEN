@@ -35,7 +35,7 @@ CLASS zcl_transporting_request DEFINITION
 
     DATA e071 TYPE tty_e071 .
     DATA e071k TYPE tty_e071k .
-    DATA order TYPE e071-trkorr .
+    ##NEEDED    DATA order TYPE e071-trkorr .
     DATA task TYPE e071-trkorr .
     DATA pgmid TYPE pgmid VALUE 'R3TR' ##NO_TEXT.
     DATA object TYPE trobjtype VALUE 'TABU' ##NO_TEXT.
@@ -231,7 +231,7 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
        AND as4local = 'A'
        AND keyflag  = @abap_true
      ORDER BY fieldname.                                  "#EC CI_SUBRC
-    DELETE ADJACENT DUPLICATES FROM lt_fields COMPARING fieldname.
+    DELETE ADJACENT DUPLICATES FROM lt_fields COMPARING fieldname. "#EC CI_SEL_DEL
     SORT lt_fields ASCENDING BY position.
 
     DATA tabkey TYPE trobj_name.
@@ -272,13 +272,14 @@ CLASS ZCL_TRANSPORTING_REQUEST IMPLEMENTATION.
     DATA lv_text TYPE string.
     READ TABLE excepts ASSIGNING <except> INDEX index.
     IF sy-subrc = 0.
+      ##WARN_OK
       SELECT SINGLE stext
         FROM funct
         INTO lv_text
        WHERE funcname  = fname
          AND parameter = <except>-parameter
          AND kind      = 'X'
-         AND spras     = sy-langu. "#EC CI_NOORDER
+         AND spras     = sy-langu.                      "#EC CI_NOORDER
       IF sy-subrc = 0.
         MESSAGE lv_text TYPE 'I'.
         RETURN.

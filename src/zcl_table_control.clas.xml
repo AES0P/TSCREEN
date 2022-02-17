@@ -15,30 +15,6 @@
    <TPOOL>
     <item>
      <ID>I</ID>
-     <KEY>001</KEY>
-     <ENTRY>覆盖？</ENTRY>
-     <LENGTH>20</LENGTH>
-    </item>
-    <item>
-     <ID>I</ID>
-     <KEY>002</KEY>
-     <ENTRY>现有数据不为空，是否覆盖已有数据？</ENTRY>
-     <LENGTH>130</LENGTH>
-    </item>
-    <item>
-     <ID>I</ID>
-     <KEY>003</KEY>
-     <ENTRY>数据转换失败，请检查EXCEL文件，确保格式与展示表一致</ENTRY>
-     <LENGTH>132</LENGTH>
-    </item>
-    <item>
-     <ID>I</ID>
-     <KEY>004</KEY>
-     <ENTRY>当前没有可见行或转换失败，请重试</ENTRY>
-     <LENGTH>132</LENGTH>
-    </item>
-    <item>
-     <ID>I</ID>
      <KEY>005</KEY>
      <ENTRY>数据表名不正确，请在实例化时检查传入的表名</ENTRY>
      <LENGTH>132</LENGTH>

@@ -64,3 +64,28 @@ MODULE set_input INPUT.
   ENDIF.
 
 ENDMODULE.
+
+*&---------------------------------------------------------------------*
+*&      Module  CREATE_TS  INPUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE create_ts INPUT.
+  IF ztdynpro_attr-erdat IS INITIAL
+    AND ztdynpro_attr-ertim IS INITIAL
+    AND ztdynpro_attr-ernam IS INITIAL.
+    ztdynpro_attr-erdat = sy-datum.
+    ztdynpro_attr-ertim = sy-uzeit.
+    ztdynpro_attr-ernam = sy-uname.
+  ENDIF.
+ENDMODULE.
+*&---------------------------------------------------------------------*
+*&      Module  CHANGE_TS  INPUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE change_ts INPUT.
+  ztdynpro_attr-aedat = sy-datum.
+  ztdynpro_attr-aetim = sy-uzeit.
+  ztdynpro_attr-aenam = sy-uname.
+ENDMODULE.

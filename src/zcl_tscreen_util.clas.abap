@@ -1,118 +1,118 @@
-class ZCL_TSCREEN_UTIL definition
-  public
-  final
-  create private
+CLASS zcl_tscreen_util DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PRIVATE
 
-  global friends ZIF_TSCREEN .
+  GLOBAL FRIENDS zif_tscreen .
 
-public section.
+  PUBLIC SECTION.
 
-  types:
-    BEGIN OF ty_element,
+    TYPES:
+      BEGIN OF ty_element,
         element TYPE screen-name.
     TYPES: END OF ty_element .
-  types:
-    tty_d021s TYPE STANDARD TABLE OF d021s WITH DEFAULT KEY .
-  types:
-    tty_dynpread TYPE STANDARD TABLE OF dynpread WITH DEFAULT KEY .
-  types:
-    tty_elements TYPE STANDARD TABLE OF ty_element WITH DEFAULT KEY .
-  types:
-    f4_return_tab TYPE STANDARD TABLE OF ddshretval WITH DEFAULT KEY .
+    TYPES:
+      tty_d021s TYPE STANDARD TABLE OF d021s WITH DEFAULT KEY .
+    TYPES:
+      tty_dynpread TYPE STANDARD TABLE OF dynpread WITH DEFAULT KEY .
+    TYPES:
+      tty_elements TYPE STANDARD TABLE OF ty_element WITH DEFAULT KEY .
+    TYPES:
+      f4_return_tab TYPE STANDARD TABLE OF ddshretval WITH DEFAULT KEY .
 
-  constants C_FCODE_TC_POV_BRING_OUT type SY-UCOMM value 'TC_POV_BRING_OUT' ##NO_TEXT.
+    CONSTANTS c_fcode_tc_pov_bring_out TYPE sy-ucomm VALUE 'TC_POV_BRING_OUT' ##NO_TEXT.
 
-  class-methods GET_INSTANCE
-    importing
-      !PROGRAM type SY-REPID optional
-    returning
-      value(UTIL) type ref to ZCL_TSCREEN_UTIL .
-  methods GET_DYNNR
-    returning
-      value(DYNNR) type SY-DYNNR .
-  methods SET_DYNNR
-    importing
-      !DYNNR type SY-DYNNR default SY-DYNNR .
-  methods EXECUTE_FCODE
-    importing
-      !FCODE type C default '%X%X%X' .
-  methods F4_EVENT
-    importing
-      value(KEY_FIELD) type DFIES-FIELDNAME
-      !VALUE_TAB type STANDARD TABLE
-      value(CALLBACK_FORM) type SY-XFORM optional
-      !CALLBACK_HANDLER type ref to IF_F4CALLBACK_VALUE_REQUEST optional
-      value(DISPLAY) type ABAP_BOOL optional
-    exporting
-      !RETURN_TABLE type F4_RETURN_TAB
-    returning
-      value(VALUE) type SHVALUE_D .
-  methods READ_SYSMSG
-    importing
-      value(SHOW) type ABAP_BOOL default ABAP_FALSE
-    returning
-      value(MSG) type BAPI_MSG .
-  methods SET_LISTBOX
-    importing
-      value(VRM_ID) type VRM_ID
-      value(VRM_VALUES) type VRM_VALUES .
-  methods GET_DYNPRO_FIELD_VALUE
-    importing
-      value(DYNPRO_FIELDS) type TTY_DYNPREAD
-    returning
-      value(VALUE) type DYNFIELDVALUE .
-  methods GET_ALL_ELEMENTS
-    returning
-      value(FIELD_LIST) type TTY_D021S .
-  methods IS_VALID_STRING
-    importing
-      value(STRING) type ANY
-    returning
-      value(VALID) type ABAP_BOOL .
-  methods GET_COLUMNS_OF_STRUCTURE
-    importing
-      value(STRUCTURE_NAME) type C
-    returning
-      value(COLUMNS) type LVC_T_FCAT .
-  methods GET_STRUCTURE_FIELD_VALUE
-    importing
-      value(FIELD_NAME) type C
-    returning
-      value(VALUE) type DYNFIELDVALUE .
-  methods GET_PREFIX_OFFSET
-    importing
-      value(SCREEN_NAME) type C
-    returning
-      value(OFFSET) type I .
-  methods GET_NO_PREFIX_COLUMN_NAME
-    importing
-      value(SCREEN_NAME) type C
-    returning
-      value(FIELD_NAME) type FIELDNAME .
-  methods CALL_TRANSACTION
-    importing
-      value(TCODE) type SY-TCODE
-      value(VALUE) type DYNFIELDVALUE .
-  methods GET_FIELD_NAME_BY_CURSOR
-    returning
-      value(FIELD_NAME) type FELD-NAME .
-  methods GET_FIELD_VALUE_BY_CURSOR
-    returning
-      value(VALUE) type DYNFIELDVALUE .
-  methods GET_CURSOR_LINE
-    returning
-      value(INDEX) type I .
+    CLASS-METHODS get_instance
+      IMPORTING
+        !program    TYPE sy-repid OPTIONAL
+      RETURNING
+        VALUE(util) TYPE REF TO zcl_tscreen_util .
+    METHODS get_dynnr
+      RETURNING
+        VALUE(dynnr) TYPE sy-dynnr .
+    METHODS set_dynnr
+      IMPORTING
+        !dynnr TYPE sy-dynnr DEFAULT sy-dynnr .
+    METHODS execute_fcode
+      IMPORTING
+        !fcode TYPE c DEFAULT '%X%X%X' .
+    METHODS f4_event
+      IMPORTING
+        VALUE(key_field)     TYPE dfies-fieldname
+        !value_tab           TYPE STANDARD TABLE
+        VALUE(callback_form) TYPE sy-xform OPTIONAL
+        !callback_handler    TYPE REF TO if_f4callback_value_request OPTIONAL
+        VALUE(display)       TYPE abap_bool OPTIONAL
+      EXPORTING
+        !return_table        TYPE f4_return_tab
+      RETURNING
+        VALUE(value)         TYPE shvalue_d .
+    METHODS read_sysmsg
+      IMPORTING
+        VALUE(show) TYPE abap_bool DEFAULT abap_false
+      RETURNING
+        VALUE(msg)  TYPE bapi_msg .
+    METHODS set_listbox
+      IMPORTING
+        VALUE(vrm_id)     TYPE vrm_id
+        VALUE(vrm_values) TYPE vrm_values .
+    METHODS get_dynpro_field_value
+      IMPORTING
+        VALUE(dynpro_fields) TYPE tty_dynpread
+      RETURNING
+        VALUE(value)         TYPE dynfieldvalue .
+    METHODS get_all_elements
+      RETURNING
+        VALUE(field_list) TYPE tty_d021s .
+    METHODS is_valid_string
+      IMPORTING
+        VALUE(string) TYPE any
+      RETURNING
+        VALUE(valid)  TYPE abap_bool .
+    METHODS get_columns_of_structure
+      IMPORTING
+        VALUE(structure_name) TYPE c
+      RETURNING
+        VALUE(columns)        TYPE lvc_t_fcat .
+    METHODS get_structure_field_value
+      IMPORTING
+        VALUE(field_name) TYPE c
+      RETURNING
+        VALUE(value)      TYPE dynfieldvalue .
+    METHODS get_prefix_offset
+      IMPORTING
+        VALUE(screen_name) TYPE c
+      RETURNING
+        VALUE(offset)      TYPE i .
+    METHODS get_no_prefix_column_name
+      IMPORTING
+        VALUE(screen_name) TYPE c
+      RETURNING
+        VALUE(field_name)  TYPE fieldname .
+    METHODS call_transaction
+      IMPORTING
+        VALUE(tcode) TYPE sy-tcode
+        VALUE(value) TYPE dynfieldvalue .
+    METHODS get_field_name_by_cursor
+      RETURNING
+        VALUE(field_name) TYPE feld-name .
+    METHODS get_field_value_by_cursor
+      RETURNING
+        VALUE(value) TYPE dynfieldvalue .
+    METHODS get_cursor_line
+      RETURNING
+        VALUE(index) TYPE i .
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  class-data TSCREEN_UTIL type ref to ZCL_TSCREEN_UTIL .
-  data PROGRAM type SYREPID .
-  data DYNNR type SY-DYNNR .
-  data BRING_OUT_DATA type ref to DATA  ##NEEDED.
+    CLASS-DATA tscreen_util TYPE REF TO zcl_tscreen_util .
+    DATA program TYPE syrepid .
+    DATA dynnr TYPE sy-dynnr .
+    DATA bring_out_data TYPE REF TO data  ##NEEDED.
 
-  methods CONSTRUCTOR
-    importing
-      !PROGRAM type SY-REPID .
+    METHODS constructor
+      IMPORTING
+        !program TYPE sy-repid .
 ENDCLASS.
 
 

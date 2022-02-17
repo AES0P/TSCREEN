@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DTEL" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD04V>
+    <ROLLNAME>ZGBCE_BLOCK_TERMINAL</ROLLNAME>
+    <DDLANGUAGE>1</DDLANGUAGE>
+    <DOMNAME>TEXT1000</DOMNAME>
+    <HEADLEN>05</HEADLEN>
+    <SCRLEN1>05</SCRLEN1>
+    <SCRLEN2>05</SCRLEN2>
+    <SCRLEN3>05</SCRLEN3>
+    <DDTEXT>IP黑名单（逗号间隔）</DDTEXT>
+    <REPTEXT>终端黑名单</REPTEXT>
+    <SCRTEXT_S>终端黑名单</SCRTEXT_S>
+    <SCRTEXT_M>终端黑名单</SCRTEXT_M>
+    <SCRTEXT_L>终端黑名单</SCRTEXT_L>
+    <DTELMASTER>1</DTELMASTER>
+    <REFKIND>D</REFKIND>
+   </DD04V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

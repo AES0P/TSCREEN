@@ -1,75 +1,75 @@
-class ZCL_TSCREEN_WITH_COMPONENTS definition
-  public
-  inheriting from ZCL_TSCREEN
-  abstract
-  create public .
+CLASS zcl_tscreen_with_components DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_tscreen
+  ABSTRACT
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  types:
-    BEGIN OF ty_component,
+    TYPES:
+      BEGIN OF ty_component,
         group      TYPE string,
         counts     TYPE i,
         components TYPE REF TO cl_object_collection,
       END OF ty_component .
-  types:
-    tty_component TYPE STANDARD TABLE OF ty_component WITH DEFAULT KEY .
+    TYPES:
+      tty_component TYPE STANDARD TABLE OF ty_component WITH DEFAULT KEY .
 
-  constants CAPTURE_FROM_OUTER_TO_INNER type I value 1 ##NO_TEXT.
-  constants CAPTURE_FROM_INNER_TO_OUTER type I value 2 ##NO_TEXT.
+    CONSTANTS capture_from_outer_to_inner TYPE i VALUE 1 ##NO_TEXT.
+    CONSTANTS capture_from_inner_to_outer TYPE i VALUE 2 ##NO_TEXT.
 
-  methods ADD_COMPONENT
-    importing
-      !GROUP type STRING
-      !COMPONENT type ref to ZIF_TSCREEN_COMPONENT
-    raising
-      ZCX_TSCREEN .
-  methods GET_COMPONENT
-    importing
-      !GROUP type STRING
-      !ID type STRING
-    returning
-      value(COMPONENT) type ref to ZIF_TSCREEN_COMPONENT
-    raising
-      ZCX_TSCREEN .
-  methods DEL_COMPONENT
-    importing
-      !GROUP type STRING
-      !ID type STRING
-    returning
-      value(DELETED) type ABAP_BOOL
-    raising
-      ZCX_TSCREEN .
-  methods GET_COMPONENTS_ITERATOR
-    importing
-      !GROUP type STRING
-    returning
-      value(ITERATOR) type ref to CL_OBJECT_COLLECTION_ITERATOR .
-  methods STOP_PROPAGATION
-    importing
-      !STOP type ABAP_BOOL default ABAP_TRUE .
+    METHODS add_component
+      IMPORTING
+        !group     TYPE string
+        !component TYPE REF TO zif_tscreen_component
+      RAISING
+        zcx_tscreen .
+    METHODS get_component
+      IMPORTING
+        !group           TYPE string
+        !id              TYPE string
+      RETURNING
+        VALUE(component) TYPE REF TO zif_tscreen_component
+      RAISING
+        zcx_tscreen .
+    METHODS del_component
+      IMPORTING
+        !group         TYPE string
+        !id            TYPE string
+      RETURNING
+        VALUE(deleted) TYPE abap_bool
+      RAISING
+        zcx_tscreen .
+    METHODS get_components_iterator
+      IMPORTING
+        !group          TYPE string
+      RETURNING
+        VALUE(iterator) TYPE REF TO cl_object_collection_iterator .
+    METHODS stop_propagation
+      IMPORTING
+        !stop TYPE abap_bool DEFAULT abap_true .
 
-  methods ZIF_TSCREEN~EXIT
-    redefinition .
-  methods ZIF_TSCREEN~HANDLE_EVENT
-    redefinition .
-protected section.
+    METHODS zif_tscreen~exit
+        REDEFINITION .
+    METHODS zif_tscreen~handle_event
+        REDEFINITION .
+  PROTECTED SECTION.
 
-  data CAPTURE type I value ZCL_TSCREEN_WITH_COMPONENTS=>CAPTURE_FROM_OUTER_TO_INNER ##NO_TEXT.
-  data PROPAGATION_STOP type ABAP_BOOL value ABAP_FALSE ##NO_TEXT.
-  data COMPONENTS type TTY_COMPONENT .
+    DATA capture TYPE i VALUE zcl_tscreen_with_components=>capture_from_outer_to_inner ##NO_TEXT.
+    DATA propagation_stop TYPE abap_bool VALUE abap_false ##NO_TEXT.
+    DATA components TYPE tty_component .
 
-  methods ADD_COMPONENTS
-  abstract .
-  methods CALL_COMPONENTS_METHOD
-    importing
-      !METHOD type SEOCPDKEY-CPDNAME .
+    METHODS add_components
+        ABSTRACT .
+    METHODS call_components_method
+      IMPORTING
+        !method TYPE seocpdkey-cpdname .
 
-  methods CHANGE_SCREEN_EDITABLE
-    redefinition .
-  methods SET_ELEMENT_ATTR_BY_SETTING
-    redefinition .
-private section.
+    METHODS change_screen_editable
+        REDEFINITION .
+    METHODS set_element_attr_by_setting
+        REDEFINITION .
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -97,7 +97,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
     READ TABLE components ASSIGNING <component> WITH KEY group = group BINARY SEARCH.
     ASSERT sy-subrc = 0.
 
-    ADD 1 TO <component>-counts.
+   <component>-counts = <component>-counts + 1.
     <component>-components->add( component ).
 
   ENDMETHOD.

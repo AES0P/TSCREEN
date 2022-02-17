@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+<abapGit version="v1.0.0">
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <PROGDIR>
-    <NAME>ZAESOP_TSCREEN_00</NAME>
-    <SUBC>1</SUBC>
-    <RSTAT>T</RSTAT>
+    <NAME>LZFG_TSCREEN_00F01</NAME>
+    <SQLX>X</SQLX>
+    <SUBC>I</SUBC>
+    <APPL>S</APPL>
     <RLOAD>1</RLOAD>
-    <FIXPT>X</FIXPT>
     <UCCHECK>X</UCCHECK>
    </PROGDIR>
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>TSCREEN框架使用说明及规约</ENTRY>
-     <LENGTH>43</LENGTH>
+     <ENTRY>Include LZFG_TSCREEN_00F01</ENTRY>
+     <LENGTH>26</LENGTH>
     </item>
    </TPOOL>
   </asx:values>

@@ -14,6 +14,54 @@
      <MSGNR>000</MSGNR>
      <TEXT>不支持的事件类型 &amp;1</TEXT>
     </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>用户&amp;1已被加入本程序黑名单，请联系管理员！</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>终端&amp;1已被加入本程序黑名单，请联系管理员！</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>程序在&amp;1 &amp;2 至 &amp;3 &amp;4期间停用，若需紧急使用，请联系管理员将你的IP地址或者用户名加入放行列表。</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>程序未启用！请在事务代码 ZTSCREEN00 中进行配置。</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>程序未启用重调功能！请在事务代码 ZTSCREEN00 中进行配置。</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>程序未启用数据导出功能，请联系管理员！</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>程序未启用数据导入功能，请联系管理员！</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>1</SPRSL>
+     <ARBGB>ZTSCREEN</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>未找到报表控制类ZCL_TREPORT，请检查你的代码！</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>

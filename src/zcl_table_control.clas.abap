@@ -1404,6 +1404,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
       "如果DDIC有，TC没有，最终以TC为准
       ##WARN_OK
       FIELD-SYMBOLS <tc_column> TYPE scxtab_column.
+      ##WARN_OK
       READ TABLE tc->*-cols ASSIGNING <tc_column> WITH KEY screen-name = to_upper( tc_column-screen-name+0(offset) && <column>-fieldname ). "#EC CI_STDSEQ
       IF sy-subrc <> 0.
         DELETE columns INDEX tabix.
@@ -1630,75 +1631,7 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
   METHOD zif_table_control~import_data.
 
-    FIELD-SYMBOLS <data> TYPE STANDARD TABLE.
-    ASSIGN data->* TO <data>.
-    ASSERT sy-subrc = 0.
-
-    IF <data> IS NOT INITIAL.
-      DATA answer TYPE c.
-      CALL FUNCTION 'POPUP_TO_CONFIRM'
-        EXPORTING
-          titlebar       = '覆盖？'(001)
-          text_question  = '现有数据不为空，是否覆盖已有数据？'(002)
-        IMPORTING
-          answer         = answer
-        EXCEPTIONS
-          text_not_found = 1
-          OTHERS         = 2.
-      IF sy-subrc <> 0 OR answer <> '1'.
-        RETURN.
-      ENDIF.
-    ENDIF.
-
-    DATA filename TYPE rlgrap-filename.
-    CALL FUNCTION 'KD_GET_FILENAME_ON_F4'
-      EXPORTING
-        static        = 'X'
-        mask          = ',*.XLS,*.XLSX '
-      CHANGING
-        file_name     = filename
-      EXCEPTIONS
-        mask_too_long = 1
-        OTHERS        = 2. "#EC CI_SUBRC
-    IF sy-subrc <> 0.
-* Implement suitable error handling here
-    ENDIF.
-
-    DATA tab TYPE REF TO data.
-*&---根据fieldcat生成动态内表
-    cl_alv_table_create=>create_dynamic_table(
-      EXPORTING
-        it_fieldcatalog           = get_visible_columns( )
-      IMPORTING
-        ep_table                  = tab
-      EXCEPTIONS
-        generate_subpool_dir_full = 1
-        OTHERS                    = 2 ).
-    IF sy-subrc <> 0.
-      MESSAGE '当前没有可见行或转换失败，请重试'(004) TYPE 'W'.
-      RETURN.
-    ENDIF.
-
-    FIELD-SYMBOLS <tab> TYPE STANDARD TABLE.
-    ASSIGN tab->* TO <tab>.
-    ASSERT sy-subrc = 0.
-
-    DATA raw_data TYPE truxs_t_text_data.
-    CALL FUNCTION 'TEXT_CONVERT_XLS_TO_SAP'
-      EXPORTING
-        i_line_header        = abap_true
-        i_tab_raw_data       = raw_data
-        i_filename           = filename
-      TABLES
-        i_tab_converted_data = <tab>
-      EXCEPTIONS
-        conversion_failed    = 1
-        OTHERS               = 2.
-    IF sy-subrc <> 0.
-      MESSAGE '数据转换失败，请检查EXCEL文件，确保格式与展示表一致'(003) TYPE 'W'.
-    ELSE.
-      MOVE-CORRESPONDING <tab> TO <data>.
-    ENDIF.
+    zcl_data_handler=>import_data( EXPORTING fieldcatalog = get_visible_columns( ) CHANGING data = data ).
 
   ENDMETHOD.
 
@@ -1724,29 +1657,13 @@ CLASS ZCL_TABLE_CONTROL IMPLEMENTATION.
 
   METHOD zif_table_control~export_data.
 
-    CALL FUNCTION 'XML_EXPORT_DIALOG'
-      EXPORTING
-        i_xml                      = NEW cl_salv_bs_ex_office2007(
-                                         cl_salv_ex_util=>factory_result_data_table(
-                                           r_data         = data
-                                           t_fieldcatalog = get_visible_columns( ) ) )->transform( )
-        i_default_extension        = 'XLSX'
-        i_initial_directory        = ''
-        i_default_file_name        = 'EXPORT.XLSX'
-        i_mask                     = 'Excel(*.XLSX)|*XLSX'
-        i_application              = ''
-      EXCEPTIONS
-        application_not_executable = 1
-        OTHERS                     = 2. "#EC CI_SUBRC
-    IF sy-subrc <> 0.
-* Implement suitable error handling here
-    ENDIF.
+    zcl_data_handler=>export_data( data = data fieldcatalog = get_visible_columns( ) ).
 
   ENDMETHOD.
 
 
   METHOD is_ddic_tabname_valid.
-
+    ##WARN_OK
     SELECT SINGLE contflag
       FROM dd02l
       INTO contflag

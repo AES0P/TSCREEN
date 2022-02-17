@@ -1,37 +1,37 @@
-interface ZIF_TRANSPORTING_REQUEST
-  public .
+INTERFACE zif_transporting_request
+  PUBLIC .
 
 
-  types TY_E071 type E071 .
-  types:
+  TYPES ty_e071 TYPE e071 .
+  TYPES:
     tty_e071 TYPE STANDARD TABLE OF ty_e071 WITH DEFAULT KEY .
-  types TY_E071K type E071K .
-  types:
+  TYPES ty_e071k TYPE e071k .
+  TYPES:
     tty_e071k TYPE STANDARD TABLE OF ty_e071k WITH DEFAULT KEY .
 
-  methods ASSOCIATE
-    importing
-      !ORDER_TYPE type TRFUNCTION default 'K'
-      !TASK_TYPE type TRFUNCTION default 'S'
-      !CATEGORY type E070-KORRDEV default 'SYST'
-    returning
-      value(TR_TOOL) type ref to ZIF_TRANSPORTING_REQUEST .
-  methods ENTRYS
-    importing
-      !TABLE type TABLE
-      value(DDIC_TYPE) type TROBJ_NAME optional "#EC CI_VALPAR
-    returning
-      value(TR_TOOL) type ref to ZIF_TRANSPORTING_REQUEST .
-  methods ENTRY
-    importing
-      value(OBJNAME) type TROBJ_NAME "#EC CI_VALPAR
-      value(OBJFUNC) type OBJFUNC default 'K'
-      value(TABKEY) type TROBJ_NAME "#EC CI_VALPAR
-    returning
-      value(TR_TOOL) type ref to ZIF_TRANSPORTING_REQUEST .
-  methods COMMIT
-    importing
-      !SHOW_ERROR type ABAP_BOOL default ABAP_TRUE
-    returning
-      value(IS_COMMITED) type ABAP_BOOL .
-endinterface.
+  METHODS associate
+    IMPORTING
+      !order_type    TYPE trfunction DEFAULT 'K'
+      !task_type     TYPE trfunction DEFAULT 'S'
+      !category      TYPE e070-korrdev DEFAULT 'SYST'
+    RETURNING
+      VALUE(tr_tool) TYPE REF TO zif_transporting_request .
+  METHODS entrys
+    IMPORTING
+      !table           TYPE table
+      VALUE(ddic_type) TYPE trobj_name OPTIONAL          "#EC CI_VALPAR
+    RETURNING
+      VALUE(tr_tool)   TYPE REF TO zif_transporting_request .
+  METHODS entry
+    IMPORTING
+      VALUE(objname) TYPE trobj_name                     "#EC CI_VALPAR
+      VALUE(objfunc) TYPE objfunc DEFAULT 'K'
+      VALUE(tabkey)  TYPE trobj_name                     "#EC CI_VALPAR
+    RETURNING
+      VALUE(tr_tool) TYPE REF TO zif_transporting_request .
+  METHODS commit
+    IMPORTING
+      !show_error        TYPE abap_bool DEFAULT abap_true
+    RETURNING
+      VALUE(is_commited) TYPE abap_bool .
+ENDINTERFACE.

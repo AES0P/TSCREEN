@@ -32,6 +32,8 @@ CLASS lcl_prog DEFINITION CREATE PUBLIC
 
     CLASS-METHODS push_view.
 
+    METHODS constructor.
+
     METHODS initialize REDEFINITION.
     METHODS pbo REDEFINITION.
     METHODS pai REDEFINITION.
@@ -56,6 +58,11 @@ CLASS lcl_prog IMPLEMENTATION.
     DATA view TYPE REF TO zif_tscreen.
     CREATE OBJECT view TYPE lcl_prog.
 
+  ENDMETHOD.
+
+  METHOD constructor.
+    zkey = 'test zkey'.
+    super->constructor( ).
   ENDMETHOD.
 
   ##NEEDED

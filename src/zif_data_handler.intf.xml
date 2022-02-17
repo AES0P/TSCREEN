@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_INTF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOINTERF>
+    <CLSNAME>ZIF_DATA_HANDLER</CLSNAME>
+    <LANGU>1</LANGU>
+    <DESCRIPT>数据处理</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <UNICODE>X</UNICODE>
+   </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DATA_HANDLER</CLSNAME>
+     <CMPNAME>EXPORT_DATA</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>导出表数据</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZIF_DATA_HANDLER</CLSNAME>
+     <CMPNAME>IMPORT_DATA</CMPNAME>
+     <LANGU>1</LANGU>
+     <DESCRIPT>导入表数据</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

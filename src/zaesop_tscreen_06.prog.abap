@@ -81,6 +81,7 @@ CLASS lcl_tscreen_06_v9003 DEFINITION CREATE PUBLIC
 
     METHODS pbo REDEFINITION.
     METHODS pai REDEFINITION.
+    METHODS exit REDEFINITION.
 
 ENDCLASS.
 *&---------------------------------------------------------------------*
@@ -237,6 +238,11 @@ CLASS lcl_tscreen_06_v9003 IMPLEMENTATION.
         LEAVE TO SCREEN 0.
     ENDCASE.
     CLEAR sy-ucomm.
+  ENDMETHOD.
+
+  METHOD exit.
+    lcl_prog=>parent_dynnr = '9000'.
+    super->exit( ).
   ENDMETHOD.
 
 ENDCLASS.

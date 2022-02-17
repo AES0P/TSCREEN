@@ -178,6 +178,8 @@ CLASS lcl_prog IMPLEMENTATION.
 
     set_title( EXPORTING tabname = 'ZSEKPO' CHANGING title = title_ekpo ).
 
+    tlog->add_log( type = 'E' content = 'TEST E' ).
+
   ENDMETHOD.
 
   METHOD check_authority.
