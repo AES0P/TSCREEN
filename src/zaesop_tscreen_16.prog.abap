@@ -352,13 +352,28 @@ CLASS lcl_tscreen_16_v9001 IMPLEMENTATION.
   METHOD add_components.
 
     TRY.
-        NEW zcl_text_editor( parent         = CAST zcl_tscreen( me )
-                             id             = 'LASTCHANGEDT'
-                             container_name = 'CON_LAST_CHANGE'
-                             content        = CONV string( ekko-lastchangedatetime )
-                             length_content = strlen( CONV string( ekko-lastchangedatetime ) ) - 1
-                          )->set_status_text( 'LASTCHANGEDATETIME'
-                          )->set_toolbar_mode( 0 ).
+
+        DATA editor TYPE REF TO zcl_text_editor.
+
+        editor ?= zcl_tcomponent_factory=>get_tcomponent(
+                                            parent = me
+                                            params = /ui2/cl_json=>serialize( VALUE zcl_tcomponent_factory=>ty_editor(
+                                              group          = zif_tscreen_component=>c_component_editor
+                                              id             = 'LASTCHANGEDT'
+                                              container_name = 'CON_LAST_CHANGE'
+                                              content        = CONV string( ekko-lastchangedatetime )
+                                              length_content = strlen( CONV string( ekko-lastchangedatetime ) ) - 1  ) ) ).
+
+        editor->set_status_text( 'LASTCHANGEDATETIME' )->set_toolbar_mode( 0 ).
+
+        "  重写了控件就需要按下列方式直接new
+*        NEW zcl_text_editor( parent         = CAST zcl_tscreen( me )
+*                             id             = 'LASTCHANGEDT'
+*                             container_name = 'CON_LAST_CHANGE'
+*                             content        = CONV string( ekko-lastchangedatetime )
+*                             length_content = strlen( CONV string( ekko-lastchangedatetime ) ) - 1
+*                          )->set_status_text( 'LASTCHANGEDATETIME'
+*                          )->set_toolbar_mode( 0 ).
 
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.

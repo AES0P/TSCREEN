@@ -379,7 +379,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-CPROG</NAME>
-       <TEXT>程序名_____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -396,7 +395,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-TCODE</NAME>
-       <TEXT>事务代码____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -413,7 +411,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZKEY</NAME>
-       <TEXT>KEY_____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -430,7 +427,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-REPTI</NAME>
-       <TEXT>报告标题____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>040</LENGTH>
@@ -447,7 +443,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZBLOCK_USER</NAME>
-       <TEXT>用户黑名单___________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
        <LENGTH>040</LENGTH>
@@ -479,7 +474,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZBLOCK_TERMINAL</NAME>
-       <TEXT>终端黑名单___________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>007</COLUMN>
        <LENGTH>040</LENGTH>
@@ -511,7 +505,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZSWITCH_BLOCK</NAME>
-       <TEXT>启用黑名单_______________</TEXT>
        <LINE>001</LINE>
        <COLUMN>009</COLUMN>
        <LENGTH>020</LENGTH>
@@ -529,7 +522,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZBDATE</NAME>
-       <TEXT>停用日期(从)_________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>010</COLUMN>
        <LENGTH>040</LENGTH>
@@ -563,7 +555,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZSDATE</NAME>
-       <TEXT>停用日期(至)_________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>012</COLUMN>
        <LENGTH>040</LENGTH>
@@ -629,7 +620,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZSWITCH_EXTRA</NAME>
-       <TEXT>启用放行列表</TEXT>
        <LINE>001</LINE>
        <COLUMN>016</COLUMN>
        <LENGTH>006</LENGTH>
@@ -647,7 +637,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZACTIVE</NAME>
-       <TEXT>程序启用____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>017</COLUMN>
        <LENGTH>040</LENGTH>
@@ -664,7 +653,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZDEBUG</NAME>
-       <TEXT>程序可重调___________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>018</COLUMN>
        <LENGTH>040</LENGTH>
@@ -681,7 +669,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZEXPORT</NAME>
-       <TEXT>允许导出数据__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>019</COLUMN>
        <LENGTH>040</LENGTH>
@@ -698,7 +685,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZIMPORT</NAME>
-       <TEXT>允许导入数据__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>020</COLUMN>
        <LENGTH>040</LENGTH>
@@ -715,7 +701,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTSCREEN_MANAGER-ZLEVEL</NAME>
-       <TEXT>记录日志级别__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>021</COLUMN>
        <LENGTH>040</LENGTH>
@@ -732,7 +717,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTSCREEN_MANAGER-ERDAT</NAME>
-       <TEXT>创建日期_________</TEXT>
        <LINE>001</LINE>
        <COLUMN>022</COLUMN>
        <LENGTH>013</LENGTH>
@@ -766,7 +750,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTSCREEN_MANAGER-ERNAM</NAME>
-       <TEXT>创建者____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>024</COLUMN>
        <LENGTH>015</LENGTH>
@@ -783,7 +766,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTSCREEN_MANAGER-AEDAT</NAME>
-       <TEXT>更改日期___________</TEXT>
        <LINE>001</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>015</LENGTH>
@@ -817,7 +799,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTSCREEN_MANAGER-AENAM</NAME>
-       <TEXT>更改者____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>027</COLUMN>
        <LENGTH>015</LENGTH>
@@ -848,7 +829,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-CPROG</NAME>
-       <TEXT>________________________________________</TEXT>
        <ROLLING>X</ROLLING>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
@@ -1010,6 +990,7 @@
        <PUSH_FCODE>TC_0001_01_cb1</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>X</MODIFIC>
        <INPUT_FLD>X</INPUT_FLD>
        <OUTPUT_FLD>X</OUTPUT_FLD>
        <DICT_I_VAL>X</DICT_I_VAL>
@@ -1036,7 +1017,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-ZBTIME</NAME>
-       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>011</COLUMN>
        <LENGTH>008</LENGTH>
@@ -1069,7 +1049,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-ZSTIME</NAME>
-       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>013</COLUMN>
        <LENGTH>008</LENGTH>
@@ -1129,6 +1108,7 @@
        <PUSH_FCODE>TC_0001_01_cb2</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
+       <MODIFIC>X</MODIFIC>
        <INPUT_FLD>X</INPUT_FLD>
        <OUTPUT_FLD>X</OUTPUT_FLD>
        <DICT_I_VAL>X</DICT_I_VAL>
@@ -1143,6 +1123,7 @@
        <LENGTH>001</LENGTH>
        <VISLENGTH>008</VISLENGTH>
        <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_0001_01_cb3</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>X</MODIFIC>
@@ -1160,6 +1141,7 @@
        <LENGTH>001</LENGTH>
        <VISLENGTH>010</VISLENGTH>
        <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_0001_01_cb4</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>X</MODIFIC>
@@ -1177,6 +1159,7 @@
        <LENGTH>001</LENGTH>
        <VISLENGTH>011</VISLENGTH>
        <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_0001_01_cb5</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>X</MODIFIC>
@@ -1194,6 +1177,7 @@
        <LENGTH>001</LENGTH>
        <VISLENGTH>011</VISLENGTH>
        <HEIGHT>001</HEIGHT>
+       <PUSH_FCODE>TC_0001_01_cb6</PUSH_FCODE>
        <FORMAT>CHAR</FORMAT>
        <FROM_DICT>X</FROM_DICT>
        <MODIFIC>X</MODIFIC>
@@ -1225,7 +1209,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-ERDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>001</LINE>
        <COLUMN>022</COLUMN>
        <LENGTH>010</LENGTH>
@@ -1242,7 +1225,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-ERTIM</NAME>
-       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>023</COLUMN>
        <LENGTH>008</LENGTH>
@@ -1259,7 +1241,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-ERNAM</NAME>
-       <TEXT>____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>024</COLUMN>
        <LENGTH>012</LENGTH>
@@ -1276,7 +1257,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-AEDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>001</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>010</LENGTH>
@@ -1293,7 +1273,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-AETIM</NAME>
-       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>026</COLUMN>
        <LENGTH>008</LENGTH>
@@ -1310,7 +1289,6 @@
        <CONT_NAME>TCTRL_ZTSCREEN_MANAGER</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTSCREEN_MANAGER-AENAM</NAME>
-       <TEXT>____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>027</COLUMN>
        <LENGTH>012</LENGTH>

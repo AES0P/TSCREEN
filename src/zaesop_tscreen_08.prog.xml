@@ -227,7 +227,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-LIFNR</NAME>
-       <TEXT>供应商____________</TEXT>
        <LINE>007</LINE>
        <COLUMN>030</COLUMN>
        <LENGTH>015</LENGTH>
@@ -246,7 +245,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-LIFNR</NAME>
-       <TEXT>__________</TEXT>
        <LINE>007</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>010</LENGTH>
@@ -266,7 +264,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-EBELN</NAME>
-       <TEXT>采购凭证___________</TEXT>
        <LINE>008</LINE>
        <COLUMN>030</COLUMN>
        <LENGTH>015</LENGTH>
@@ -283,7 +280,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-EBELN</NAME>
-       <TEXT>__________</TEXT>
        <LINE>008</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>010</LENGTH>
@@ -301,7 +297,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-BUKRS</NAME>
-       <TEXT>公司代码___________</TEXT>
        <LINE>009</LINE>
        <COLUMN>030</COLUMN>
        <LENGTH>015</LENGTH>
@@ -320,7 +315,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-BUKRS</NAME>
-       <TEXT>____</TEXT>
        <LINE>009</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>004</LENGTH>
@@ -339,7 +333,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-EKORG</NAME>
-       <TEXT>采购组织___________</TEXT>
        <LINE>009</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>015</LENGTH>
@@ -358,7 +351,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-EKORG</NAME>
-       <TEXT>____</TEXT>
        <LINE>009</LINE>
        <COLUMN>086</COLUMN>
        <LENGTH>004</LENGTH>
@@ -377,7 +369,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-BEDAT</NAME>
-       <TEXT>凭证日期___________</TEXT>
        <LINE>009</LINE>
        <COLUMN>100</COLUMN>
        <LENGTH>015</LENGTH>
@@ -394,7 +385,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-BEDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>009</LINE>
        <COLUMN>121</COLUMN>
        <LENGTH>010</LENGTH>
@@ -410,7 +400,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-BSART</NAME>
-       <TEXT>凭证类型___________</TEXT>
        <LINE>010</LINE>
        <COLUMN>030</COLUMN>
        <LENGTH>015</LENGTH>
@@ -429,7 +418,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-BSART</NAME>
-       <TEXT>____</TEXT>
        <LINE>010</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>004</LENGTH>
@@ -448,7 +436,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-EKGRP</NAME>
-       <TEXT>采购组____________</TEXT>
        <LINE>010</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>015</LENGTH>
@@ -467,7 +454,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-EKGRP</NAME>
-       <TEXT>___</TEXT>
        <LINE>010</LINE>
        <COLUMN>086</COLUMN>
        <LENGTH>003</LENGTH>
@@ -486,7 +472,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-AEDAT</NAME>
-       <TEXT>创建日期_________</TEXT>
        <LINE>010</LINE>
        <COLUMN>100</COLUMN>
        <LENGTH>013</LENGTH>
@@ -503,7 +488,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-AEDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>010</LINE>
        <COLUMN>121</COLUMN>
        <LENGTH>010</LENGTH>
@@ -519,7 +503,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-SPRAS</NAME>
-       <TEXT>语言_____________</TEXT>
        <LINE>011</LINE>
        <COLUMN>030</COLUMN>
        <LENGTH>015</LENGTH>
@@ -538,7 +521,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-SPRAS</NAME>
-       <TEXT>__</TEXT>
        <LINE>011</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>002</LENGTH>
@@ -559,7 +541,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-ZTERM</NAME>
-       <TEXT>付款条件________</TEXT>
        <LINE>011</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>012</LENGTH>
@@ -576,7 +557,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-ZTERM</NAME>
-       <TEXT>____</TEXT>
        <LINE>011</LINE>
        <COLUMN>086</COLUMN>
        <LENGTH>004</LENGTH>
@@ -592,7 +572,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-ERNAM</NAME>
-       <TEXT>创建者____________</TEXT>
        <LINE>011</LINE>
        <COLUMN>100</COLUMN>
        <LENGTH>015</LENGTH>
@@ -609,7 +588,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-ERNAM</NAME>
-       <TEXT>____________</TEXT>
        <LINE>011</LINE>
        <COLUMN>121</COLUMN>
        <LENGTH>012</LENGTH>
@@ -643,7 +621,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-UNSEZ</NAME>
-       <TEXT>____________</TEXT>
        <LINE>011</LINE>
        <COLUMN>149</COLUMN>
        <LENGTH>012</LENGTH>
@@ -660,7 +637,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-WAERS</NAME>
-       <TEXT>货币_____________</TEXT>
        <LINE>012</LINE>
        <COLUMN>030</COLUMN>
        <LENGTH>015</LENGTH>
@@ -679,7 +655,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-WAERS</NAME>
-       <TEXT>_____</TEXT>
        <LINE>012</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>005</LENGTH>
@@ -698,7 +673,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-ZBD1T</NAME>
-       <TEXT>付款_____________</TEXT>
        <LINE>012</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>015</LENGTH>
@@ -715,7 +689,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-ZBD1T</NAME>
-       <TEXT>___</TEXT>
        <LINE>012</LINE>
        <COLUMN>086</COLUMN>
        <LENGTH>003</LENGTH>
@@ -731,7 +704,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKKO-LASTCHANGEDATETIME</NAME>
-       <TEXT>最后更改________________</TEXT>
        <LINE>012</LINE>
        <COLUMN>100</COLUMN>
        <LENGTH>020</LENGTH>
@@ -748,7 +720,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKKO-LASTCHANGEDATETIME</NAME>
-       <TEXT>___.___.___.___.___,_______</TEXT>
        <LINE>012</LINE>
        <COLUMN>121</COLUMN>
        <LENGTH>027</LENGTH>
@@ -835,7 +806,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-MANDT</NAME>
-       <TEXT>集团_____________</TEXT>
        <LINE>002</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -852,7 +822,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-MANDT</NAME>
-       <TEXT>___</TEXT>
        <LINE>002</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>003</LENGTH>
@@ -869,7 +838,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-AEDAT</NAME>
-       <TEXT>更改日期___________</TEXT>
        <LINE>002</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -886,7 +854,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-AEDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>002</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>010</LENGTH>
@@ -902,7 +869,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-LGORT</NAME>
-       <TEXT>存储地点___________</TEXT>
        <LINE>002</LINE>
        <COLUMN>111</COLUMN>
        <LENGTH>015</LENGTH>
@@ -921,7 +887,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-LGORT</NAME>
-       <TEXT>____</TEXT>
        <LINE>002</LINE>
        <COLUMN>132</COLUMN>
        <LENGTH>004</LENGTH>
@@ -940,7 +905,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-MENGE</NAME>
-       <TEXT>采购订单数量_________</TEXT>
        <LINE>002</LINE>
        <COLUMN>174</COLUMN>
        <LENGTH>015</LENGTH>
@@ -957,7 +921,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-EBELN</NAME>
-       <TEXT>采购凭证___________</TEXT>
        <LINE>003</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -976,7 +939,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-EBELN</NAME>
-       <TEXT>__________</TEXT>
        <LINE>003</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>010</LENGTH>
@@ -996,7 +958,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-TXZ01</NAME>
-       <TEXT>短文本____________</TEXT>
        <LINE>003</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1013,7 +974,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-TXZ01</NAME>
-       <TEXT>________________________________________</TEXT>
        <LINE>003</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>040</LENGTH>
@@ -1030,7 +990,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-BEDNR</NAME>
-       <TEXT>跟踪编号___________</TEXT>
        <LINE>003</LINE>
        <COLUMN>111</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1047,7 +1006,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-BEDNR</NAME>
-       <TEXT>__________</TEXT>
        <LINE>003</LINE>
        <COLUMN>132</COLUMN>
        <LENGTH>010</LENGTH>
@@ -1063,7 +1021,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-MEINS</NAME>
-       <TEXT>订单单位___________</TEXT>
        <LINE>003</LINE>
        <COLUMN>174</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1082,7 +1039,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-MEINS</NAME>
-       <TEXT>___</TEXT>
        <LINE>003</LINE>
        <COLUMN>195</COLUMN>
        <LENGTH>003</LENGTH>
@@ -1102,7 +1058,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-EBELP</NAME>
-       <TEXT>项目_____________</TEXT>
        <LINE>004</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1119,7 +1074,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-EBELP</NAME>
-       <TEXT>_____</TEXT>
        <LINE>004</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>005</LENGTH>
@@ -1136,7 +1090,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-MATNR</NAME>
-       <TEXT>物料_____________</TEXT>
        <LINE>004</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1155,7 +1108,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-MATNR</NAME>
-       <TEXT>________________________________________</TEXT>
        <LINE>004</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>040</LENGTH>
@@ -1175,7 +1127,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-MATKL</NAME>
-       <TEXT>物料组____________</TEXT>
        <LINE>004</LINE>
        <COLUMN>111</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1194,7 +1145,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-MATKL</NAME>
-       <TEXT>_________</TEXT>
        <LINE>004</LINE>
        <COLUMN>132</COLUMN>
        <LENGTH>009</LENGTH>
@@ -1213,7 +1163,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-BPRME</NAME>
-       <TEXT>订单价格单位_________</TEXT>
        <LINE>004</LINE>
        <COLUMN>174</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1232,7 +1181,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-BPRME</NAME>
-       <TEXT>___</TEXT>
        <LINE>004</LINE>
        <COLUMN>195</COLUMN>
        <LENGTH>003</LENGTH>
@@ -1252,7 +1200,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-UNIQUEID</NAME>
-       <TEXT>凭证项目________________</TEXT>
        <LINE>005</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>020</LENGTH>
@@ -1269,7 +1216,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-UNIQUEID</NAME>
-       <TEXT>_______________</TEXT>
        <LINE>005</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1286,7 +1232,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-EMATN</NAME>
-       <TEXT>物料_____________</TEXT>
        <LINE>005</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1305,7 +1250,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-EMATN</NAME>
-       <TEXT>________________________________________</TEXT>
        <LINE>005</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>040</LENGTH>
@@ -1325,7 +1269,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-INFNR</NAME>
-       <TEXT>信息记录___________</TEXT>
        <LINE>005</LINE>
        <COLUMN>111</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1344,7 +1287,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-INFNR</NAME>
-       <TEXT>__________</TEXT>
        <LINE>005</LINE>
        <COLUMN>132</COLUMN>
        <LENGTH>010</LENGTH>
@@ -1364,7 +1306,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-BPUMZ</NAME>
-       <TEXT>数量转换___________</TEXT>
        <LINE>005</LINE>
        <COLUMN>174</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1381,7 +1322,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-BPUMZ</NAME>
-       <TEXT>__.___</TEXT>
        <LINE>005</LINE>
        <COLUMN>195</COLUMN>
        <LENGTH>006</LENGTH>
@@ -1397,7 +1337,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>RADIO</TYPE>
        <NAME>EKPO-LOEKZ</NAME>
-       <TEXT>删除标识___________</TEXT>
        <LINE>006</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>017</LENGTH>
@@ -1414,7 +1353,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-BUKRS</NAME>
-       <TEXT>公司代码___________</TEXT>
        <LINE>006</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1433,7 +1371,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-BUKRS</NAME>
-       <TEXT>____</TEXT>
        <LINE>006</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>004</LENGTH>
@@ -1452,7 +1389,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-IDNLF</NAME>
-       <TEXT>供应商物料编号________</TEXT>
        <LINE>006</LINE>
        <COLUMN>111</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1469,7 +1405,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-IDNLF</NAME>
-       <TEXT>___________________________________</TEXT>
        <LINE>006</LINE>
        <COLUMN>132</COLUMN>
        <LENGTH>035</LENGTH>
@@ -1485,7 +1420,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-BPUMN</NAME>
-       <TEXT>数量转换___________</TEXT>
        <LINE>006</LINE>
        <COLUMN>174</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1502,7 +1436,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-BPUMN</NAME>
-       <TEXT>__.___</TEXT>
        <LINE>006</LINE>
        <COLUMN>195</COLUMN>
        <LENGTH>006</LENGTH>
@@ -1518,7 +1451,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>CHECK</TYPE>
        <NAME>EKPO-STATU</NAME>
-       <TEXT>询价状态___________</TEXT>
        <LINE>007</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>017</LENGTH>
@@ -1536,7 +1468,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-WERKS</NAME>
-       <TEXT>工厂_____________</TEXT>
        <LINE>007</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1555,7 +1486,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-WERKS</NAME>
-       <TEXT>____</TEXT>
        <LINE>007</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>004</LENGTH>
@@ -1574,7 +1504,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-KTMNG</NAME>
-       <TEXT>目标数量___________</TEXT>
        <LINE>007</LINE>
        <COLUMN>111</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1591,7 +1520,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-KTMNG</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>007</LINE>
        <COLUMN>132</COLUMN>
        <LENGTH>017</LENGTH>
@@ -1608,7 +1536,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-UMREZ</NAME>
-       <TEXT>等于_____________</TEXT>
        <LINE>007</LINE>
        <COLUMN>174</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1625,7 +1552,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-UMREZ</NAME>
-       <TEXT>__.___</TEXT>
        <LINE>007</LINE>
        <COLUMN>195</COLUMN>
        <LENGTH>006</LENGTH>
@@ -1641,7 +1567,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-NETPR</NAME>
-       <TEXT>净价_____________</TEXT>
        <LINE>008</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1658,7 +1583,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-NETPR</NAME>
-       <TEXT>______________</TEXT>
        <LINE>008</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>014</LENGTH>
@@ -1675,7 +1599,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-NETWR</NAME>
-       <TEXT>净值_____________</TEXT>
        <LINE>008</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1692,7 +1615,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-NETWR</NAME>
-       <TEXT>________________</TEXT>
        <LINE>008</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>016</LENGTH>
@@ -1709,7 +1631,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-PEINH</NAME>
-       <TEXT>价格单位___________</TEXT>
        <LINE>009</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1726,7 +1647,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-PEINH</NAME>
-       <TEXT>__.___</TEXT>
        <LINE>009</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>006</LENGTH>
@@ -1742,7 +1662,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKPO-BRTWR</NAME>
-       <TEXT>总价值____________</TEXT>
        <LINE>009</LINE>
        <COLUMN>044</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1759,7 +1678,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKPO-BRTWR</NAME>
-       <TEXT>________________</TEXT>
        <LINE>009</LINE>
        <COLUMN>065</COLUMN>
        <LENGTH>016</LENGTH>
@@ -1845,7 +1763,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-EBELN</NAME>
-       <TEXT>采购凭证___________</TEXT>
        <LINE>002</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1864,7 +1781,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-EBELN</NAME>
-       <TEXT>__________</TEXT>
        <LINE>002</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>010</LENGTH>
@@ -1884,7 +1800,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-MENGE</NAME>
-       <TEXT>计划数量___________</TEXT>
        <LINE>002</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1901,7 +1816,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-MENGE</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>002</LINE>
        <COLUMN>072</COLUMN>
        <LENGTH>017</LENGTH>
@@ -1918,7 +1832,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-UZEIT</NAME>
-       <TEXT>时间_____________</TEXT>
        <LINE>002</LINE>
        <COLUMN>102</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1935,7 +1848,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-UZEIT</NAME>
-       <TEXT>________</TEXT>
        <LINE>002</LINE>
        <COLUMN>123</COLUMN>
        <LENGTH>008</LENGTH>
@@ -1951,7 +1863,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-EBELP</NAME>
-       <TEXT>项目_____________</TEXT>
        <LINE>003</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -1970,7 +1881,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-EBELP</NAME>
-       <TEXT>_____</TEXT>
        <LINE>003</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>005</LENGTH>
@@ -1989,7 +1899,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-AMENG</NAME>
-       <TEXT>上期数量___________</TEXT>
        <LINE>003</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2006,7 +1915,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-AMENG</NAME>
-       <TEXT>_.___.___.___,___V</TEXT>
        <LINE>003</LINE>
        <COLUMN>072</COLUMN>
        <LENGTH>018</LENGTH>
@@ -2024,7 +1932,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-BANFN</NAME>
-       <TEXT>采购申请___________</TEXT>
        <LINE>003</LINE>
        <COLUMN>102</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2041,7 +1948,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-BANFN</NAME>
-       <TEXT>__________</TEXT>
        <LINE>003</LINE>
        <COLUMN>123</COLUMN>
        <LENGTH>010</LENGTH>
@@ -2059,7 +1965,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-ETENR</NAME>
-       <TEXT>计划行____________</TEXT>
        <LINE>004</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2076,7 +1981,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-ETENR</NAME>
-       <TEXT>____</TEXT>
        <LINE>004</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>004</LENGTH>
@@ -2092,7 +1996,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-WEMNG</NAME>
-       <TEXT>交货_____________</TEXT>
        <LINE>004</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2109,7 +2012,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-WEMNG</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>004</LINE>
        <COLUMN>072</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2126,7 +2028,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-BNFPO</NAME>
-       <TEXT>请求项目___________</TEXT>
        <LINE>004</LINE>
        <COLUMN>102</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2145,7 +2046,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-BNFPO</NAME>
-       <TEXT>_____</TEXT>
        <LINE>004</LINE>
        <COLUMN>123</COLUMN>
        <LENGTH>005</LENGTH>
@@ -2164,7 +2064,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-UNIQUEID</NAME>
-       <TEXT>计划行_________________</TEXT>
        <LINE>005</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>020</LENGTH>
@@ -2181,7 +2080,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-UNIQUEID</NAME>
-       <TEXT>___________________</TEXT>
        <LINE>005</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>019</LENGTH>
@@ -2198,7 +2096,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-WAMNG</NAME>
-       <TEXT>已发货____________</TEXT>
        <LINE>005</LINE>
        <COLUMN>051</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2215,7 +2112,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-WAMNG</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>005</LINE>
        <COLUMN>072</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2232,7 +2128,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>CHECK</TYPE>
        <NAME>EKET-ESTKZ</NAME>
-       <TEXT>建立标识_____________</TEXT>
        <LINE>005</LINE>
        <COLUMN>102</COLUMN>
        <LENGTH>019</LENGTH>
@@ -2250,7 +2145,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-EINDT</NAME>
-       <TEXT>交货日期___________</TEXT>
        <LINE>006</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2267,7 +2161,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-EINDT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>006</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>010</LENGTH>
@@ -2283,7 +2176,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-QUNUM</NAME>
-       <TEXT>配额协议___________</TEXT>
        <LINE>006</LINE>
        <COLUMN>102</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2300,7 +2192,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-QUNUM</NAME>
-       <TEXT>__________</TEXT>
        <LINE>006</LINE>
        <COLUMN>123</COLUMN>
        <LENGTH>010</LENGTH>
@@ -2317,7 +2208,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKET-SLFDT</NAME>
-       <TEXT>统计交货日期_________</TEXT>
        <LINE>007</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2334,7 +2224,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKET-SLFDT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>007</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>010</LENGTH>
@@ -2350,7 +2239,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>CHECK</TYPE>
        <NAME>EKET-LPEIN</NAME>
-       <TEXT>交货日期___________</TEXT>
        <LINE>008</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2428,7 +2316,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-EBELN</NAME>
-       <TEXT>采购凭证___________</TEXT>
        <LINE>002</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2447,7 +2334,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-EBELN</NAME>
-       <TEXT>__________</TEXT>
        <LINE>002</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>010</LENGTH>
@@ -2467,7 +2353,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>CHECK</TYPE>
        <NAME>EKBE-BEWTP</NAME>
-       <TEXT>PO_历史类别________</TEXT>
        <LINE>002</LINE>
        <COLUMN>047</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2486,7 +2371,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-WAERS</NAME>
-       <TEXT>货币_____________</TEXT>
        <LINE>002</LINE>
        <COLUMN>093</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2505,7 +2389,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-WAERS</NAME>
-       <TEXT>_____</TEXT>
        <LINE>002</LINE>
        <COLUMN>114</COLUMN>
        <LENGTH>005</LENGTH>
@@ -2524,7 +2407,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-XBLNR</NAME>
-       <TEXT>参考_____________</TEXT>
        <LINE>002</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2541,7 +2423,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-XBLNR</NAME>
-       <TEXT>________________</TEXT>
        <LINE>002</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>016</LENGTH>
@@ -2557,7 +2438,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-EBELP</NAME>
-       <TEXT>项目_____________</TEXT>
        <LINE>003</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2576,7 +2456,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-EBELP</NAME>
-       <TEXT>_____</TEXT>
        <LINE>003</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>005</LENGTH>
@@ -2595,7 +2474,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-BWART</NAME>
-       <TEXT>移动类型___________</TEXT>
        <LINE>003</LINE>
        <COLUMN>047</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2614,7 +2492,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-BWART</NAME>
-       <TEXT>___</TEXT>
        <LINE>003</LINE>
        <COLUMN>068</COLUMN>
        <LENGTH>003</LENGTH>
@@ -2633,7 +2510,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-AREWR</NAME>
-       <TEXT>GR/IR结算价值______</TEXT>
        <LINE>003</LINE>
        <COLUMN>093</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2650,7 +2526,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-AREWR</NAME>
-       <TEXT>________________</TEXT>
        <LINE>003</LINE>
        <COLUMN>114</COLUMN>
        <LENGTH>016</LENGTH>
@@ -2667,7 +2542,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-LFGJA</NAME>
-       <TEXT>会计年参考凭证________</TEXT>
        <LINE>003</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2684,7 +2558,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-LFGJA</NAME>
-       <TEXT>____</TEXT>
        <LINE>003</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>004</LENGTH>
@@ -2701,7 +2574,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-ZEKKN</NAME>
-       <TEXT>科目分配编号______________</TEXT>
        <LINE>004</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>020</LENGTH>
@@ -2718,7 +2590,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-ZEKKN</NAME>
-       <TEXT>__</TEXT>
        <LINE>004</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>002</LENGTH>
@@ -2734,7 +2605,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-BUDAT</NAME>
-       <TEXT>过账日期___________</TEXT>
        <LINE>004</LINE>
        <COLUMN>047</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2751,7 +2621,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-BUDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>004</LINE>
        <COLUMN>068</COLUMN>
        <LENGTH>010</LENGTH>
@@ -2767,7 +2636,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-WESBS</NAME>
-       <TEXT>收货Bl.St.OUn____</TEXT>
        <LINE>004</LINE>
        <COLUMN>093</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2784,7 +2652,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-WESBS</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>004</LINE>
        <COLUMN>114</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2801,7 +2668,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-LFBNR</NAME>
-       <TEXT>参考凭证___________</TEXT>
        <LINE>004</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2818,7 +2684,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-LFBNR</NAME>
-       <TEXT>__________</TEXT>
        <LINE>004</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>010</LENGTH>
@@ -2835,7 +2700,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>CHECK</TYPE>
        <NAME>EKBE-VGABE</NAME>
-       <TEXT>业务/事件类型________</TEXT>
        <LINE>005</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2853,7 +2717,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-MENGE</NAME>
-       <TEXT>数量_____________</TEXT>
        <LINE>005</LINE>
        <COLUMN>047</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2870,7 +2733,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-MENGE</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>005</LINE>
        <COLUMN>068</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2887,7 +2749,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-BPWES</NAME>
-       <TEXT>GR冻结库存_________</TEXT>
        <LINE>005</LINE>
        <COLUMN>093</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2904,7 +2765,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-BPWES</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>005</LINE>
        <COLUMN>114</COLUMN>
        <LENGTH>017</LENGTH>
@@ -2921,7 +2781,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-LFPOS</NAME>
-       <TEXT>参考凭证项目_________</TEXT>
        <LINE>005</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2938,7 +2797,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-LFPOS</NAME>
-       <TEXT>____</TEXT>
        <LINE>005</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>004</LENGTH>
@@ -2954,7 +2812,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-GJAHR</NAME>
-       <TEXT>物料凭证年度_________</TEXT>
        <LINE>006</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -2971,7 +2828,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-GJAHR</NAME>
-       <TEXT>____</TEXT>
        <LINE>006</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>004</LENGTH>
@@ -2989,7 +2845,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-BPMNG</NAME>
-       <TEXT>按_OPUn_的数量_____</TEXT>
        <LINE>006</LINE>
        <COLUMN>047</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3006,7 +2861,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-BPMNG</NAME>
-       <TEXT>_.___.___.___,___</TEXT>
        <LINE>006</LINE>
        <COLUMN>068</COLUMN>
        <LENGTH>017</LENGTH>
@@ -3023,7 +2877,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>CHECK</TYPE>
        <NAME>EKBE-SHKZG</NAME>
-       <TEXT>借/贷标识__________</TEXT>
        <LINE>006</LINE>
        <COLUMN>093</COLUMN>
        <LENGTH>017</LENGTH>
@@ -3041,7 +2894,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-GRUND</NAME>
-       <TEXT>移动原因___________</TEXT>
        <LINE>006</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3060,7 +2912,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-GRUND</NAME>
-       <TEXT>____</TEXT>
        <LINE>006</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>004</LENGTH>
@@ -3078,7 +2929,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-BELNR</NAME>
-       <TEXT>物料凭证___________</TEXT>
        <LINE>007</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3095,7 +2945,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-BELNR</NAME>
-       <TEXT>__________</TEXT>
        <LINE>007</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>010</LENGTH>
@@ -3113,7 +2962,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-DMBTR</NAME>
-       <TEXT>本币金额________</TEXT>
        <LINE>007</LINE>
        <COLUMN>047</COLUMN>
        <LENGTH>012</LENGTH>
@@ -3130,7 +2978,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-DMBTR</NAME>
-       <TEXT>________________</TEXT>
        <LINE>007</LINE>
        <COLUMN>068</COLUMN>
        <LENGTH>016</LENGTH>
@@ -3147,7 +2994,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-BWTAR</NAME>
-       <TEXT>评估类型___________</TEXT>
        <LINE>007</LINE>
        <COLUMN>093</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3166,7 +3012,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-BWTAR</NAME>
-       <TEXT>__________</TEXT>
        <LINE>007</LINE>
        <COLUMN>114</COLUMN>
        <LENGTH>010</LENGTH>
@@ -3185,7 +3030,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-CPUDT</NAME>
-       <TEXT>录入日期___________</TEXT>
        <LINE>007</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3202,7 +3046,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-CPUDT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>007</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>010</LENGTH>
@@ -3218,7 +3061,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-BUZEI</NAME>
-       <TEXT>物料凭证项目_________</TEXT>
        <LINE>008</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3235,7 +3077,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-BUZEI</NAME>
-       <TEXT>____</TEXT>
        <LINE>008</LINE>
        <COLUMN>025</COLUMN>
        <LENGTH>004</LENGTH>
@@ -3252,7 +3093,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-WRBTR</NAME>
-       <TEXT>金额_____________</TEXT>
        <LINE>008</LINE>
        <COLUMN>047</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3269,7 +3109,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-WRBTR</NAME>
-       <TEXT>________________</TEXT>
        <LINE>008</LINE>
        <COLUMN>068</COLUMN>
        <LENGTH>016</LENGTH>
@@ -3286,7 +3125,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>CHECK</TYPE>
        <NAME>EKBE-ELIKZ</NAME>
-       <TEXT>交货已完成__________</TEXT>
        <LINE>008</LINE>
        <COLUMN>093</COLUMN>
        <LENGTH>017</LENGTH>
@@ -3304,7 +3142,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-CPUTM</NAME>
-       <TEXT>输入时间___________</TEXT>
        <LINE>008</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3321,7 +3158,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-CPUTM</NAME>
-       <TEXT>________</TEXT>
        <LINE>008</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>008</LENGTH>
@@ -3337,7 +3173,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>EKBE-REEWR</NAME>
-       <TEXT>发票价值___________</TEXT>
        <LINE>009</LINE>
        <COLUMN>140</COLUMN>
        <LENGTH>015</LENGTH>
@@ -3354,7 +3189,6 @@
        <CONT_NAME>SCREEN</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>EKBE-REEWR</NAME>
-       <TEXT>__________________</TEXT>
        <LINE>009</LINE>
        <COLUMN>161</COLUMN>
        <LENGTH>018</LENGTH>

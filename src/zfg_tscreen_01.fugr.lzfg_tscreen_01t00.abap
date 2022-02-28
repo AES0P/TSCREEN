@@ -1,7 +1,5 @@
 *---------------------------------------------------------------------*
 *    view related data declarations
-*   generation date: 2021.11.25 at 11:26:22
-*   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 *...processing: ZTDYNPRO_ATTR...................................*
 DATA:  BEGIN OF STATUS_ZTDYNPRO_ATTR                 .   "state vector

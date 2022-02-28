@@ -97,7 +97,7 @@ CLASS ZCL_TSCREEN_WITH_COMPONENTS IMPLEMENTATION.
     READ TABLE components ASSIGNING <component> WITH KEY group = group BINARY SEARCH.
     ASSERT sy-subrc = 0.
 
-   <component>-counts = <component>-counts + 1.
+    <component>-counts = <component>-counts + 1.
     <component>-components->add( component ).
 
   ENDMETHOD.

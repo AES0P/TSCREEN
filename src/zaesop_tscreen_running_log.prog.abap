@@ -150,7 +150,8 @@ CLASS lcl_prog IMPLEMENTATION.
        AND crnam IN s_person
        AND cprog IN s_prog
        AND monat IN s_monat
-       AND cprog <> 'ZAESOP_TSCREEN_RUNNING_LOG'.
+*       AND cprog <> 'ZAESOP_TSCREEN_RUNNING_LOG'.
+      .
     IF sy-subrc <> 0.
       MESSAGE 'NO DATA FOUND' TYPE 'S' DISPLAY LIKE 'E'.
       LEAVE TO TRANSACTION 'ZTSCREEN02'.

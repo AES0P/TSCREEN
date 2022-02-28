@@ -377,7 +377,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-CPROG</NAME>
-       <TEXT>调用程序____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
        <LENGTH>040</LENGTH>
@@ -394,7 +393,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-DYNNR</NAME>
-       <TEXT>Dynpro__________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>002</COLUMN>
        <LENGTH>040</LENGTH>
@@ -411,7 +409,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-GROUP_NAME</NAME>
-       <TEXT>组名______________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>003</COLUMN>
        <LENGTH>040</LENGTH>
@@ -428,7 +425,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-TC_NAME</NAME>
-       <TEXT>控件ID____________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>004</COLUMN>
        <LENGTH>040</LENGTH>
@@ -445,7 +441,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-NAME</NAME>
-       <TEXT>表名-字段名(或BTN等名)__________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>005</COLUMN>
        <LENGTH>040</LENGTH>
@@ -462,7 +457,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>*ZTDYNPRO_ATTR-ZMODE</NAME>
-       <TEXT>场景______________________________________</TEXT>
        <LINE>001</LINE>
        <COLUMN>006</COLUMN>
        <LENGTH>040</LENGTH>
@@ -547,7 +541,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTDYNPRO_ATTR-ERDAT</NAME>
-       <TEXT>创建日期_________</TEXT>
        <LINE>001</LINE>
        <COLUMN>011</COLUMN>
        <LENGTH>013</LENGTH>
@@ -581,7 +574,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTDYNPRO_ATTR-ERNAM</NAME>
-       <TEXT>创建者____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>013</COLUMN>
        <LENGTH>015</LENGTH>
@@ -598,7 +590,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTDYNPRO_ATTR-AEDAT</NAME>
-       <TEXT>更改日期___________</TEXT>
        <LINE>001</LINE>
        <COLUMN>014</COLUMN>
        <LENGTH>015</LENGTH>
@@ -632,7 +623,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEXT</TYPE>
        <NAME>ZTDYNPRO_ATTR-AENAM</NAME>
-       <TEXT>更改者____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>016</COLUMN>
        <LENGTH>015</LENGTH>
@@ -663,7 +653,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTDYNPRO_ATTR-CPROG</NAME>
-       <TEXT>________________________________________</TEXT>
        <ROLLING>X</ROLLING>
        <LINE>001</LINE>
        <COLUMN>001</COLUMN>
@@ -847,7 +836,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTDYNPRO_ATTR-ERDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>001</LINE>
        <COLUMN>011</COLUMN>
        <LENGTH>010</LENGTH>
@@ -864,7 +852,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTDYNPRO_ATTR-ERTIM</NAME>
-       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>012</COLUMN>
        <LENGTH>008</LENGTH>
@@ -881,7 +868,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTDYNPRO_ATTR-ERNAM</NAME>
-       <TEXT>____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>013</COLUMN>
        <LENGTH>012</LENGTH>
@@ -898,7 +884,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTDYNPRO_ATTR-AEDAT</NAME>
-       <TEXT>__________</TEXT>
        <LINE>001</LINE>
        <COLUMN>014</COLUMN>
        <LENGTH>010</LENGTH>
@@ -915,7 +900,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTDYNPRO_ATTR-AETIM</NAME>
-       <TEXT>________</TEXT>
        <LINE>001</LINE>
        <COLUMN>015</COLUMN>
        <LENGTH>008</LENGTH>
@@ -932,7 +916,6 @@
        <CONT_NAME>TCTRL_ZTDYNPRO_ATTR</CONT_NAME>
        <TYPE>TEMPLATE</TYPE>
        <NAME>ZTDYNPRO_ATTR-AENAM</NAME>
-       <TEXT>____________</TEXT>
        <LINE>001</LINE>
        <COLUMN>016</COLUMN>
        <LENGTH>012</LENGTH>

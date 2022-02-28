@@ -71,7 +71,7 @@ CLASS lcl_tc_po_items DEFINITION CREATE PUBLIC
 
     METHODS constructor
       IMPORTING
-        tscreen TYPE REF TO zif_tscreen
+        tscreen TYPE REF TO zcl_tscreen
       RAISING
         cx_uuid_error
         zcx_tscreen.
@@ -99,7 +99,7 @@ CLASS lcl_prog IMPLEMENTATION.
 
   METHOD push_view.
 
-    CHECK NOT IS_SCREEN_EXISTS( sy-repid )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
+    CHECK NOT is_screen_exists( sy-repid )."仅子屏幕没复用的情况可以不加上父屏幕号进行判断,否则一定要加上父屏幕号
 
     "此处创建屏幕对象
     DATA view TYPE REF TO zif_tscreen.
@@ -214,7 +214,8 @@ ENDCLASS.
 CLASS lcl_tc_po_items IMPLEMENTATION.
 
   METHOD constructor.
-    super->constructor( parent             = CAST zcl_tscreen( tscreen )
+
+    super->constructor( parent             =  tscreen
                         tc_name            = 'TC_9000_01'
                         data_source        = 'PO_ITEMS'
                         data_wa            = 'PO_ITEM'

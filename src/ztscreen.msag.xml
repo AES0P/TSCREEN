@@ -30,7 +30,7 @@
      <SPRSL>1</SPRSL>
      <ARBGB>ZTSCREEN</ARBGB>
      <MSGNR>003</MSGNR>
-     <TEXT>程序在&amp;1 &amp;2 至 &amp;3 &amp;4期间停用，若需紧急使用，请联系管理员将你的IP地址或者用户名加入放行列表。</TEXT>
+     <TEXT>程序在 &amp;1-&amp;2 至 &amp;3-&amp;4 期间停用，若需紧急使用，请联系管理员将你的IP地址或者用户名加入放行列表。</TEXT>
     </T100>
     <T100>
      <SPRSL>1</SPRSL>

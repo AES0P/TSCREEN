@@ -164,13 +164,26 @@ CLASS lcl_tscreen_10_v9000 IMPLEMENTATION.
   METHOD add_components.
 
     TRY.
-        NEW zcl_table_control( parent             = me
-                               tc_name            = 'TC_9000_01'
-                               data_source        = 'PO_ITEMS'
-                               data_wa            = 'PO_ITEM'
-*                               hide_empty_fields  = abap_true
-                               ref_structure_name = 'ZSEKPO'
-                               ddic_tabname       = 'EKPO' ).
+
+        zcl_tcomponent_factory=>get_tcomponent(
+                                  parent = me
+                                  params = /ui2/cl_json=>serialize( VALUE zcl_tcomponent_factory=>ty_tc(
+                                    group              = zif_tscreen_component=>c_component_tc
+                                    id                 = 'TC_9000_01'
+                                    data_source        = 'PO_ITEMS'
+                                    data_wa            = 'PO_ITEM'
+*                                    hide_empty_fields  = abap_true
+                                    ref_structure_name = 'ZSEKPO'
+                                    ddic_tabname       = 'EKPO' ) ) ).
+
+        "  重写了控件就需要按下列方式直接new，参考后边demo
+*          NEW zcl_table_control( parent             = me
+*                                 tc_name            = 'TC_9000_01'
+*                                 data_source        = 'PO_ITEMS'
+*                                 data_wa            = 'PO_ITEM'
+**                               hide_empty_fields  = abap_true
+*                                 ref_structure_name = 'ZSEKPO'
+*                                 ddic_tabname       = 'EKPO' ).
       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
         MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
       CATCH zcx_tscreen INTO DATA(lx_tscreen).

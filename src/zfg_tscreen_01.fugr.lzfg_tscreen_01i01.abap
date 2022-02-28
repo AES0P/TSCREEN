@@ -71,9 +71,9 @@ ENDMODULE.
 *       text
 *----------------------------------------------------------------------*
 MODULE create_ts INPUT.
-  IF ztdynpro_attr-erdat IS INITIAL
-    AND ztdynpro_attr-ertim IS INITIAL
-    AND ztdynpro_attr-ernam IS INITIAL.
+  IF ztdynpro_attr-erdat < '19700101'.
+*    AND ztdynpro_attr-ertim IS INITIAL
+*    AND ztdynpro_attr-ernam IS INITIAL.
     ztdynpro_attr-erdat = sy-datum.
     ztdynpro_attr-ertim = sy-uzeit.
     ztdynpro_attr-ernam = sy-uname.

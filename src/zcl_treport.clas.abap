@@ -78,9 +78,9 @@ CLASS zcl_treport DEFINITION
         VALUE(tcode) TYPE sy-tcode DEFAULT sy-tcode .
     METHODS check_strategy
         FINAL .
+    METHODS check_strategy_active_status .
     METHODS check_strategy_block_list .
     METHODS check_strategy_deactive_date .
-    METHODS check_strategy_active_status .
     METHODS check_strategy_retry_flag .
   PRIVATE SECTION.
 ENDCLASS.
@@ -245,14 +245,14 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
   METHOD check_strategy.
 
+    "是否启用
+    check_strategy_active_status( ).
+
     "黑名单
     check_strategy_block_list( ).
 
     "停用时间
     check_strategy_deactive_date( ).
-
-    "是否启用
-    check_strategy_active_status( ).
 
     "能否重调用
     check_strategy_retry_flag( ).
@@ -346,7 +346,7 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
       ENDIF.
 
-      "程序在&1 &2 至 &3 &4期间停用，若需紧急使用，请联系管理员将你的IP地址或者用户名加入放行列表。
+      "程序在 &1-&2 至 &3-&4 期间停用，若需紧急使用，请联系管理员将你的IP地址或者用户名加入放行列表。
       MESSAGE e003(ztscreen) WITH management_strategy-zbdate management_strategy-zbtime
                                   management_strategy-zsdate management_strategy-zstime.
     ENDIF.

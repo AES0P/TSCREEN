@@ -26,30 +26,6 @@
      <TEXTPOOL>
       <item>
        <ID>I</ID>
-       <KEY>001</KEY>
-       <ENTRY>Overwrite？</ENTRY>
-       <LENGTH>20</LENGTH>
-      </item>
-      <item>
-       <ID>I</ID>
-       <KEY>002</KEY>
-       <ENTRY>The internal table is not initial,are you sure to overwrite them？</ENTRY>
-       <LENGTH>130</LENGTH>
-      </item>
-      <item>
-       <ID>I</ID>
-       <KEY>003</KEY>
-       <ENTRY>convert data failed,please check excel data ,make sure that format are mapping to the internal table!</ENTRY>
-       <LENGTH>132</LENGTH>
-      </item>
-      <item>
-       <ID>I</ID>
-       <KEY>004</KEY>
-       <ENTRY>There is nothing to show or can not convert to a internal table</ENTRY>
-       <LENGTH>132</LENGTH>
-      </item>
-      <item>
-       <ID>I</ID>
        <KEY>005</KEY>
        <ENTRY> ddic tabname is not a correct tabname,please check when create instance.</ENTRY>
        <LENGTH>132</LENGTH>
@@ -57,11 +33,6 @@
      </TEXTPOOL>
     </item>
    </I18N_TPOOL>
-   <I18N_LINES>
-    <item>
-     <LANGUAGE>E</LANGUAGE>
-    </item>
-   </I18N_LINES>
    <DESCRIPTIONS>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_TABLE_CONTROL</CLSNAME>
