@@ -19,29 +19,23 @@
 *LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 *SOFTWARE.
-*&---------------------------------------------------------------------*
-*& Report ZAESOP_EDITOR_TOOL
-*&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
-REPORT zaesop_editor_tool.
+INTERFACE zif_tlock
+  PUBLIC .
 
-TRY.
 
-    ##NEEDED    DATA abc TYPE string VALUE 'abc'.
-
-    CALL FUNCTION 'ZFM_GBC_TEXT_EDITOR'
-      EXPORTING
-        io_editor = zcl_text_editor_tool=>get_instance( )->set_status_text( 'abc test'
-                                                        )->set_statusbar_mode( 1
-                                                        )->set_toolbar_mode( 1 )
-      CHANGING
-        text      = abc.
-
-    WRITE abc.
-
-  CATCH cx_uuid_error INTO DATA(lx_uuid_error) ##NEEDED.
-    MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-  CATCH zcx_tscreen INTO DATA(lx_tscreen) ##NEEDED.
-    MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-ENDTRY.
+  METHODS has_lock
+    EXPORTING
+      !lock_info      TYPE ztscreen_lock
+    RETURNING
+      VALUE(has_lock) TYPE abap_bool .
+  METHODS auto_release
+    IMPORTING
+      !min         TYPE int1
+    RETURNING
+      VALUE(tlock) TYPE REF TO zif_tlock .
+  METHODS lock
+    IMPORTING
+      !ylzd TYPE zsbc_00002 OPTIONAL .
+  METHODS update_lock .
+  METHODS unlock .
+ENDINTERFACE.

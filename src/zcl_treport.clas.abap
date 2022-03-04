@@ -1,3 +1,24 @@
+*MIT License
+*
+*Copyright (c) 2021 AES0P
+*
+*Permission is hereby granted, free of charge, to any person obtaining a copy
+*of this software and associated documentation files (the "Software"), to deal
+*in the Software without restriction, including without limitation the rights
+*to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*copies of the Software, and to permit persons to whom the Software is
+*furnished to do so, subject to the following conditions:
+*
+*The above copyright notice and this permission notice shall be included in all
+*copies or substantial portions of the Software.
+*
+*THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+*IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+*FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+*AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+*LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+*OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+*SOFTWARE.
 CLASS zcl_treport DEFINITION
   PUBLIC
   INHERITING FROM zcl_tscreen
@@ -10,6 +31,7 @@ CLASS zcl_treport DEFINITION
     DATA management_strategy TYPE ztscreen_manager READ-ONLY .
     DATA ip TYPE string READ-ONLY .
     CLASS-DATA zkey TYPE ztscreen_manager-zkey .
+    CLASS-DATA release_time TYPE int1 VALUE 120 ##NO_TEXT.
 
     METHODS constructor
       IMPORTING
@@ -63,6 +85,9 @@ CLASS zcl_treport DEFINITION
     CLASS-METHODS get_treport
       RETURNING
         VALUE(treport) TYPE REF TO zcl_treport .
+    METHODS is_exclusive
+      RETURNING
+        VALUE(is_exclusive) TYPE abap_bool .
 
     METHODS zif_tscreen~exit
         REDEFINITION .
@@ -71,6 +96,8 @@ CLASS zcl_treport DEFINITION
     METHODS zif_tscreen~pbo
         REDEFINITION .
   PROTECTED SECTION.
+
+    DATA tlock TYPE REF TO zif_tlock .
 
     METHODS get_strategy
       IMPORTING
@@ -81,8 +108,11 @@ CLASS zcl_treport DEFINITION
     METHODS check_strategy_active_status .
     METHODS check_strategy_block_list .
     METHODS check_strategy_deactive_date .
+    METHODS check_strategy_lock .
     METHODS check_strategy_retry_flag .
   PRIVATE SECTION.
+
+    DATA lock_condition TYPE string VALUE 'repid = sy-cprog' ##NO_TEXT.
 ENDCLASS.
 
 
@@ -114,21 +144,29 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
     ip = zcl_tlog=>get_ip( ).
 
+    TRY.
+        "全局唯一标志
+        guid = cl_system_uuid=>if_system_uuid_static~create_uuid_c32( ).
+        "锁对象
+        CREATE OBJECT tlock TYPE zcl_tlock EXPORTING guid = guid.
+        CAST zcl_tlock( tlock )->set_condition( lock_condition ).
+
+      CATCH cx_uuid_error.
+        MESSAGE 'GUID ERROR' TYPE 'A'.
+    ENDTRY.
+
+    "管控策略
     get_strategy( program = program tcode = sy-tcode ).
 
     check_strategy( ).
 
-    TRY.
-        guid = cl_system_uuid=>if_system_uuid_static~create_uuid_c32( ).
+    "日志级别
+    IF management_strategy-zlevel IS NOT INITIAL.
+      CAST zcl_tlog( tlog )->set_level( management_strategy-zlevel ).
+    ENDIF.
 
-        IF management_strategy-zlevel IS NOT INITIAL.
-          CAST zcl_tlog( tlog )->set_level( management_strategy-zlevel ).
-        ENDIF.
-        ##NO_TEXT
-        tlog->add_log( 'Started' ).
-      CATCH cx_uuid_error.
-        MESSAGE 'GUID ERROR' TYPE 'A'.
-    ENDTRY.
+    ##NO_TEXT
+    tlog->add_log( 'Started' ).
 
   ENDMETHOD.
 
@@ -148,11 +186,24 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
   METHOD zif_tscreen~exit.
     ##NO_TEXT
     tlog->add_log( 'Ended' )->save_log( guid = guid ).
+    IF is_exclusive( ).
+      tlock->unlock( ).
+    ENDIF.
+    FREE: guid,
+          management_strategy,
+          ip,
+          zkey,
+          release_time,
+          tlock.
     super->exit( ).
   ENDMETHOD.
 
 
   METHOD zif_tscreen~handle_event.
+
+    IF is_exclusive( ).
+      tlock->update_lock( ).
+    ENDIF.
 
     get_current_info( ).
 
@@ -253,6 +304,9 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
     "停用时间
     check_strategy_deactive_date( ).
+
+    "独占锁检查
+    check_strategy_lock( ).
 
     "能否重调用
     check_strategy_retry_flag( ).
@@ -408,5 +462,24 @@ CLASS ZCL_TREPORT IMPLEMENTATION.
 
 
   METHOD top_of_page ##NEEDED.
+  ENDMETHOD.
+
+
+  METHOD is_exclusive.
+    is_exclusive = management_strategy-zonly.
+  ENDMETHOD.
+
+
+  METHOD check_strategy_lock.
+
+    CHECK is_exclusive( ).
+
+    DATA lock_info TYPE ztscreen_lock.
+    IF tlock->has_lock( IMPORTING lock_info = lock_info ).
+      MESSAGE e009(ztscreen) WITH lock_info-ernam lock_info-erdat lock_info-ertim release_time.
+    ENDIF.
+
+    tlock->auto_release( release_time )->lock( ).
+
   ENDMETHOD.
 ENDCLASS.

@@ -1,3 +1,24 @@
+*MIT License
+*
+*Copyright (c) 2021 AES0P
+*
+*Permission is hereby granted, free of charge, to any person obtaining a copy
+*of this software and associated documentation files (the "Software"), to deal
+*in the Software without restriction, including without limitation the rights
+*to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*copies of the Software, and to permit persons to whom the Software is
+*furnished to do so, subject to the following conditions:
+*
+*The above copyright notice and this permission notice shall be included in all
+*copies or substantial portions of the Software.
+*
+*THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+*IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+*FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+*AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+*LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+*OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+*SOFTWARE.
 *&---------------------------------------------------------------------*
 *& Report ZAESOP_TSCREEN_04
 *&---------------------------------------------------------------------*
@@ -49,6 +70,14 @@ CLASS lcl_tscreen_04_v9000 DEFINITION CREATE PUBLIC
     METHODS pbo REDEFINITION.
     METHODS pai REDEFINITION.
     METHODS poh REDEFINITION.
+    METHODS exit REDEFINITION.
+
+  PRIVATE SECTION.
+
+    METHODS lock_order.
+
+    DATA tlock TYPE REF TO zif_tlock.
+    DATA lock_condition TYPE string VALUE 'repid = sy-cprog and zylzd1 = '''.
 
 ENDCLASS.
 
@@ -111,6 +140,33 @@ CLASS lcl_tscreen_04_v9000 IMPLEMENTATION.
       FROM ekko
       INTO CORRESPONDING FIELDS OF ekko
      WHERE ebeln = p_ebeln.                               "#EC CI_SUBRC
+
+    lock_order( ).
+
+  ENDMETHOD.
+
+  METHOD exit.
+    tlock->unlock( ).
+    FREE tlock.
+    super->exit( ).
+  ENDMETHOD.
+
+  METHOD lock_order.
+
+    "单据加锁
+    CREATE OBJECT tlock TYPE zcl_tlock EXPORTING guid = lcl_prog=>guid.
+
+    CAST zcl_tlock( tlock )->set_condition( lock_condition && p_ebeln && '''' ).
+
+    DATA lock_info TYPE ztscreen_lock.
+    IF tlock->has_lock( IMPORTING lock_info = lock_info ).
+      "本程序已启用独占锁，单据 &1 目前正被用户 &2 于 &3 锁定，时长 &4 分钟。
+      MESSAGE s010(ztscreen) WITH p_ebeln lock_info-ernam lock_info-erdat && lock_info-ertim '120' DISPLAY LIKE 'E'.
+      LEAVE TO SCREEN 0.
+    ENDIF.
+
+    tlock->auto_release( '120' )->lock( VALUE #( zylzd1 = p_ebeln ) ).
+
   ENDMETHOD.
 
   ##NEEDED
@@ -127,6 +183,7 @@ CLASS lcl_tscreen_04_v9000 IMPLEMENTATION.
         ENDIF.
     ENDCASE.
     CLEAR sy-ucomm.
+    tlock->update_lock( ).
   ENDMETHOD.
 
   METHOD poh.

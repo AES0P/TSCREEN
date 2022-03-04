@@ -7,7 +7,7 @@
 *&
 *&---------------------------------------------------------------------*
 MODULE pbo OUTPUT.
-  ##NEEDED
+  ##NEEDED ##DECL_MODUL
   DATA exclude_fcode TYPE STANDARD TABLE OF fcode.
   IF is_readonly = abap_true
     AND CAST zif_tscreen_component( editor )->display_mode <> zcl_tscreen=>display_mode_show.

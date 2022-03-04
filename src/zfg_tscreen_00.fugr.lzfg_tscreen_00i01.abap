@@ -1,3 +1,24 @@
+*MIT License
+*
+*Copyright (c) 2021 AES0P
+*
+*Permission is hereby granted, free of charge, to any person obtaining a copy
+*of this software and associated documentation files (the "Software"), to deal
+*in the Software without restriction, including without limitation the rights
+*to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*copies of the Software, and to permit persons to whom the Software is
+*furnished to do so, subject to the following conditions:
+*
+*The above copyright notice and this permission notice shall be included in all
+*copies or substantial portions of the Software.
+*
+*THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+*IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+*FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+*AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+*LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+*OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+*SOFTWARE.
 *----------------------------------------------------------------------*
 ***INCLUDE LZFG_TSCREEN_00I01.
 *----------------------------------------------------------------------*
@@ -13,7 +34,7 @@ MODULE get_repti INPUT.
       FROM trdirt
       INTO ztscreen_manager-repti
      WHERE name  = ztscreen_manager-cprog
-       AND sprsl = sy-langu.
+       AND sprsl = sy-langu."#EC CI_SUBRC
   ENDIF.
 
 ENDMODULE.
@@ -23,10 +44,10 @@ ENDMODULE.
 *       text
 *----------------------------------------------------------------------*
 MODULE user_command INPUT.
-
+  ##NEEDED ##DECL_MODUL
   DATA current_line TYPE i.
   GET CURSOR LINE current_line.
-
+  ##NEEDED
   ASSIGN extract[ current_line ] TO FIELD-SYMBOL(<current_line>).
   CHECK sy-subrc = 0.
 
@@ -43,9 +64,9 @@ MODULE user_command INPUT.
             CHANGING
               text        = <current_line>+188(1000).
           <current_line>+2221(1) = abap_false.
-        CATCH cx_uuid_error INTO DATA(lx_uuid_error).
+        ##NEEDED       CATCH cx_uuid_error INTO DATA(lx_uuid_error).
           MESSAGE lx_uuid_error->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
-        CATCH zcx_tscreen INTO DATA(lx_tscreen).
+        ##NEEDED        CATCH zcx_tscreen INTO DATA(lx_tscreen).
           MESSAGE lx_tscreen->get_text( ) TYPE 'S' DISPLAY LIKE 'E'.
       ENDTRY.
     WHEN 'TC_0001_01_LT2'.
