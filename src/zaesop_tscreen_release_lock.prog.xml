@@ -124,6 +124,12 @@
     </item>
     <item>
      <ID>S</ID>
+     <KEY>P_FORCE</KEY>
+     <ENTRY>强制释放</ENTRY>
+     <LENGTH>12</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
      <KEY>P_REL</KEY>
      <ENTRY>仅自动释放</ENTRY>
      <LENGTH>13</LENGTH>

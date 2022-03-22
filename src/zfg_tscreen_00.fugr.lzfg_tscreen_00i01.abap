@@ -34,7 +34,7 @@ MODULE get_repti INPUT.
       FROM trdirt
       INTO ztscreen_manager-repti
      WHERE name  = ztscreen_manager-cprog
-       AND sprsl = sy-langu."#EC CI_SUBRC
+       AND sprsl = sy-langu.                              "#EC CI_SUBRC
   ENDIF.
 
 ENDMODULE.
@@ -47,6 +47,7 @@ MODULE user_command INPUT.
   ##NEEDED ##DECL_MODUL
   DATA current_line TYPE i.
   GET CURSOR LINE current_line.
+  current_line = current_line + tctrl_ztscreen_manager-top_line - 1.
   ##NEEDED
   ASSIGN extract[ current_line ] TO FIELD-SYMBOL(<current_line>).
   CHECK sy-subrc = 0.
